@@ -1,0 +1,188 @@
+.yn-item-form {
+  /* 表单头部 */
+  .yn-form-hd {
+    text-align: center;
+    margin-top: 32px;
+    .title-name {
+      font-size: 26px;
+      line-height: 30px;
+    }
+    .remark-text {
+      font-size: 18px;
+      line-height: 20px;
+      margin-top: 10px;
+      .asterisk {
+        font-weight: bold;
+        color: #FF0003;
+        margin-right: 6px;
+      }
+    }
+  }
+  /* 表单内容 */
+  .yn-form-bd {
+    font-size: 16px;
+    color: #2D2D2D;
+    margin-top: 44px;
+    .form-item {
+      border: 1px solid $base-border-color;
+      border-radius: 4px;
+      padding: 30px 30px 8px 30px;
+      margin-bottom: 30px;
+      .item-name {
+        font-size: 20px;
+        line-height: 20px;
+        padding-left: 16px;
+        margin-bottom: 36px;
+        position: relative;
+        &::after {
+          content: "";
+          width: 4px;
+          height: 18px;
+          background: $base-color;
+          border-radius: 2px;
+          position: absolute;
+          left: 0;
+          top: 1px;
+        }
+        &.orange-name {
+          &::after {
+            background: #FE800D;
+          }
+        }
+        &.blue-name {
+          &::after {
+            background: #0CA9DA;
+          }
+        }
+      }
+      .item-form {
+        .item-value-text {
+          font-size: 16px;
+        }
+        /* 分类模块 */
+        .class-list {
+          border-bottom: 1px solid $base-border-color;
+          margin-bottom: 20px;
+          &.last-list {
+            border-bottom: 0 none;
+            margin-bottom: 0;
+          }
+          .list-name {
+            font-size: 18px;
+            line-height: 36px;
+          }
+          .list-cont {
+            margin-top: 20px;
+          }
+        }
+        /* 自适应单选框 */
+        .adapt-radio {
+          min-width: 50%;
+          margin: 0 0 20px 0;
+        }
+        /* 三等分多选框 */
+        .third-checkbox {
+          width: 33.3333%;
+          margin: 0 0 6px 0;
+          float: left;
+        }
+        /* 四等分下拉列表 */
+        .fourth-select {
+          width: 25%;
+          margin-bottom: 16px;
+          float: left;
+        }
+        /* 模块最后一行输入框 */
+        .item-last-input {
+          margin-top: 16px;
+          .map-btn {
+            color: #fff;
+            background: $base-color;
+          }
+        }
+        /* element 布局 */
+        .layout-row-list {
+          overflow: hidden;
+        }
+      }
+    }
+    /* 结果模块 */
+    .result-item {
+      border: 1px solid $base-border-color;
+      border-radius: 4px;
+      padding: 20px 110px;
+      margin-bottom: 60px;
+      .result-list {
+        width: 50%;
+        font-size: 20px;
+        color: #2D2D2D;
+        float: left;
+        .list-value {
+          color: $base-color-red;
+        }
+      }
+    }
+  }
+  /* 表单底部 */
+  .yn-form-ft {
+    margin-bottom: 80px;
+    .foot-content {
+      display: flex;
+      justify-content: center;
+      .foot-btn {
+        font-size: 24px;
+        color: #fff;
+        line-height: 1;
+        background: #109A0E;
+        border-radius:4px;
+        padding: 12px 30px;
+        margin: 0 40px;
+        cursor: pointer;
+      } 
+    }
+  }
+}
+
+@media screen and (max-width: $phone-max-size) { 
+  .yn-item-form {
+    /* 表单内容 */
+    .yn-form-bd {
+      .form-item {
+        padding: 20px 10px 0;
+        .item-name {
+          margin-bottom: 20px;
+        }
+        .item-form {
+          .third-checkbox,
+          .fourth-select {
+            width: 100%;
+          }
+        }
+      }
+      /* 结果模块 */
+      .result-item {
+        padding: 10px;
+        margin-bottom: 20px;
+        .result-list {
+          width: 100%;
+          font-size: 16px;
+          margin: 6px 0;
+        }
+      }
+    }
+    /* 表单底部 */
+    .yn-form-ft {
+      margin-bottom: 40px;
+      .foot-content {
+        display: block;
+        .foot-btn {
+          width: 90%;
+          font-size: 18px;
+          text-align: center;
+          margin: 10px auto;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+}

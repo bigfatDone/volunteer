@@ -1,0 +1,50 @@
+.declare-wrapper {
+  .info-custom-form {
+    .item-form {
+      .fourth-select {
+        .el-form-item__content {
+          padding-right: 20px;
+        }
+      }
+      .third-item,
+      .second-item {
+        float: left;
+        .el-form-item__label {
+          font-size: 16px;
+          padding-right: 10px;
+        }
+        .el-form-item__content {
+          padding-right: 10px;
+        }
+      }
+      .third-item {
+        width: 35%;
+        &:nth-of-type(1) {
+          width: 30%;
+        }
+      }
+      .second-item {
+        width: 50%;
+      }
+    }
+  }
+}
+.yn-dialog {
+  .points-item {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: $phone-max-size) {
+  .declare-wrapper {
+    .info-custom-form {
+      .item-form {
+        .third-item,
+        .third-item:nth-of-type(1),
+        .second-item {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

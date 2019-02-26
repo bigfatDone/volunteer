@@ -1,0 +1,619 @@
+/* 云朵 translateX translateY 变量 */
+$cloud-s1-x: -940px;  // -900px
+$cloud-s1-y: 70px;
+$cloud-s2-x: -800px;  // 770px
+$cloud-s2-y: 340px;   // 230px
+$cloud-s3-x: -720px;
+$cloud-s3-y: 95px;
+$cloud-s4-x: -460px;
+$cloud-s4-y: 5px;
+$cloud-s5-x: -360px;  // -400px
+$cloud-s5-y: 250px;   // 190px
+$cloud-s6-x: 220px;   // 160px
+$cloud-s6-y: 180px;   // 140px
+$cloud-s7-x: 550px;
+$cloud-s7-y: 360px;
+$cloud-s8-x: 720px;   // 760px
+$cloud-s8-y: 50px;
+$cloud-s9-x: 900px;
+$cloud-s9-y: 285px;
+$cloud-s10-x: -100px;
+$cloud-s10-y: 60px;
+$cloud-s11-x: -1200px;
+$cloud-s11-y: 200px;
+
+$area-half-x: 1440px;
+$area-end-x: 2500px;
+/* 水果掉落、奖品出现的 translate3d */
+$drop-slate-s1: translate3d(-80px, 500px, 0);
+$drop-slate-s2: translate3d(58px, 450px, 0);
+$drop-slate-s3: translate3d(-50px, 330px, 0);
+$drop-slate-s4: translate3d(54px, 300px, 0);
+/* 奖品出现的中心点 */
+$origin-rb: 100% 100%;
+$origin-lb: 0 100%;
+
+.shake-main {
+  min-width: 1200px;
+  max-width: 1920px;
+  background: url('~@/../static/images/shake/shake-bg.jpg') top center no-repeat;
+  background-color: #5fc22a;
+  margin: 0 auto;
+  overflow: hidden;
+  .shake-content {
+    color: #fff;
+    text-align: center;
+    padding-top: 1px;  // 解决margin塌陷问题
+    position: relative;
+
+    /* 云朵模块 */
+    .cloud-modu {
+      position: absolute;
+      left: 50%;
+      top: 300px;
+      .cloud-list {
+        background: url('~@/../static/images/shake/cloud-01.png') top center no-repeat;
+        background-size: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        &.cloud-s1 {
+          width: 131px;
+          height: 56px;
+          transform: translate3d($cloud-s1-x, $cloud-s1-y, 0);
+          z-index: 1;
+          animation: active-s1 180s linear 0s infinite;
+        }
+        &.cloud-s2 {
+          width: 68px;
+          height: 29px;
+          transform: translate3d($cloud-s2-x, $cloud-s2-y, 0);
+          z-index: 1;
+          animation: active-s2 180s linear 0s infinite;
+        }
+        &.cloud-s3 {
+          width: 278px;
+          height: 120px;
+          transform: translate3d($cloud-s3-x, $cloud-s3-y, 0);
+          z-index: 3;
+          animation: active-s3 140s linear 0s infinite;
+        }
+        &.cloud-s4 {
+          width: 96px;
+          height: 41px;
+          transform: translate3d($cloud-s4-x, $cloud-s4-y, 0);
+          z-index: 1;
+          animation: active-s4 180s linear 0s infinite;
+        }
+        &.cloud-s5 {
+          width: 98px;
+          height: 42px;
+          transform: translate3d($cloud-s5-x, $cloud-s5-y, 0);
+          z-index: 1;
+          animation: active-s5 180s linear 0s infinite;
+        }
+        &.cloud-s6 {
+          width: 182px;
+          height: 79px;
+          transform: translate3d($cloud-s6-x, $cloud-s6-y, 0);
+          z-index: 2;
+          animation: active-s6 160s linear 0s infinite;
+        }
+        &.cloud-s7 {
+          width: 68px;
+          height: 29px;
+          transform: translate3d($cloud-s7-x, $cloud-s7-y, 0);
+          z-index: 1;
+          animation: active-s7 180s linear 0s infinite;
+        }
+        &.cloud-s8 {
+          width: 132px;
+          height: 57px;
+          transform: translate3d($cloud-s8-x, $cloud-s8-y, 0);
+          z-index: 2;
+          animation: active-s8 160s linear 0s infinite;
+        }
+        &.cloud-s9 {
+          width: 182px;
+          height: 79px;
+          transform: translate3d($cloud-s9-x, $cloud-s9-y, 0);
+          z-index: 2;
+          animation: active-s9 160s linear 0s infinite;
+        }
+        &.cloud-s10 {
+          width: 140px;
+          height: 64px;
+          transform: translate3d($cloud-s10-x, $cloud-s10-y, 0);
+          z-index: 2;
+          animation: active-s10 160s linear 0s infinite;
+        }
+        &.cloud-s11 {
+          width: 132px;
+          height: 57px;
+          transform: translate3d($cloud-s11-x, $cloud-s11-y, 0);
+          z-index: 2;
+          animation: active-s11 160s linear 0s infinite;
+        }
+      }
+      .cloud-sign {
+        position: absolute;
+        left: 410px;
+        top: 60px;
+        z-index: 99;
+        .cloud-item {
+          width: 204px;
+          height: 87px;
+          background: url('~@/../static/images/shake/cloud-01.png') top center no-repeat;
+          background-size: 100%;
+          position: relative;
+          z-index: 2;
+        }
+        .sign-item {
+          width: 250px;
+          height: 276px;
+          background: url('~@/../static/images/shake/sign.png') top center no-repeat;
+          margin-left: -125px;
+          position: absolute;
+          left: 50%;
+          top: 56px;
+          z-index: 1;
+        }
+      }
+    }
+
+    /* 树木模块 */
+    .tree-modu {
+      width: 563px;
+      height: 632px;
+      margin-left: -310px;
+      position: absolute;
+      left: 50%;
+      top: 484px;
+      .tree-item {
+        width: 100%;
+        height: 100%;
+        background: url('~@/../static/images/shake/tree.png') top center no-repeat;
+        position: relative;
+        z-index: 10;
+      }
+      .leaf-list {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 12;
+        &.leaf-s1 {
+          width: 268px;
+          height: 247px;
+          background: url('~@/../static/images/shake/leaf-01.png') top left no-repeat;
+          left: 64px;
+          top: 31px;
+          &.wobble {
+            animation: wobble-s1 .25s linear .24s 4;
+          }
+        }
+        &.leaf-s2 {
+          width: 133px;
+          height: 132px;
+          background: url('~@/../static/images/shake/leaf-02.png') top left no-repeat;
+          left: 385px;
+          top: 94px;
+          &.wobble {
+            animation: wobble-s1 .25s linear .2s 4;
+          }
+        }
+        &.leaf-s3 {
+          width: 183px;
+          height: 159px;
+          background: url('~@/../static/images/shake/leaf-03.png') top left no-repeat;
+          left: 232px;
+          top: 65px;
+          &.wobble {
+            animation: wobble-s1 .25s linear .15s 4;
+          }
+        }
+        &.leaf-s4 {
+          width: 182px;
+          height: 139px;
+          background: url('~@/../static/images/shake/leaf-04.png') top left no-repeat;
+          left: 292px;
+          top: 202px;
+          &.wobble {
+            animation: wobble-s1 .25s linear .07s 4;
+          }
+        }
+        &.leaf-s5 {
+          width: 244px;
+          height: 186px;
+          background: url('~@/../static/images/shake/leaf-05.png') top left no-repeat;
+          left: 64px;
+          top: 186px;
+          &.wobble {
+            animation: wobble-s1 .25s linear 4;
+          }
+        }
+      }
+    }
+
+    /* 水果模块 */
+    .fruit-modu {
+      position: absolute;
+      left: 50%;
+      top: 500px;
+      .fruit-list {
+        width: 48px;
+        position: absolute;
+        left: -132px;
+        top: 130px;
+        z-index: 11;
+        .prize-win {
+          width: 289px;
+          height: 223px;
+          background: url('~@/../static/images/shake/prize-win-bg01.png') top left no-repeat;
+          position: absolute;
+          right: 30px;
+          top: -204px;
+          transform: scale(0, 0);
+          .prize-content {
+            width: 252px;
+            height: 132px;
+            padding: 2px 10px;
+            margin: 49px 0 0 17px;
+            box-sizing: border-box;
+            .coupon-name {
+              font-size: 18px;
+              color: #535353;
+              line-height: 36px;
+              text-align: left;
+              text-shadow: 1px 1px 0 rgba(255,255,255,.8), -1px 1px 0 rgba(255,255,255,.8), 1px -1px 0 rgba(255,255,255,.8), -1px -1px 0 rgba(255,255,255,.8), 0px 0px 2px #fff, 0px 0px 2px #fff;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            }
+            .coupon-content {
+              .coupon-goods {
+                width: 88px;
+                height: 88px;
+                float: left;
+              }
+              .coupon-infor {
+                margin-left: 94px;
+                .explain {
+                  font-size: 12px;
+                  line-height: 18px;
+                }
+                .goods-name,
+                .number {
+                  font-size: 16px;
+                  line-height: 22px;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                }
+                .use-btn {
+                  width: 86px;
+                  font-size: 12px;
+                  color: #000;
+                  line-height: 18px;
+                  background: #fff;
+                  border-radius: 10px;
+                  margin: 4px auto 0;
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+
+        /* 位置 */
+        &.fruit-s2 {
+          left: 60px;
+          top: 124px;
+        }
+        &.fruit-s3 {
+          left: -146px;
+          top: 304px;
+        }
+        &.fruit-s4 {
+          left: 36px;
+          top: 306px;
+        }
+
+        /* 背景图 */
+        &.fruit-s2,
+        &.fruit-s4 {
+          .prize-win {
+            background: url('~@/../static/images/shake/prize-win-bg02.png');
+            left: 20px;
+            right: 0;
+          }
+        }
+
+        /* 动画 */
+        &.fruit-drop1 {
+          .fruit-img {
+            animation: drop-s1 1.4s ease-in forwards;
+          }
+          .prize-win {
+            animation: blast-s1 .6s ease-in 1.6s forwards;
+          }
+        }
+        &.fruit-drop2 {
+          .fruit-img {
+            animation: drop-s2 1.4s ease-in .15s forwards;
+          }
+          .prize-win {
+            animation: blast-s2 .6s ease-in 1.8s forwards;
+          }
+        }
+        &.fruit-drop3 {
+          .fruit-img {
+            animation: drop-s3 1s ease-in .2s forwards;
+          }
+          .prize-win {
+            animation: blast-s3 .6s ease-in 1.4s forwards;
+          }
+        }
+        &.fruit-drop4 {
+          .fruit-img {
+            animation: drop-s4 1s ease-in .3s forwards;
+          }
+          .prize-win {
+            animation: blast-s4 .6s ease-in 1.5s forwards;
+          }
+        }
+      }
+    }
+
+    /* 其它附属品模块 */
+    .subsidiary-modu {
+      position: absolute;
+      top: 880px;
+      left: 50%;
+      .man-item {
+        width: 134px;
+        height: 237px;
+        background: url('~@/../static/images/shake/man.png') top left no-repeat;
+        position: absolute;
+        left: -354px;
+        top: -10px;
+      }
+      .shake-btn {
+        width: 240px;
+        height: 204px;
+        background: url('~@/../static/images/shake/shake-btn.png') center center no-repeat;
+        background-size: 100% auto;
+        position: absolute;
+        left: -118px;
+        top: 306px;
+        &.shake {
+          animation: shake 4s linear infinite;
+        }
+        .btn-region {
+          width: 162px;
+          height: 162px;
+          // background: #000;
+          border-radius: 50%;
+          margin: 21px auto;
+          cursor: pointer;
+        }
+      }
+    }
+
+    /* 橱窗模块 */
+    .showcase-modu {
+      width: 1144px;
+      height: 425px;
+      background: url('~@/../static/images/shake/show-case.png') top right no-repeat;
+      margin: 1486px auto 0;
+      overflow: hidden;
+      .carousel-wrapper {
+        width: 830px;
+        margin: 102px auto 0;
+        position: relative;
+        .carousel-main {
+          width: 650px;
+          height: 294px;
+          background: #ffd800;
+          border-radius: 8px;
+          padding: 14px 10px; 
+          margin: 0 auto;
+          box-sizing: border-box;
+          .carousel-visual {
+            width: 100%;
+            overflow: hidden;
+            .carousel-list {
+              width: 178px;
+              height: 264px;
+              background: #fff;
+              border-radius: 8px;
+              padding: 4px;
+              box-sizing: border-box;
+              .goods-img {
+                width: 100%;
+                height: 166px;
+                border-radius: 6px 6px 0 0;
+                overflow: hidden;
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+              }
+              .goods-info {
+                height: 90px;
+                background: #fb632c;
+                background: linear-gradient(#fe893d, #f93d1b);
+                border-radius: 0 0 6px 6px;
+                padding: 6px 4px;
+                box-sizing: border-box;
+                .goods-name {
+                  font-size: 18px;
+                  font-weight: bold;
+                  line-height: 24px;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                }
+                .goods-discount {
+                  font-size: 14px;
+                  margin-top: 4px;
+                  .ver-line {
+                    margin: 0 2px;
+                  }
+                }
+                .buy-btn {
+                  width: 96px;
+                  height: 20px;
+                  font-size: 12px;
+                  color: #000;
+                  line-height: 20px;
+                  background: #fff;
+                  border-radius: 10px;
+                  margin: 8px auto 0;
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+        .arrow-btn {
+          width: 68px;
+          height: 88px;
+          background: url('~@/../static/images/shake/arrow-left.png') top left no-repeat;
+          margin-top: -44px;
+          cursor: pointer;
+          position: absolute;
+          top: 50%;
+          &.arrow-left {
+            left: 0;
+          }
+          &.arrow-right {
+            background-image: url('~@/../static/images/shake/arrow-right.png');
+            right: 0;
+          }
+        }
+      }
+    }
+
+    /* 更多模块 */
+    .more-modu {
+      padding: 16px 0;
+      .more-btn {
+        font-size: 25px;
+        color: #fff;
+        line-height: 1;
+        display: inline-block;
+      }
+      .postscript-text {
+        font-size: 13px;
+        line-height: 1.4;
+        margin-top: 30px;
+      }
+    }
+  }
+}
+
+/*
+ ******************** CSS3动画 ********************
+ */
+/* 白云飘动 */
+@mixin active($name, $x, $y, $start: $area-half-x, $end: $area-end-x) {
+  $start-percent: ($x + $start) / $end * 100%;
+  @keyframes #{$name} {
+    0%, 100% {
+      transform: translate3d($x, $y, 0) scale(1, 1);
+    }
+    #{99% - $start-percent} {
+      transform: translate3d(1060px, $y, 0) scale(1, 1);
+    }
+    #{99.25% - $start-percent} {
+      transform: translate3d(1060px, $y, 0) scale(0, 0);
+    }
+    #{99.75% - $start-percent} {
+      transform: translate3d(-1440px, $y, 0) scale(0, 0);
+    }
+    #{100% - $start-percent} {
+      transform: translate3d(-1440px, $y, 0) scale(1, 1);
+    }
+  }
+}
+@include active(active-s1, $cloud-s1-x, $cloud-s1-y);
+@include active(active-s2, $cloud-s2-x, $cloud-s2-y);
+@include active(active-s3, $cloud-s3-x, $cloud-s3-y);
+@include active(active-s4, $cloud-s4-x, $cloud-s4-y);
+@include active(active-s5, $cloud-s5-x, $cloud-s5-y);
+@include active(active-s6, $cloud-s6-x, $cloud-s6-y);
+@include active(active-s7, $cloud-s7-x, $cloud-s7-y);
+@include active(active-s8, $cloud-s8-x, $cloud-s8-y);
+@include active(active-s9, $cloud-s9-x, $cloud-s9-y);
+@include active(active-s10, $cloud-s10-x, $cloud-s10-y);
+@include active(active-s11, $cloud-s11-x, $cloud-s11-y);
+
+
+/* 树叶摇动 */
+@mixin wooble($name, $x, $y) {
+  @keyframes #{$name} {
+    0%, 50%, 100% {
+      transform: translate3d(0, 0, 0)
+    }
+    25% {
+      transform: translate3d(-$x, $y, 0)
+    }
+    75% {
+      transform: translate3d($x, -$y, 0)
+    }
+  }
+};
+@include wooble(wobble-s1, 12px, 4px);
+
+
+/* 水果掉落 */
+@mixin drop($name, $slate, $rotate) {
+  @keyframes #{$name} {
+    100% {
+      transform: $slate rotate($rotate);
+    }
+  }
+};
+@include drop(drop-s1, $drop-slate-s1, -90deg);
+@include drop(drop-s2, $drop-slate-s2, 45deg);
+@include drop(drop-s3, $drop-slate-s3, -65deg);
+@include drop(drop-s4, $drop-slate-s4, 100deg);
+
+/* 奖品出现 */
+@mixin blast($name, $slate, $origin) {
+  @keyframes #{$name} {
+    0% {
+      transform: $slate scale(0, 0);
+      transform-origin: $origin;
+    }
+    100% {
+      transform: $slate scale(1, 1);
+      transform-origin: $origin;
+    }
+  }
+};
+@include blast(blast-s1, $drop-slate-s1, $origin-rb);
+@include blast(blast-s2, $drop-slate-s2, $origin-lb);
+@include blast(blast-s3, $drop-slate-s3, $origin-rb);
+@include blast(blast-s4, $drop-slate-s4, $origin-lb);
+
+/* 按钮晃动 */
+@keyframes shake {
+  0%, 25%, 100% {
+    transform: scale(1, 1) rotate(0deg);
+    transform-origin: 50% 50%;
+  }
+  2.5%, 5%, 7.5%, 10%, 12.5%, 15%, 17.5%, 20%, 22.5% {
+    transform: scale(1.1, 1.1) rotate(0deg);
+    transform-origin: 50% 50%;
+  }
+  3.75%, 8.75%, 13.75%, 18.75% {
+    transform: scale(1.1, 1.1) rotate(-20deg);
+    transform-origin: 50% 50%;
+  }
+  6.25%, 11.25%, 16.25%, 21.25% {
+    transform: scale(1.1, 1.1) rotate(20deg);
+    transform-origin: 50% 50%;
+  }
+}

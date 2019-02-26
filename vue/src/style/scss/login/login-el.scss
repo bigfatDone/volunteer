@@ -1,0 +1,23 @@
+.login-wrapper {
+  .el-form {
+    .el-form-item {
+      .el-form-item__content {
+        .el-input__inner {
+          height: 44px;
+          font-size: 16px;
+          line-height: 44px;
+          padding-left: 50px;
+        }
+      }
+    }
+    .vercode-item {
+      .el-form-item__content {
+        .el-input {
+          .el-input-group__append {
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+}

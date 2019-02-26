@@ -1,0 +1,122 @@
+.page-modu {
+    background: #f3f3f3;
+    .authentic-modu {
+        width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+        .title-modu {
+            text-align: center;
+            padding: 40px 0 24px 0;
+            p {
+                font-size: 24px;
+                color: #333;
+                line-height: 30px;
+                margin: 0;
+                &.sub-title {
+                    font-size: 18px;
+                }
+            }
+            span {
+                color: #ff1c1c;
+                transform: translateY(5px);
+                display: inline-block;
+            }
+        }
+        .form-modu {
+            background: #fff;
+            border: 1px solid #E9E9E9;
+            border-radius: 4px;
+            padding: 36px 0;
+            margin-bottom: 44px;
+            .form-cont {
+                width: 530px;
+                margin: 0 auto;
+                .itme-right {
+                    font-size: 18px;
+                    color: #333;
+                    text-align: right;
+                    &.red-color {
+                        color: #CC0200;
+                    }
+                }
+                .item-infor {
+                    ul {
+                        background: #eee;
+                        padding: 8px;
+                        margin: 10px 0 0 0;
+                        .item-li {
+                            color: #999;
+                        }
+                    }
+                }
+                .tooltip {
+                    font-size: 14px;
+                    color: #999;
+                    line-height: 20px;
+                    margin-top: 8px;
+                }
+                .foot-btn {
+                    width: 100%;
+                    font-size: 24px;
+                    color: #fff;
+                    line-height: 42px;
+                    text-align: center;
+                    background: $base-color;
+                    border-radius: 4px;
+                    margin-top: 28px;
+                    cursor: pointer;
+                }
+                .explain-modu {
+                    background: #eee;
+                    padding: 6px 12px;
+                    dt,
+                    dd {
+                        font-size: 14px;
+                        color: #999;
+                        margin: 4px 0;
+                    }
+                }
+                .el-select{
+                    width: 100%;
+                }
+                .dateBox{
+                    width: 100%;
+                }
+                .img-modu {
+                    margin: 0;
+                    padding: 0;
+                    .img-list {
+                        width: 80px;
+                        height: 80px;
+                        margin-right: 10px;
+                        position: relative;
+                        float: left;
+                        .img-cont {
+                            width: 100%;
+                            height: 100%;
+                            border: 1px solid #ccc;
+                            border-radius: 10px;
+                            overflow: hidden;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                        .close-btn {
+                            width: 16px;
+                            height: 16px;
+                            border: 1px solid #ccc;
+                            border-radius: 10px;
+                            background: #fff;
+                            position: absolute;
+                            right: -8px;
+                            top: -8px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
