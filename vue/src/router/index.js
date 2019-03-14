@@ -11,6 +11,16 @@ const _import = require('./_import')
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      name: 'login',
+      component: _import('login/Login')
+    },
+  ]
+})
+
+/* export default new Router({
+  routes: [
     // 公共主体
     {
       path: '/',
@@ -451,4 +461,4 @@ export default new Router({
       ]
     },
   ]
-})
+}) */

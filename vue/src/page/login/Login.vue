@@ -20,7 +20,7 @@
             <el-form-item class="vercode-item">
               <i class="form-item-icon safety-icon"></i>
               <el-input v-model="loginForm.username" placeholder="请输入验证码">
-                <template slot="append">
+                <template slot="append"> 
                   <div class="vercode-img">
                     <img class="yn-fill-img" src="@/../static/images/login/code-img01.png" alt="">
                   </div>

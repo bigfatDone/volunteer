@@ -8,11 +8,8 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-      '/portal2': {
-
-        // 正式服务器
-        // target: 'http://www.gd12316.com.cn',
+ /*    proxyTable: {
+      '/volunteer': {
 
         // 测试服务器
         target: 'http://120.77.169.160:7006',
@@ -20,7 +17,7 @@ module.exports = {
         
         changeOrigin: true,
       },
-    },
+    }, */
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
