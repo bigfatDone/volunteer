@@ -1,15 +1,14 @@
 .login-wrapper {
-  height: 755px;
-  background: url('~@/../static/images/login/login-bg01.jpg') center top no-repeat;
-  background-size: 1920px auto;
+  background: url('~@/../static/images/login/login-bg01.jpg') center no-repeat;
+  background-size: 100% 100%;
   overflow: hidden;
   .login-box {
     width: 410px;
+    border-radius: 20px;
     text-align: center;
-    background: #fff;
-    border: 2px solid $base-color;
+    background: rgba(255,255,255,.7);
     padding: 20px;
-    margin: 58px auto;
+    margin: 50px auto;
     box-sizing: border-box;
     .login-titlt {
       font-size: 30px;
@@ -67,7 +66,6 @@
         .second-bottom {
           .retrieve-btn {
             font-size: 14px;
-            color: #A0A0A0;
             line-height: 1;
             float: right;
           }
@@ -87,7 +85,7 @@
             cursor: pointer;
           }
           .login-btn {
-            background: linear-gradient(#57bb41, #0fae33);
+            background: linear-gradient(#0e95d8,$base-color);
           }
           .register-btn {
             color: $base-color;
@@ -120,30 +118,6 @@
               background-position: -138px -174px;
             }
           }
-        }
-      }
-    }
-  }
-}
-
-// 手机端适配样式
-@media screen and (max-width: $phone-max-size) {
-  .login-wrapper {
-    height: auto;
-    background: none;
-    .login-box {
-      width: 100%;
-      border: 0 none;
-      margin: 0;
-      .login-cont {
-        padding: 30px 0;
-        .bottom-modu {
-          .second-bottom {
-            display: none;
-          }
-        }
-        .shortcut-modu {
-          display: none;
         }
       }
     }
