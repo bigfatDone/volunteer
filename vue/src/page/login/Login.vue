@@ -6,7 +6,7 @@
         <div class="login-cont">
           <el-form ref="loginForm" :rules="rules" :model="loginForm" class="login-form">
             <el-form-item>
-              <i class="form-item-icon"></i>
+              <i class="form-item-icon" prop="name"></i>
               <el-input v-model="loginForm.username" placeholder="用戶名"></el-input>
             </el-form-item>
             <el-form-item>
@@ -26,7 +26,7 @@
           </el-form>
           <div class="bottom-modu">
             <div class="second-bottom clearfix">
-              <router-link to="" class="retrieve-btn">忘记密码？</router-link>
+              <router-link to="" class="retrieve-btn">找回密码？</router-link>
             </div>
             <div class="main-bottom">
               <div class="login-btn">登录</div>
@@ -52,7 +52,9 @@ export default {
       
       // 校验规则
       rules: {
-
+        name:[
+          {required: true, validate: this.checkRule.checkName, trigger: "blur"}
+          ]
       }
     }
   }
