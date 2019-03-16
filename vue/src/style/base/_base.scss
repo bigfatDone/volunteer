@@ -4,21 +4,12 @@
   min-width: 1200px;
   margin: 0 auto;
 }
-@media screen and (min-width: $pad-min-size) and (max-width: $pad-max-size) {}
-@media screen and (max-width: $phone-max-size) {
-  .w1200 {
-    width: 100%;
-    min-width: 100%;
-    margin: 0 auto;
-  }
-}
-
 
 /* 浮动 */
-.yn-fl {
+.ys-fl {
   float: left;
 } 
-.yn-fr {
+.ys-fr {
   float: right;
 }
 
@@ -35,14 +26,14 @@
 }
 
 /* 图片填充 */
-.yn-fill-img {
+.ys-fill-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 /* 单行文本的溢出显示省略号 */ 
-.yn-text-ellipsis {
+.ys-text-ellipsis {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;

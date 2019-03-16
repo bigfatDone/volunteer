@@ -37,32 +37,12 @@ VueAMap.initAMapApiLoader({
   v: '1.4.4'
 })
 
-// 引入header
-import BaseHeader from './components/BaseHeader' // 公共头部组件
-Vue.component('base-header', BaseHeader)
-import BaseFooter from './components/BaseFooter' // 公共底部组件
-Vue.component('base-footer', BaseFooter)
-import SimpleHeader from './components/SimpleHeader' // 简单头部组件
-Vue.component('simple-header', SimpleHeader)
-import ProductsHeader from './components/ProductsHeader' // 优品头部组件
-Vue.component('products-header', ProductsHeader)
-import PhoneSelect from './components/PhoneSelect' // 优品头部组件
-Vue.component('phone-selectr', PhoneSelect)
 
 
 // 引入校验规则
 import Check from './utils/check.vue'
 Vue.prototype.checkRule = Check
 
-// 自定义公共变量
-Vue.prototype.customConfig = {
-  // 正式服务器
-  // baseUrl: 'http://www.gd12316.com.cn'
-
-  // 测试服务器
-  // baseUrl: 'http://120.77.169.160:7006'
-  baseUrl: 'http://localhost:8080'
-}
 
 // 设置路由跳转
 router.afterEach((to, from, next) => {

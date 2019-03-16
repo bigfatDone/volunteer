@@ -40,7 +40,7 @@ const checkNonNegativeInt = (rule, value, callback) => {
 };
 
 // 校验密码
-const checkPasswork = (rule, value, callback) => {
+const checkPassword = (rule, value, callback) => {
   if (!value) {
     callback(new Error('请输入密码'));
   } else {
@@ -50,7 +50,7 @@ const checkPasswork = (rule, value, callback) => {
       callback();
     }
   } 
-}
+};
 
 //校验手机号码
 /**
@@ -116,9 +116,10 @@ export default {
   checkPositiveNum,
   checkPositiveInt,
   checkNonNegativeInt,
-  checkPasswork,
+  checkPassword,
   checkPhone,
   checkIdCard,
-  checkCode
+  checkCode,
+  checkName
 }
 </script>

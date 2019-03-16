@@ -1,25 +1,10 @@
-$base-color: #0088cc;         // 主体颜色
-$base-orange: #ff0000;        // 橙色
-
-
-// 字体颜色
-$base-color-red: #FF0003;     // 红色
-$base-color-orange: #FF6600;  // 橙色
-$color-green-3e7:#3E7D3E; 
-
+ // 主体颜色
+$base-color: #0088cc;    
+//灰色字体颜色
+$base-font-color: #666;
+ // 灰色背景颜色  
+$base-background-color: #f1f1e3;       
 // 边框颜色
-$base-border-color: #EDEDED;  // 灰色边框
-
-// 等级颜色
-$green-d0e:#D0E5BE;   
-$gray-d8t: #D8D8D8;
-$gray-f9t: #F9F9F9;
+$base-border-color: #EDEDED; 
 
 
-// 响应式尺寸
-$pc-max-size: 1920px;
-$pc-min-size: 1200px;
-$pad-max-size: 1199px;
-$pad-min-size: 768px;
-$phone-max-size: 767px;
-$phone-min-size: 320px;
