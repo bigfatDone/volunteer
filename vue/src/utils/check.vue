@@ -86,12 +86,25 @@ const checkIdCard = (rule, value, callback) => {
   }
 };
 
+const checkCode = (rule, value, callback) => {
+  if(!value) {
+    callback(new Error('请输入验证码'));
+  } else {
+    if(!/^\d{4}$/.test(value) {
+      callback(new Error('验证码格式错误'));
+   } else {
+     callback();
+   }
+  }
+} 
+
 export default {
   checkPositiveNum,
   checkPositiveInt,
   checkNonNegativeInt,
   checkPasswork,
   checkPhone,
-  checkIdCard
+  checkIdCard,
+  checkCode
 }
 </script>
