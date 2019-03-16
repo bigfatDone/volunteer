@@ -90,14 +90,28 @@ const checkCode = (rule, value, callback) => {
   if(!value) {
     callback(new Error('请输入验证码'));
   } else {
-    if(!/^\d{4}$/.test(value) {
+    if(!/^\d{4}$/.test(value)){
       callback(new Error('验证码格式错误'));
    } else {
      callback();
    }
   }
-} 
+};
 
+// 表单校验---姓名
+  const checkName = (rule, value, callback) => {
+    if (value === "") {
+      callback(new Error("姓名不能为空"));
+    } else if (/\s/.test(this.sendExpressForm.userName)) {
+      callback(new Error("姓名不能输入空格"));
+    } else if (
+      !/^[a-zA-Z\u4e00-\u9fa5]+$/.test(this.sendExpressForm.userName)
+    ) {
+      callback(new Error("姓名不能为空且只能输入中文字符或英文字符"));
+    } else {
+      callback();
+    }
+  };
 export default {
   checkPositiveNum,
   checkPositiveInt,
