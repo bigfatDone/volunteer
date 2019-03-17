@@ -6,7 +6,8 @@ const _import = require('./_import')
 
 export default new Router({
   routes: [
-    {path: '/',name: 'login',component: _import('login/Login')},
-    {path: '/register',name: 'register',component: _import('login/Register')},
+    {path: '/login',name: 'login',component: _import('login/Login')},
+    {path: '/volunteerRegister',name: 'volunteerRegister',component: _import('login/VolunteerRegister')},
+    {path: '/communityRegister',name: 'communityRegister',component: _import('login/CommunityRegister')},
   ]
 })

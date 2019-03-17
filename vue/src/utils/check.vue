@@ -51,7 +51,6 @@ const checkPassword = (rule, value, callback) => {
     }
   } 
 };
-
 //校验手机号码
 /**
    * 正则：手机号（精确）
@@ -85,7 +84,7 @@ const checkIdCard = (rule, value, callback) => {
     }
   }
 };
-
+//表单校验---验证码
 const checkCode = (rule, value, callback) => {
   if(!value) {
     callback(new Error('请输入验证码'));
@@ -97,21 +96,39 @@ const checkCode = (rule, value, callback) => {
    }
   }
 };
-
+//表单校验---邮箱
+const checkEmail= (rule, value, callback) => {
+  if(!value) {
+    callback(new Error('请输入邮箱'));
+  } else {
+    if(!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)){
+      callback(new Error('邮箱格式错误'));
+   } else {
+     callback();
+   }
+  }
+};
 // 表单校验---姓名
   const checkName = (rule, value, callback) => {
-    if (value === "") {
+    if (!value) {
       callback(new Error("姓名不能为空"));
-    } else if (/\s/.test(this.sendExpressForm.userName)) {
+    } else if (/\s/.test(value)) {
       callback(new Error("姓名不能输入空格"));
     } else if (
-      !/^[a-zA-Z\u4e00-\u9fa5]+$/.test(this.sendExpressForm.userName)
+      !/^[a-zA-Z\u4e00-\u9fa5]+$/.test(value)
     ) {
       callback(new Error("姓名不能为空且只能输入中文字符或英文字符"));
     } else {
       callback();
     }
   };
+  const checkSex = (rule, value, callback) => {
+    if (!value) {
+      callback(new Error('请选择性别'))
+    } else {
+      callback()
+    }
+  }
 export default {
   checkPositiveNum,
   checkPositiveInt,
@@ -120,6 +137,8 @@ export default {
   checkPhone,
   checkIdCard,
   checkCode,
-  checkName
+  checkName,
+  checkEmail,
+  checkSex
 }
 </script>
