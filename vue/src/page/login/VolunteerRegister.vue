@@ -1,6 +1,6 @@
 <template>
   <div class="register-wrapper">
-    <header>注册社区账号</header>
+    <header>注册志愿者账号</header>
     <div class="container">
       <el-form :model="form" :rules="rule" ref="form" label-width="135px">
         <div class="title">账号信息</div>

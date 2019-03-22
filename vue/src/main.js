@@ -37,10 +37,6 @@ VueAMap.initAMapApiLoader({
   v: '1.4.4'
 })
 
-//引入模块
-import BaseHeader from './components/BaseHeader'
-Vue.component('base-header', BaseHeader)
-
 // 引入校验规则
 import Check from './utils/check.vue'
 Vue.prototype.checkRule = Check

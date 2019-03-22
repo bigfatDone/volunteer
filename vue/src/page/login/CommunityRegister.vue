@@ -21,10 +21,10 @@
         <div class="title">社区基本信息</div>
         <div class="conntent">
           <el-form-item prop="realName" label="社区名称：">
-            <el-input type="text" v-model="form.realName"></el-input>
+            <el-input type="text" v-model="form.realName" placeholder="请输入社区名称"></el-input>
           </el-form-item>
           <el-form-item prop="manager" label="社区负责人：">
-            <el-input type="text" v-model="form.manager"></el-input>
+            <el-input type="text" v-model="form.manager" placeholder="请输入社区负责人"></el-input>
           </el-form-item>
           <el-form-item prop='phone' label="联系人电话：">
             <el-input v-model="form.phone" placeholder="请输入手机号码："></el-input>

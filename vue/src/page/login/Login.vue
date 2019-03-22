@@ -30,8 +30,8 @@
             </div>
             <div class="main-bottom">
               <div class="login-btn">登录</div>
-              <router-link to="/register" class="register-btn">注册志愿者账号</router-link>
-              <router-link to="/CommunityRegister" class="register-btn">注册社区账号</router-link>
+              <router-link to="/volunteerRegister" class="register-btn">注册志愿者账号</router-link>
+              <router-link to="/communityRegister" class="register-btn">注册社区账号</router-link>
             </div>
           </div>
         </div>
