@@ -1,54 +1,36 @@
 <template>
   <div class="register-wrapper">
-    <header>注册社区账号</header>
+    <header>注册志愿者账号</header>
     <div class="container">
       <el-form :model="form" :rules="rule" ref="form" label-width="135px">
         <div class="title">账号信息</div>
         <div class="conntent">
-          <el-form-item prop="name" label="姓名：">
-            <el-input type="text" v-model="form.name"></el-input>
+          <el-form-item prop="name" label="用户名：">
+            <el-input type="text" v-model="form.name" placeholder="请输入用户名："></el-input>
           </el-form-item>
           <el-form-item prop="password" label="密码：">
-            <el-input type="password" v-model="form.password"></el-input>
+            <el-input type="password" v-model="form.password" placeholder="请输入密码："></el-input>
           </el-form-item>
           <el-form-item prop="passwordAgain" label="确认密码：">
-            <el-input type="password" v-model="form.passwordAgain"></el-input>
+            <el-input type="password" v-model="form.passwordAgain" placeholder="再次输入密码："></el-input>
           </el-form-item>
           <el-form-item prop="email" label="邮箱：">
-            <el-input type="email" v-model="form.email"></el-input>
+            <el-input type="email" v-model="form.email"  placeholder="请输入邮箱："></el-input>
           </el-form-item>
         </div>
-        <div class="title">个人基本信息</div>
+        <div class="title">社区基本信息</div>
         <div class="conntent">
-          <el-form-item prop="realName" label="真实姓名：">
+          <el-form-item prop="realName" label="社区名称：">
             <el-input type="text" v-model="form.realName"></el-input>
           </el-form-item>
-          <el-form-item prop="idCard" label="身份证号码：">
-            <el-input type="text" v-model="form.idCard"></el-input>
+          <el-form-item prop="manager" label="社区负责人：">
+            <el-input type="text" v-model="form.manager"></el-input>
           </el-form-item>
-          <el-form-item prop="sex" label="性别：">
-            <el-radio-group v-model="form.sex">
-              <el-radio  label="男"></el-radio>
-              <el-radio  label="女"></el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item prop='date' label="出生日期：">
-            <el-date-picker v-model="form.date" type="date" value-format="yyyy-MM-dd" :picker-options="pickerOption" placeholder="输入出生日期">
-            </el-date-picker>
-          </el-form-item>
-          <el-form-item prop="politic" label="政治面貌：">
-            <el-select v-model="form.politic" placeholder="请输入政治面貌">
-              <el-option v-for="item in politicOption"
-                :key="item.value"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item prop='phone' label="电话：">
+          <el-form-item prop='phone' label="联系人电话：">
             <el-input v-model="form.phone" placeholder="请输入手机号码："></el-input>
           </el-form-item>
-          <el-form-item prop='address' label="居住地址：">
-            <el-input v-model="form.address" placeholder="请输入居住地址："></el-input>
+          <el-form-item prop='address' label="社区地址：">
+            <el-input v-model="form.address" placeholder="请输入社区地址："></el-input>
           </el-form-item>
         </div>
         <el-form-item class="btn-form">
@@ -75,31 +57,21 @@ export default {
         passwordAgain: '',
         email:'',
         realName: '',
-        idCard: '',
-        sex: '',
+        manager: '',
         date: '',
-        politic: '',
         phone: '',
+        address: ''
       },
       rule: {
         name: {required: true, validator: this.checkRule.checkName, trigger: 'blur'},
         password: {required: true, validator: this.checkRule.checkPassword, trigger: 'blur'},
         passwordAgain: {required: true, validator: this.getValidator('确认密码'), trigger: 'blur'},
         email: {required: true, validator: this.checkRule.checkEmail, trigger: 'blur'},
-        realName: {required: true, validator: this.checkRule.checkName, trigger: 'blur'},
-        idCard: {required:true, validator: this.checkRule.checkIdCard, trigger: 'blur'},
-        sex: {required: true, validator: this.checkRule.checkSex, strigger: 'blur'},
-        date: {required: true, validator: this.getValidator('出生日期'), strigger: 'blur'},
-        politic: {required: true, validator: this.getValidator('政治面貌'), strigger: 'blur'},
+        realName: {required: true, validator: this.getValidator('社区名称'), trigger: 'blur'},
+        manager: {required: true, validator: this.getValidator('负责人'), strigger: 'blur'},
         phone: {required: true, validator: this.checkRule.checkPhone, strigger: 'blur'},
-        address: {required: true, validator: this.getValidator('居住地址'), strigger: 'blur'},
-      },
-      politicOption: [
-        {value:'党员'},
-        {value:'共青团员'},
-        {value:'群众'},
-        {value:'其他'},
-        ]
+        address: {required: true, validator: this.getValidator('社区地址'), strigger: 'blur'},
+      }
     }
   },
   methods: {
@@ -130,12 +102,10 @@ export default {
       };
       if(val == '确认密码'){
         check = checkPasswordAgain;
-      } else if (val == '政治面貌') {
-        check = checkPolitic;
-      } else if (val == '出生日期' || val == '居住地址') {
+     
+      } else if (val == '社区地址' || val == '负责人' || val == '社区名称') {
         check = checkDate;
       } else {
-
       }
     return check;
     },

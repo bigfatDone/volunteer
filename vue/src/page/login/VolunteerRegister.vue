@@ -1,30 +1,30 @@
 <template>
   <div class="register-wrapper">
-    <header>注册志愿者账号</header>
+    <header>注册社区账号</header>
     <div class="container">
       <el-form :model="form" :rules="rule" ref="form" label-width="135px">
         <div class="title">账号信息</div>
         <div class="conntent">
-          <el-form-item prop="name" label="姓名：">
-            <el-input type="text" v-model="form.name"></el-input>
+          <el-form-item prop="name" label="用户名：">
+            <el-input type="text" v-model="form.name" placeholder="请输入用户名："></el-input>
           </el-form-item>
           <el-form-item prop="password" label="密码：">
-            <el-input type="password" v-model="form.password"></el-input>
+            <el-input type="password" v-model="form.password" placeholder="请输入密码："></el-input>
           </el-form-item>
           <el-form-item prop="passwordAgain" label="确认密码：">
-            <el-input type="password" v-model="form.passwordAgain"></el-input>
+            <el-input type="password" v-model="form.passwordAgain" placeholder="再次输入密码："></el-input>
           </el-form-item>
           <el-form-item prop="email" label="邮箱：">
-            <el-input type="email" v-model="form.email"></el-input>
+            <el-input type="email" v-model="form.email" placeholder="请输入邮箱："></el-input>
           </el-form-item>
         </div>
         <div class="title">个人基本信息</div>
         <div class="conntent">
           <el-form-item prop="realName" label="真实姓名：">
-            <el-input type="text" v-model="form.realName"></el-input>
+            <el-input type="text" v-model="form.realName" placeholder="请输入真实姓名："></el-input>
           </el-form-item>
           <el-form-item prop="idCard" label="身份证号码：">
-            <el-input type="text" v-model="form.idCard"></el-input>
+            <el-input type="text" v-model="form.idCard" placeholder="请输入身份证号码："></el-input>
           </el-form-item>
           <el-form-item prop="sex" label="性别：">
             <el-radio-group v-model="form.sex">
