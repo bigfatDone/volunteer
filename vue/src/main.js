@@ -36,6 +36,9 @@ VueAMap.initAMapApiLoader({
   plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
   v: '1.4.4'
 })
+//引进原子特效
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles)
 
 // 引入校验规则
 import Check from './utils/check.vue'

@@ -1,5 +1,9 @@
 <template>
   <div class="login-wrapper">
+     <vue-particles class="particles"
+        color="#2A53F8"
+      >
+    </vue-particles>
     <div>
       <div class="login-box">
         <div class="login-titlt">用户登录</div>
@@ -29,9 +33,9 @@
               <router-link to="" class="retrieve-btn">找回密码？</router-link>
             </div>
             <div class="main-bottom">
-              <div class="login-btn">登录</div>
-              <router-link to="/volunteerRegister" class="register-btn">注册志愿者账号</router-link>
-              <router-link to="/communityRegister" class="register-btn">注册社区账号</router-link>
+              <router-link to="/index" class="login-btn" tag="div">登录</router-link>
+              <router-link to="/volunteerRegister" class="register-btn" tag="div">注册志愿者账号</router-link>
+              <router-link to="/communityRegister" class="register-btn" tag="div">注册社区账号</router-link>
             </div>
           </div>
         </div>
@@ -39,8 +43,6 @@
     </div>
   </div>
 </template>
-
-
 
 <script>
 export default {
@@ -71,9 +73,16 @@ export default {
 
 <style lang="scss" scoped>
 .login-wrapper {
-  background: url('~@/../static/images/login/login-bg01.jpg') center no-repeat;
+  // background: url('~@/../static/images/login/login-bg01.jpg') center no-repeat;
+  background-color: $base-background-color;
   background-size: 100% 100%;
+  position: relative;
   overflow: hidden;
+  .particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
   .login-box {
     width: 460px;
     border-radius: 20px;

@@ -49,6 +49,12 @@ export default new Router({
           name: 'help',
           component: _import('Help')
         },
+        // 志愿快讯
+        {
+          path: 'news',
+          name: 'news',
+          component: _import('News')
+        },
         //志愿人物
         {
           path: 'personage',
