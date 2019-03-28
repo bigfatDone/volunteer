@@ -1,9 +1,10 @@
 <template>
     <div class="container">
       <vue-particles class="particles"
-        color="#2A53F8"
+        color="#0088cc"
       >
     </vue-particles>
+    <div class="content">
         <header>
             <div class="login">
                 <router-link to="/login" class='tologin' tag="div">亲，请登录</router-link>
@@ -47,6 +48,7 @@
           </div>
         </footer>
     </div>
+  </div>
 </template>
 
 <script>
@@ -57,132 +59,147 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  // height: 100%;
   position: relative;
     .particles {
-      position: absolute;
+      position: relative;
       width: 100%;
-      height: 100%;
+      // height: 100%;
+      z-index: 1;
     }
-  header {
-      background: $base-background-color repeat-x bottom;
-      border-bottom: 1px solid #eee;
-      height: 32px;
-      line-height: 32px;
-      font-size: 12px;
-      .login {
-          display: flex;
-          margin:  0 180px;
-          flex-wrap: nowrap;
-          .tologin {
-              color: red;
-              cursor: pointer;
-          }
-          .volunteer-register {
-              margin-left: 20px;
-              cursor: pointer;
-          }
-          .community-register {
-              cursor: pointer;
-          }
-          .volunteer-register:hover,.community-register:hover {
-              color: red;
-          } 
-      }
-  }
-  .search {
-      display: flex;
-      height: 110px;
-      padding: 0 170px;
-      background-image: url('~@/../static/images/logobg.jpg');
-      justify-content: space-between;
-      .logo {
-        height: 110px;
-        width: 230px;
-        padding-top: 15px;
-        box-sizing: border-box;
-        width: 230px;
-        img {
-          width: 230px;
+  .content {
+    position: absolute;
+    width: 100%;
+    // height: 100%;
+    top: 0;
+    bottom: 0;
+    z-index: 998;
+    header {
+        background: $base-background-color repeat-x bottom;
+        border-bottom: 1px solid #eee;
+        height: 32px;
+        line-height: 32px;
+        font-size: 12px;
+        .login {
+            display: flex;
+            margin:  0 180px;
+            flex-wrap: nowrap;
+            .tologin {
+                color: red;
+                cursor: pointer;
+            }
+            .volunteer-register {
+                margin-left: 20px;
+                cursor: pointer;
+            }
+            .community-register {
+                cursor: pointer;
+            }
+            .volunteer-register:hover,.community-register:hover {
+                color: red;
+            } 
         }
-      }
-      .tosearch {    
-        font-family: 微软雅黑;
-        width: 492px;
-        height: 44px;
+    }
+    .search {
         display: flex;
-        border: 2px solid $base-color; 
-        margin: 30px 0 0 0;
-        .search-content {
-          display: flex;
-          width: 70%;
-          height: 100%;
-          padding-left: 32px;
-          font-size: 18px;
-          color: #796a6a;
-          align-items: center;
-          input {
-            background: rgba(255,255,255,0);
-          }
-        }
-        .btn {
-          display: inherit;
-          width: 30%;
-          height: 100%;
-          background-color: $base-color;
-          color: #fff;
-          font-size: 18px;
-          justify-content: center;
-          align-items: center;
-        }
-      }
-      }
-      nav {
-        height: 40px;
-        background: $base-color;
-        line-height: 40px;
+        height: 110px;
         padding: 0 170px;
-        ul {
-          li {
-            float: left;
+        background-image: url('~@/../static/images/logobg.jpg');
+        justify-content: space-between;
+        .logo {
+          height: 110px;
+          width: 230px;
+          padding-top: 15px;
+          box-sizing: border-box;
+          width: 230px;
+          img {
+            width: 230px;
+          }
+        }
+        .tosearch {    
+          font-family: 微软雅黑;
+          width: 492px;
+          height: 44px;
+          display: flex;
+          border: 2px solid $base-color; 
+          margin: 30px 0 0 0;
+          .search-content {
+            display: flex;
+            width: 70%;
+            height: 100%;
+            padding-left: 32px;
+            font-size: 18px;
+            color: #796a6a;
+            align-items: center;
+            input {
+              background: rgba(255,255,255,0);
+            }
+          }
+          .btn {
+            display: inherit;
+            width: 30%;
+            height: 100%;
+            background-color: $base-color;
             color: #fff;
-            width: 103px;
-            height: 40px;
+            font-size: 18px;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+        }
+        nav {
+          height: 40px;
+          background: $base-color;
+          line-height: 40px;
+          padding: 0 170px;
+          ul {
+            li {
+              float: left;
+              color: #fff;
+              width: 103px;
+              height: 40px;
+              text-align: center;
+              font-size: 17px;
+              cursor: pointer;
+            }
+            .nav-hover:hover {
+              background-color: #fff;
+              color: $base-color;
+            }
+          }
+        }
+        .router-link-active {
+          background-color: #fff;
+          color: $base-color;
+        }
+        footer {
+          width: 100%;
+          height: 120px;
+          background-color: $base-color;
+          .about {
+            width: 400px;
             text-align: center;
-            font-size: 17px;
-            cursor: pointer;
+            margin: 0 auto 20px;
+            padding-top: 30px; 
+            a {
+              color: #fff;
+              margin: 0 2px;
+              &:hover{
+                color: black;
+              }
+            }
           }
-          .nav-hover:hover {
-            background-color: #fff;
-            color: $base-color;
-          }
-        }
-      }
-      .router-link-active {
-        background-color: #fff;
-        color: $base-color;
-      }
-      footer {
-        width: 100%;
-        height: 120px;
-        background-color: $base-background-color;
-        .about {
-          width: 400px;
-          text-align: center;
-          margin: 0 auto 20px;
-          padding-top: 30px; 
-          a {
-            color: #776f6f;
-            margin: 0 10px;
-          }
-        }
-        .sponsor {
-          width: 400px;
-          margin: 0 auto;
-          color: #776f6f;
-          text-align: center;
-          a {
-            color: #776f6f;
-            margin: 0 10px;
+          .sponsor {
+            width: 400px;
+            margin: 0 auto;
+            text-align: center;
+            a {
+              color: #fff;
+              margin: 0 10px;
+              &:hover{
+                color: black;
+              }
+            }
           }
         }
       }

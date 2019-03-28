@@ -48,7 +48,7 @@
           <div class="volunteer-info info-left clearfix">
             <div class="title">
               <p>
-                <span>通知公告</span>
+                <span>热点资讯</span>
                 <span>更多>></span>
                 </p>
             </div>
@@ -73,7 +73,7 @@
           <div class="volunteer-info info-right clearfix">
             <div class="title">
               <p>
-                <span>志联动态</span>
+                <span>最新项目</span>
                 <span>更多>></span>
                 </p>
             </div>
@@ -316,7 +316,7 @@
           span:nth-child(1){
             width: 120px;
             height: 38px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             text-align: center;
             border-top: 2px solid #0088cc;
@@ -384,7 +384,7 @@
           span:nth-child(1){
             width: 120px;
             height: 38px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             text-align: center;
             border-top: 2px solid #0088cc;
@@ -406,6 +406,8 @@
         img {
           width: 120px;
           height: 110px;
+          border-top-right-radius: 5px;
+          border-top-left-radius: 5px;
         }
         .name {
           height: 40px;
@@ -413,7 +415,9 @@
           font-size: 16px;
           text-align: center;
           color: #676060;
-          background-color: #dadacb;
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+          border: 1px solid $base-border-color;
         }
       }
     }

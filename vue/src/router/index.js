@@ -43,6 +43,12 @@ export default new Router({
           name: 'project',
           component: _import('Project')
         },
+        // 志愿项目详情
+        {
+          path: 'project-detail',
+          name: 'project-detail',
+          component: _import('Project-detail')
+        },
         // 求助中心
         {
           path: 'help',
