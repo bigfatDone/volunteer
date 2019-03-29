@@ -210,7 +210,6 @@ export default {
     .item {
       padding: 0 100px;
       margin-bottom: 40px;
-      font-size: 16px;
       color: #000;
       .item-title {
         display: flex;
@@ -218,7 +217,7 @@ export default {
         padding: 0px 20px;
         justify-content: space-between;
         span:nth-child(1) {
-          font-size: 22px;
+          font-size: 20px;
         }
         span:nth-child(2) {
           color: $base-font-color;
@@ -228,9 +227,9 @@ export default {
         margin: 15px 0px;
         span:nth-child(even) {
           margin-right: 20px;
+          color: #777272;
         }
         span:nth-child(odd) {
-          font-weight: 600;
         }
       }
       .item-desc {

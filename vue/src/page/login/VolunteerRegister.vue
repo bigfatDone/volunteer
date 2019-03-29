@@ -156,7 +156,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .register-wrapper {
-  width: 960px;
+  width: 800px;
   height: 800px;
   margin: 0 auto;
   header {
@@ -193,7 +193,7 @@ export default {
 <style lang="scss">
 .conntent {
   .el-input {
-    width: 40%;
+    width: 60%;
   }
   .el-form-item__label {
     font-size: 16px;

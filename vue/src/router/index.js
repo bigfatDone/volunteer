@@ -6,25 +6,25 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    //登录
+    // 登录
     {
       path: '/login',
       name: 'login',
-      component: _import('login/Login'),
+      component: _import('login/Login')
     },
-    //志愿者注册
+    // 志愿者注册
     {
       path: '/volunteerRegister',
       name: 'volunteerRegister',
       component: _import('login/VolunteerRegister')
     },
-    //社区注册
+    // 社区注册
     {
       path: '/communityRegister',
       name: 'communityRegister',
       component: _import('login/CommunityRegister')
     },
-    //首页
+    // 首页
     {
       path: '/',
       name: '',
@@ -35,7 +35,7 @@ export default new Router({
         {
           path: 'index',
           name: 'index',
-          component: _import('Index')
+          component: _import('Home')
         },
         // 志愿项目
         {
@@ -61,7 +61,7 @@ export default new Router({
           name: 'news',
           component: _import('News')
         },
-        //志愿人物
+        // 志愿人物
         {
           path: 'personage',
           name: 'personage',
@@ -73,6 +73,37 @@ export default new Router({
           name: 'publish',
           component: _import('Publish')
         },
+        // 个人中心
+        {
+          path: 'center',
+          name: 'center',
+          component: _import('Center'),
+          redirect: '/center/center-msg',
+          children: [
+            {
+              path: 'center-msg',
+              name: 'center-msg',
+              component: _import('Center-msg')
+            },
+            {
+              path: 'Center-activity',
+              name: 'Center-activity',
+              component: _import('Center-activity')
+            }
+          ]
+        },
+        // 志愿人物详情
+        {
+          path: 'personage-detail',
+          name: 'personage-detail',
+          component: _import('Personage-detail')
+        },
+        // 文章详情
+        {
+          path: 'detail',
+          name: 'detail',
+          component: _import('Detail')
+        }
       ]
     }
   ]

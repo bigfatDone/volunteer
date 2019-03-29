@@ -3,11 +3,12 @@
     <nav>
       <span>当前位置：</span>
       <router-link to="/index" tag="span">首页&nbsp;</router-link>>
-      <span>志愿快讯</span>
+      <router-link to="/personage" tag="span">志愿人物&nbsp;</router-link>>
+      <span>{{ this.type }}</span>
     </nav>
     <div class="content">
       <section>
-        <h2>志愿快讯</h2>
+        <h2>{{ this.type }}</h2>
         <div class="news">
           <ul class="details">
             <li>
@@ -83,6 +84,7 @@
 export default {
   data() {
     return {
+      type: this.$route.query.type,
     };
   },
   methods: {
@@ -116,8 +118,8 @@ export default {
     }
     span:nth-child(3) {
       font-size: 16px;
-      // color: $base-color;
-      // cursor: pointer;
+      color: $base-color;
+      cursor: pointer;
     }
   }
   .content {

@@ -1,8 +1,5 @@
 <template>
     <div class="container">
-        <div class="wrap">
-            <img src="~@/../static/images/bar.jpg" alt="">
-        </div>
         <div class="guide">
             <div class="swipper">
                 <swiper :options="swiperOption" ref="mySwiper">
@@ -31,7 +28,7 @@
               <div class="guide-to volunteer-detail" @mouseleave=" volunteerState = !volunteerState" v-show="!volunteerState">
                 <div class="option">实名注册</div>
                 <div class="option">参加项目</div>
-                <div class="option">记录时间</div>
+                <div class="option">已参加项目</div>
               </div>
               <div class="guide-to tocommunity"  @mouseenter=" communityState = !communityState" v-show="communityState">
                 <img src="~@/../static/images/tocommunity.png" alt="">
@@ -40,7 +37,7 @@
               <div class="guide-to community-detail" @mouseleave=" communityState = !communityState" v-show="!communityState">
                 <div class="option">社区注册</div>
                 <div class="option">发布项目</div>
-                <div class="option">记录时间</div>
+                <div class="option">已发布时间</div>
               </div>
             </div>
         </div>
@@ -54,7 +51,7 @@
             </div>
             <div class="details">
               <ul>
-                <li class="clearfix"><span><img src="~@/../static/images/point.png" alt=""></span><span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋志愿服务推动日fsfsafsadfsfafdd</span></li>
+                <li class="clearfix" @click="toDetail"><span><img src="~@/../static/images/point.png" alt=""></span><span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋志愿服务推动日fsfsafsadfsfafdd</span></li>
                 <li class="clearfix"><span><img src="~@/../static/images/point.png" alt=""></span><span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋志愿服务推动日fsfsafsadfsfafdd</span></li>
                 <li class="clearfix"><span><img src="~@/../static/images/point.png" alt=""></span><span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋志愿服务推动日fsfsafsadfsfafdd</span></li>
                 <li class="clearfix"><span><img src="~@/../static/images/point.png" alt=""></span><span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋志愿服务推动日fsfsafsadfsfafdd</span></li>
@@ -169,10 +166,11 @@
         return this.$refs.mySwiper.swiper
       }
     },
-    mounted() {
-      // current swiper instance
-      // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
-    //   this.swiper.slideTo(3, 1000, false)
+    methods: {
+      toDetail(){
+        console.log(1215)
+        this.$router.push({ name: 'detail' })
+      }
     }
   }
 </script>

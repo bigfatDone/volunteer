@@ -238,20 +238,19 @@ export default {
                   display: flex;
                   height: 28px;
                   line-height: 28px;
-                  font-size: 18px;
+                  font-size: 16px;
                   color: $base-font-color;
                   .object {
                     color: #4e4646;
                     margin-right: 15px;
                     font-weight: 600;
-                    letter-spacing: 2px;
                   }
                   .content {
                     .type {
                         width: 80px;
                         height: 24px;
                         color: #fff;
-                        font-size: 14px;
+                        font-size: 12px;
                         line-height: 24px;
                         text-align: center;
                         border-radius: 10px;

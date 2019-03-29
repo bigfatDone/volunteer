@@ -3,7 +3,7 @@
     <nav>
       <span>当前位置：</span>
       <router-link to="/index" tag="span">首页&nbsp;</router-link>>
-      <span>求助中心</span>
+      <span>发布项目</span>
     </nav>
     <div class="content">
       <section class="form">
@@ -23,8 +23,8 @@
               <el-option label="茂名" value="茂名"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="招募人数：" prop="number">
-            <el-input v-model="ruleForm.number" placeholder="招募人数"></el-input>
+          <el-form-item label="招募人数：" >
+              <el-input-number v-model="ruleForm.number" :min="1"></el-input-number>
           </el-form-item>
           <el-form-item label="项目描述：" prop="desc">
             <el-input v-model="ruleForm.desc" placeholder="请输入项目描述"></el-input>
@@ -35,12 +35,18 @@
           <el-form-item label="详细地址：" prop="address">
             <el-input v-model="ruleForm.address" placeholder="请输入详细地址"></el-input>
           </el-form-item>
-          <div>社区资料填报</div>
+          <div class="title">社区资料填写</div>
+          <el-form-item label="社区名称：" prop="community">
+            <el-input v-model="ruleForm.community" placeholder="请输入社区名称"></el-input>
+          </el-form-item>
           <el-form-item label="联系人：" prop="name">
             <el-input v-model="ruleForm.name" placeholder="请输入联系人姓名"></el-input>
           </el-form-item>
           <el-form-item label="联系号码：" prop="tel">
             <el-input v-model="ruleForm.tel" placeholder="请输入联系号码"></el-input>
+          </el-form-item>
+          <el-form-item label="社区地址：" prop="communityAddr">
+            <el-input v-model="ruleForm.communityAddr" placeholder="请输入社区地址"></el-input>
           </el-form-item>
           <el-form-item class="btn">
             <el-button type="primary" @click="submitForm('ruleForm')" round>发&nbsp;布</el-button>
@@ -58,12 +64,14 @@ export default {
       ruleForm: {
         header: "",
         region: "",
-        number: "",
+        number: 1,
         desc: "",
         detail: "",
         address: "",
+        community: "",
         name: "",
-        tel: ""
+        tel: "",
+        communityAddr: ""
       },
       rules: {
         header: [{ required: true, message: "请输入标题", trigger: "blur" }],
@@ -72,8 +80,10 @@ export default {
         desc: [{ required: true, message: "请填写项目描述", trigger: "blur" }],
         detail: [{ required: true, message: "请填写项目详情", trigger: "blur" }],
         address: [{ required: true, message: "请填写地址", trigger: "blur" }],
+        community: [{ required: true, message: "请填写社区名称", trigger: "blur" }],
         name: [{ required: true, validator: this.checkRule.checkName, trigger: "blur" }],
-        tel: [{ required: true, validator: this.checkRule.checkPhone, trigger: "blur" }]
+        tel: [{ required: true, validator: this.checkRule.checkPhone, trigger: "blur" }],
+        communityAddr: [{ required: true, message: "请填写社区地址", trigger: "blur" }]
       }
     };
   },
@@ -120,6 +130,7 @@ export default {
   .content {
     border: 1px solid #c5e9fb;
     border-radius: 5px;
+    margin: 0 50px;
     .form {
       width: 600px;
       margin: 20px auto 20px;
@@ -128,12 +139,10 @@ export default {
         line-height: 35px;
         font-size: 18px;
         margin: 0 auto 15px;
-        font-weight: bold;
         text-align: center;
       }
       .btn {
-        margin-left: 100px;
-        margin-top: 40px;
+        margin: 40px 0 60px 100px;
       }
     }
   }
@@ -142,15 +151,15 @@ export default {
 <style lang="scss">
 .content {
   .el-form-item__label {
-    padding: 0 28px 0 0;
+    padding: 0 20px 0 0;
     font-size: 16px;
   }
   .el-input__inner {
-    font-size: 16px;
+    font-size: 15px;
   }
   .el-textarea__inner {
-    height: 120px;
-    font-size: 16px;
+    height: 110px;
+    font-size: 15px;
   }
 }
 </style>

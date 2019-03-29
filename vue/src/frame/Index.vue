@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-      <vue-particles class="particles"
+    <!--   <vue-particles class="particles"
         color="#0088cc"
       >
-    </vue-particles>
+    </vue-particles> -->
     <div class="content">
         <header>
             <div class="login">
@@ -11,6 +11,9 @@
                 <router-link to="/volunteerRegister" class="volunteer-register">志愿者注册&nbsp;</router-link>
                 <span>/</span>
                 <router-link to="/communityRegister" class="community-register">&nbsp;社区注册</router-link>
+            </div>
+            <div class="center">
+               <router-link to="/center">个人中心</router-link>
             </div>
         </header>
         <div class="search">
@@ -62,19 +65,22 @@ export default {
   // height: 100%;
   position: relative;
     .particles {
-      position: relative;
+      // position: relative;
       width: 100%;
       // height: 100%;
       z-index: 1;
     }
   .content {
-    position: absolute;
+    // position: absolute;
     width: 100%;
     // height: 100%;
     top: 0;
     bottom: 0;
     z-index: 998;
     header {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 180px;
         background: $base-background-color repeat-x bottom;
         border-bottom: 1px solid #eee;
         height: 32px;
@@ -82,7 +88,6 @@ export default {
         font-size: 12px;
         .login {
             display: flex;
-            margin:  0 180px;
             flex-wrap: nowrap;
             .tologin {
                 color: red;
@@ -98,6 +103,13 @@ export default {
             .volunteer-register:hover,.community-register:hover {
                 color: red;
             } 
+        }
+        .center {
+          padding: 0 9px;
+          margin-right: 35px;
+          font-size: 14px;
+          cursor: pointer;
+          border-bottom: 1px solid #8686e8;
         }
     }
     .search {
@@ -144,6 +156,7 @@ export default {
             font-size: 18px;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
           }
         }
         }
@@ -167,10 +180,10 @@ export default {
               color: $base-color;
             }
           }
-        }
-        .router-link-active {
-          background-color: #fff;
-          color: $base-color;
+          .router-link-active {
+            background-color: #fff;
+            color: $base-color;
+          }
         }
         footer {
           width: 100%;
@@ -179,8 +192,9 @@ export default {
           .about {
             width: 400px;
             text-align: center;
-            margin: 0 auto 20px;
-            padding-top: 30px; 
+            margin: 0 auto;
+            padding-top: 40px; 
+            padding-bottom: 10px;
             a {
               color: #fff;
               margin: 0 2px;
