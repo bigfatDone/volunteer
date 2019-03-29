@@ -73,22 +73,47 @@ export default new Router({
           name: 'publish',
           component: _import('Publish')
         },
+        // 审核
+        {
+          path: 'audit',
+          name: 'audit',
+          component: _import('Audit')
+        },
         // 个人中心
         {
           path: 'center',
           name: 'center',
-          component: _import('Center'),
+          component: _import('volunteer/Center'),
           redirect: '/center/center-msg',
           children: [
             {
               path: 'center-msg',
               name: 'center-msg',
-              component: _import('Center-msg')
+              component: _import('volunteer/Center-msg')
             },
             {
-              path: 'Center-activity',
-              name: 'Center-activity',
-              component: _import('Center-activity')
+              path: 'center-activity',
+              name: 'center-activity',
+              component: _import('volunteer/Center-activity')
+            }
+          ]
+        },
+        // 社区中心
+        {
+          path: 'community-center',
+          name: 'community-center',
+          component: _import('community/Community-center'),
+          redirect: '/community-center/community-msg',
+          children: [
+            {
+              path: 'community-msg',
+              name: 'community-msg',
+              component: _import('community/Community-msg')
+            },
+            {
+              path: 'community-activity',
+              name: 'community-activity',
+              component: _import('community/Community-activity')
             }
           ]
         },

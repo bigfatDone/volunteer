@@ -14,6 +14,7 @@
             </div>
             <div class="center">
                <router-link to="/center">个人中心</router-link>
+               <router-link to="/Community-center">社区中心</router-link>
             </div>
         </header>
         <div class="search">
@@ -35,6 +36,7 @@
             <router-link tag="li" to="/news" class="nav-hover">志愿快讯</router-link>
             <router-link tag="li" to="/personage" class="nav-hover">志愿人物</router-link>
             <router-link tag="li" to="/publish" class="nav-hover">发布项目</router-link>
+            <router-link tag="li" to="/audit" class="nav-hover">审核</router-link>
           </ul>
         </nav>
         <router-view></router-view>
