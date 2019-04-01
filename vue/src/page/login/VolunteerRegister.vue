@@ -80,6 +80,7 @@ export default {
         date: '',
         politic: '',
         phone: '',
+        address: ''
       },
       rule: {
         name: {required: true, validator: this.checkRule.checkName, trigger: 'blur'},
