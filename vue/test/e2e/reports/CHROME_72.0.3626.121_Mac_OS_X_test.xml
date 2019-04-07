@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="1">
+
+  <testsuite name="test"
+    errors="0" failures="1" hostname="" id="" package="test" skipped="0"
+    tests="1" time="43.05" timestamp="">
+  
+    <testcase name="default e2e tests" classname="test" time="43.05" assertions="2">
+
+      <failure message="Testing if element &lt;.hello&gt; is present in 1000 ms. - expected [0;32m&#34;present&#34;[0m but got: [0;31m&#34;not present&#34;[0m">    at Object.defaultE2eTests [as default e2e tests] (/Users/raymacbook/Projects/ynpc/test/e2e/specs/test.js:14:15)
+    at process._tickCallback (internal/process/next_tick.js:68:7)</failure>
+
+    <failure message="    at Object.defaultE2eTests [as default e2e tests] (/Users/raymacbook/Projects/ynpc/test/e2e/specs/test.js:14:15)">    at process._tickCallback (internal/process/next_tick.js:68:7)</failure>
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

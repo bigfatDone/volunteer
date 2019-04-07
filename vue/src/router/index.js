@@ -128,6 +128,12 @@ export default new Router({
           path: 'detail',
           name: 'detail',
           component: _import('Detail')
+        },
+        // test
+        {
+          path: 'test',
+          name: 'test',
+          component: _import('test')
         }
       ]
     }

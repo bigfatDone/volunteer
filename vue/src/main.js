@@ -44,6 +44,13 @@ Vue.use(VueParticles)
 import Check from './utils/check.vue'
 Vue.prototype.checkRule = Check
 
+// 引进富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
+Vue.use(VueQuillEditor)
+// require styles 引入样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
 // 设置路由跳转
 router.afterEach((to, from, next) => {
