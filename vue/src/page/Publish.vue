@@ -12,7 +12,7 @@
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
-          label-width="130px"
+          label-width="150px"
           class="demo-ruleForm"
         >
           <el-form-item label="标题：" prop="header">
@@ -23,8 +23,54 @@
               <el-option label="茂名" value="茂名"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="招募人数：" >
-              <el-input-number v-model="ruleForm.number" :min="1"></el-input-number>
+          <el-form-item label="招募人数：">
+            <el-input-number v-model="ruleForm.number" :min="1"></el-input-number>
+          </el-form-item>
+          <el-form-item label="招募开始日期：" required>
+            <el-col :span="11">
+              <el-form-item>
+                <el-date-picker
+                  v-model="ruleForm.st_time"
+                  type="date"
+                  value-format="yyyy-MM-dd"
+                  placeholder="输入招募开始日期"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col class="line" :span="2">&nbsp;&nbsp;-</el-col>
+            <el-col :span="11">
+              <el-form-item>
+                <el-date-picker
+                  v-model="ruleForm.end_time"
+                  type="date"
+                  value-format="yyyy-MM-dd"
+                  placeholder="输入招募结束日期"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="开始日期：" required>
+            <el-col :span="11">
+              <el-form-item>
+                <el-date-picker
+                  v-model="ruleForm.work_st_time"
+                  type="date"
+                  value-format="yyyy-MM-dd"
+                  placeholder="开始日期"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col class="line" :span="2">&nbsp;&nbsp;-</el-col>
+            <el-col :span="11">
+              <el-form-item>
+                <el-date-picker
+                  v-model="ruleForm.work_end_time"
+                  type="date"
+                  value-format="yyyy-MM-dd"
+                  placeholder="输入结束日期"
+                ></el-date-picker>
+              </el-form-item>
+            </el-col>
           </el-form-item>
           <el-form-item label="项目描述：" prop="desc">
             <el-input v-model="ruleForm.desc" placeholder="请输入项目描述"></el-input>
@@ -65,6 +111,10 @@ export default {
         header: "",
         region: "",
         number: 1,
+        st_time: "",
+        end_time: "",
+        work_st_time: "",
+        work_end_time: "",
         desc: "",
         detail: "",
         address: "",
@@ -75,15 +125,37 @@ export default {
       },
       rules: {
         header: [{ required: true, message: "请输入标题", trigger: "blur" }],
-        region: [{ required: true, message: "请选择所在区域", trigger: "change" }],
-        number: [{ required: true, message: "请输入招募人数", trigger: "change" }],
+        region: [
+          { required: true, message: "请选择所在区域", trigger: "change" }
+        ],
+        number: [
+          { required: true, message: "请输入招募人数", trigger: "change" }
+        ],
         desc: [{ required: true, message: "请填写项目描述", trigger: "blur" }],
-        detail: [{ required: true, message: "请填写项目详情", trigger: "blur" }],
+        detail: [
+          { required: true, message: "请填写项目详情", trigger: "blur" }
+        ],
         address: [{ required: true, message: "请填写地址", trigger: "blur" }],
-        community: [{ required: true, message: "请填写社区名称", trigger: "blur" }],
-        name: [{ required: true, validator: this.checkRule.checkName, trigger: "blur" }],
-        tel: [{ required: true, validator: this.checkRule.checkPhone, trigger: "blur" }],
-        communityAddr: [{ required: true, message: "请填写社区地址", trigger: "blur" }]
+        community: [
+          { required: true, message: "请填写社区名称", trigger: "blur" }
+        ],
+        name: [
+          {
+            required: true,
+            validator: this.checkRule.checkName,
+            trigger: "blur"
+          }
+        ],
+        tel: [
+          {
+            required: true,
+            validator: this.checkRule.checkPhone,
+            trigger: "blur"
+          }
+        ],
+        communityAddr: [
+          { required: true, message: "请填写社区地址", trigger: "blur" }
+        ]
       }
     };
   },
@@ -140,6 +212,9 @@ export default {
         font-size: 18px;
         margin: 0 auto 15px;
         text-align: center;
+      }
+      .line {
+        padding-left: 15px;
       }
       .btn {
         margin: 40px 0 60px 100px;

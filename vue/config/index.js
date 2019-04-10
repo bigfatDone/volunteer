@@ -9,13 +9,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/portal2': {
+      '/volunteer': {
 
         // 正式服务器
         // target: 'http://www.gd12316.com.cn',
 
         // 测试服务器
-        target: 'http://120.77.169.160:7006',
+        target: 'http://localhost:3001',
 
         changeOrigin: true,
       },

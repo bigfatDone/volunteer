@@ -6,7 +6,7 @@
     </vue-particles>
     <div class="container">
       <div class="login-box">
-        <div class="login-titlt">用户登录</div>
+        <div class="login-titlt">管理员登录</div>
         <div class="login-cont">
           <el-form ref="form" :rules="rules" :model="form"  class="login-form">
             <el-form-item prop="name">
@@ -22,7 +22,6 @@
               <el-input v-model="form.code" class="code" placeholder="请输入验证码">
                 <template slot="append"> 
                   <div class="vercode-img" @click="test()">
-                    <!-- <img class="yn-fill-img" src="@/../static/images/login/code-img01.png" alt=""> -->
                     {{append}}
                   </div>
                 </template>
@@ -30,13 +29,8 @@
             </el-form-item>
           </el-form>
           <div class="bottom-modu">
-            <div class="second-bottom clearfix">
-              <router-link to="" class="retrieve-btn">找回密码？</router-link>
-            </div>
             <div class="main-bottom">
               <div class="login-btn" @click="login('form')">登录</div>
-              <router-link to="/volunteerRegister" class="register-btn" tag="div">注册志愿者账号</router-link>
-              <router-link to="/communityRegister" class="register-btn" tag="div">注册社区账号</router-link>
             </div>
           </div>
         </div>
@@ -129,7 +123,7 @@ export default {
       text-align: center;
       background: rgba(255,255,255,.7);
       padding: 20px;
-      margin: 50px auto;
+      margin: 80px auto;
       box-sizing: border-box;
       .login-titlt {
         font-size: 30px;
@@ -196,7 +190,7 @@ export default {
             }
           }
           .main-bottom {
-            margin-top: 20px;
+            margin-top: 50px;
             .login-btn,
             .register-btn {
               height: 44px;

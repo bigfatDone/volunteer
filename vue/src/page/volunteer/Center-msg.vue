@@ -1,6 +1,9 @@
 <template>
   <div class="page">
     <header>
+      <el-tag v-show="type === 0">审核中</el-tag>
+      <el-tag type="success" v-show="type === 1">审核通过</el-tag>
+      <el-tag type="danger" v-show="type === 3">审核失败</el-tag>
       个人信息&nbsp;
       <i class="el-icon-edit icon" @click="dialogVisible = true"></i>
     </header>
@@ -112,6 +115,8 @@ export default {
           return time.getTime() > Date.now() - 8.64e6;
         }
       },
+      type: '',
+      userInfo: {},
       form: {
         name: "钟阳山",
         password: "",
@@ -191,6 +196,13 @@ export default {
     };
   },
   methods: {
+    getUserInfo() {
+      this.userInfo = this.$store.state.userInfo;
+      this.type = this.userInfo.type;
+      this.form.name = this.userInfo.name;
+      this.form.password = this.userInfo.password;
+      console.log(this.userInfo)
+    },
     getValidator(val) {
       let check = "";
       const checkPasswordAgain = (rule, value, callback) => {
@@ -236,6 +248,9 @@ export default {
         }
       });
     }
+  },
+  mounted() {
+  this.getUserInfo();
   }
 };
 </script>

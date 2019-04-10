@@ -6,15 +6,19 @@
     </vue-particles> -->
     <div class="content">
         <header>
-            <div class="login">
+            <div class="login" v-if="this.$store.state.userInfo.flag == 1">
+              <div class="haslogin" @click="status = !status">欢迎您，{{ this.$store.state.userInfo.name }}<i class="el-icon-arrow-down el-icon--right"></i></div>
+              <div class="out" v-show="status" @click="signOut">退出登录</div>
+           </div>
+            <div class="login" v-else>
                 <router-link to="/login" class='tologin' tag="div">亲，请登录</router-link>
                 <router-link to="/volunteerRegister" class="volunteer-register">志愿者注册&nbsp;</router-link>
                 <span>/</span>
                 <router-link to="/communityRegister" class="community-register">&nbsp;社区注册</router-link>
             </div>
             <div class="center">
-               <router-link to="/center">个人中心</router-link>
-               <router-link to="/Community-center">社区中心</router-link>
+               <router-link to="/center" v-show="this.$store.state.userInfo.grade === 2">个人中心</router-link>
+               <router-link to="/Community-center" v-show="this.$store.state.userInfo.grade === 3">社区中心</router-link>
             </div>
         </header>
         <div class="search">
@@ -35,8 +39,8 @@
             <router-link tag="li" to="/help" class="nav-hover">求助中心</router-link>
             <router-link tag="li" to="/news" class="nav-hover">志愿快讯</router-link>
             <router-link tag="li" to="/personage" class="nav-hover">志愿人物</router-link>
-            <router-link tag="li" to="/publish" class="nav-hover">发布项目</router-link>
-            <router-link tag="li" to="/audit" class="nav-hover">审核</router-link>
+            <router-link tag="li" to="/publish" class="nav-hover" v-show=" grade === 3">发布项目</router-link>
+            <router-link tag="li" to="/audit" class="nav-hover" v-show=" grade === 3">审核</router-link>
           </ul>
         </nav>
         <router-view></router-view>
@@ -58,7 +62,18 @@
 
 <script>
 export default {
-    
+    data() {
+      return {
+        status: 0,
+        grade: this.$store.state.userInfo.grade
+      }
+    },
+    methods: {
+     signOut() {
+       this.$router.push({ name:'login'});
+       this.$store.commit('updataUserInfo',{})
+     }
+    }
 }
 </script>
 
@@ -90,10 +105,25 @@ export default {
         font-size: 12px;
         .login {
             display: flex;
+            position: relative;
             flex-wrap: nowrap;
+            .haslogin {
+              color: black;
+              cursor: pointer;
+            }
             .tologin {
                 color: red;
                 cursor: pointer;
+            }
+            .out {
+              position: absolute;
+              width: 100px;
+              top: 30px;
+              right: -30px;
+              text-align: center;
+              height: 36px;
+              cursor: pointer;
+              background-color: $base-background-color;
             }
             .volunteer-register {
                 margin-left: 20px;

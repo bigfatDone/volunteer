@@ -1,6 +1,9 @@
 <template>
   <div class="page">
     <header>
+      <el-tag v-show="type === 0">审核中</el-tag>
+      <el-tag type="success" v-show="type === 1">审核通过</el-tag>
+      <el-tag type="danger" v-show="type === 3">审核失败</el-tag>
       社区信息&nbsp;
       <i class="el-icon-edit icon" @click="dialogVisible = true"></i>
     </header>
@@ -84,6 +87,7 @@ export default {
           return time.getTime() > Date.now() - 8.64e6;
         }
       },
+      type: this.$store.state.userInfo.type,
      form: {
         name: '',
         password: '',

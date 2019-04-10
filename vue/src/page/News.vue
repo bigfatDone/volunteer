@@ -15,7 +15,7 @@
                 <img src="~@/../static/images/point.png" alt>
                 <span
                   class="ys-text-ellipsis"
-                >本市举办2019年“爱满gsdgsdfgsdffgsdf gsdfgsdfgsdfgsfgsdfgsdf京城”首都学雷锋</span>
+                >志愿资讯测试数据测试。。</span>
               </p>
               <span class="time">2018-11-12</span>
             </li>
@@ -24,7 +24,7 @@
                 <img src="~@/../static/images/point.png" alt>
                 <span
                   class="ys-text-ellipsis"
-                >本市举办2019年“爱满gsdgsdfgsdffgsdf gsdfgsdfgsdfgsfgsdfgsdf京的說法是的法師打發</span>
+                >本市举办2019年“爱满茂名”的志愿活动</span>
               </p>
               <span class="time">2018-11-12</span>
             </li>
