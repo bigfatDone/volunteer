@@ -1,9 +1,5 @@
 <template>
     <div class="container">
-    <!--   <vue-particles class="particles"
-        color="#0088cc"
-      >
-    </vue-particles> -->
     <div class="content">
         <header>
             <div class="login" v-if="this.$store.state.userInfo.flag == 1">

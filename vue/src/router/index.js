@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/frame/Index'
+import Admin from '@/frame/Admin'
 const _import = require('./_import')
 Vue.use(Router)
 
@@ -134,6 +135,26 @@ export default new Router({
           path: 'test',
           name: 'test',
           component: _import('test')
+        }
+      ]
+    },
+    //管理员
+    {
+      path: 'admin/login',
+      name: 'admin/login',
+      component: _import('admin/Login')
+    },
+    //首页
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin,
+      redirect: '/admin/home',
+      children: [
+        {
+          path: '/admin/home',
+          name: 'admin/home',
+          component: _import('admin/Home')
         }
       ]
     }

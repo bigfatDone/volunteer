@@ -15,7 +15,7 @@ import ElementUI from 'element-ui'
 import './style/base/element-variables.scss' // 更换element-ui主题色
 Vue.use(ElementUI)
 
-//
+//引入vant
 import Vant from 'vant'
 import 'vant/lib/index.css'
 Vue.use(Vant)
@@ -51,6 +51,10 @@ Vue.use(VueQuillEditor)
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+
+//引入echarts
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts 
 
 // 设置路由跳转
 router.afterEach((to, from, next) => {
