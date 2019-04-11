@@ -5,15 +5,16 @@
       <aside>
         <el-col :span="24">
           <el-menu
-            default-active="1"
+            :default-active="status"
             class="el-menu-vertical-demo"
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b" 
+            @open="handleOpen"
           >
-            <el-menu-item index="1">
+            <el-menu-item index="1" @click="toLink('1')">
                 <i class="el-icon-document"></i>
-                <span slot="title" @click="test()">数据报表</span>
+                <span slot="title">数据报表</span>
             </el-menu-item>
             <el-submenu index="2">
               <template slot="title">
@@ -21,11 +22,11 @@
                 <span>注册审核</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="2-1">志愿者注册审核</el-menu-item>
-                <el-menu-item index="2-2">社区注册审核</el-menu-item>
+                <el-menu-item index="2-1" @click="toLink('2-1')">志愿者注册审核</el-menu-item>
+                <el-menu-item index="2-2" @click="toLink('2-2')">社区注册审核</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
-            <el-menu-item index="3">
+            <el-menu-item index="3" @click="toLink('3')">
               <i class="el-icon-phone-outline"></i>
               <span slot="title">求助信息管理</span>
             </el-menu-item>
@@ -35,21 +36,31 @@
                 <span>志愿快讯管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="4-1">志愿快讯发布</el-menu-item>
-                <el-menu-item index="4-2">志愿快讯管理</el-menu-item>
+                <el-menu-item index="4-1" @click="toLink('4-1')">志愿快讯发布</el-menu-item>
+                <el-menu-item index="4-2" @click="toLink('4-2')">志愿快讯管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="5">
+              <template slot="title">
+                <i class="el-icon-star-off"></i>
+                <span>志愿人物管理</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="5-1" @click="toLink('5-1')">志愿人物发布</el-menu-item>
+                <el-menu-item index="5-2" @click="toLink('5-2')">志愿人物管理</el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
+            <el-submenu index="6">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>志愿项目管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="5-1">志愿项目审核</el-menu-item>
-                <el-menu-item index="5-2">志愿发布</el-menu-item>
+                <el-menu-item index="6-1"  @click="toLink('6-1')">志愿项目审核</el-menu-item>
+                <el-menu-item index="6-2"  @click="toLink('6-2')">志愿发布</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
-            <el-menu-item index="6">
+            <el-menu-item index="7"  @click="toLink('7')">
               <i class="el-icon-setting"></i>
               <span slot="title">管理员管理</span>
             </el-menu-item>
@@ -77,11 +88,46 @@
 export default {
   data() {
     return {
+      status: '1'
     }
   },
   methods: {
-    test(){
-      console.log(1111)
+    handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+    toLink(val) {
+      switch(val) {
+        case '1':
+          this.$router.push({ name: 'admin/home'});
+          break;
+        case '2-1':
+          this.$router.push({ name: 'admin/volunteer-check'});
+          break;
+        case '2-2':
+          this.$router.push({ name: 'admin/community-check'});
+          break;
+        case '3':
+          this.$router.push({ name: 'admin/help-check'});
+          break;
+        case '4-1':
+          this.$router.push({ name: 'admin/news-publish'});
+          break;
+        case '4-2':
+          this.$router.push({ name: 'admin/news-manage'});
+          break;
+        case '5-1':
+          this.$router.push({ name: 'admin/personage-publish'});
+          break;
+        case '5-2':
+          this.$router.push({ name: 'admin/personage-manage'});
+          break;
+        case '6-2':
+          this.$router.push({ name: 'admin/project-publish'});
+          break;
+        case '7':
+          this.$router.push({ name: 'admin/admin-manage'});
+          break;
+      }
     }
   }
 };

@@ -155,7 +155,61 @@ export default new Router({
           path: '/admin/home',
           name: 'admin/home',
           component: _import('admin/Home')
-        }
+        },
+        // 志愿者审核
+        {
+          path: 'admin/volunteer-check',
+          name: 'admin/volunteer-check',
+          component: _import('admin/VolunteerCheck')
+        },
+        //  社区审核
+        {
+          path: 'admin/community-check',
+          name: 'admin/community-check',
+          component: _import('admin/CommunityCheck')
+        },
+        //  求助中心审核
+        {
+          path: 'admin/help-check',
+          name: 'admin/help-check',
+          component: _import('admin/HelpCheck')
+        },
+        //  新闻发布
+        {
+          path: 'admin/news-publish',
+          name: 'admin/news-publish',
+          component: _import('admin/NewsPublish')
+        },
+        //  新闻管理
+        {
+          path: 'admin/news-manage',
+          name: 'admin/news-manage',
+          component: _import('admin/NewsManage')
+        },
+        //  志愿人物发布
+        {
+          path: 'admin/personage-publish',
+          name: 'admin/personage-publish',
+          component: _import('admin/PersonagePublish')
+        },
+        //  志愿人物管理
+        {
+          path: 'admin/personage-manage',
+          name: 'admin/personage-manage',
+          component: _import('admin/PersonageManage')
+        },
+        //  志愿项目发布
+        {
+          path: 'admin/project-publish',
+          name: 'admin/project-publish',
+          component: _import('admin/ProjectPublish')
+        },
+        //  管理员管理
+        {
+          path: 'admin/admin-manage',
+          name: 'admin/admin-manage',
+          component: _import('admin/AdminManage')
+        },
       ]
     }
   ]
