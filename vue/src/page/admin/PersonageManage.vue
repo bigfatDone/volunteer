@@ -3,8 +3,9 @@
     <div class="title">志愿人物管理</div>
     <el-table :data="tableData" highlight-current-row max-height="600" style="width: 100%">
       <el-table-column type="index" width="100"></el-table-column>
-      <el-table-column property="title" label="标题" width="400"></el-table-column>
+      <el-table-column property="title" label="标题" width="300"></el-table-column>
       <el-table-column property="type" label="类型" width="50"></el-table-column>
+      <el-table-column property="date" label="发布日期" width="120"></el-table-column>
       <el-table-column label="管理" width="120">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="handlePass(scope.row)">修改</el-button>
@@ -13,7 +14,7 @@
       </el-table-column>
     </el-table>
     <div class="pagin">
-      <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+      <el-pagination background layout="prev, pager, next" :total="10"></el-pagination>
     </div>
     <section class="dialog">
       <el-dialog :visible.sync="dialogVisible">
@@ -73,11 +74,13 @@ export default {
       tableData: [
         {
           title: "法师法师法撒发生大公司的股份收到广东省分公司大股东幅度发",
-          type: '0'
+          type: '0',
+          date: '2015-11-12'
         },
         {
           title: "发生发撒的发生的发放",
-          type: '1'
+          type: '1',
+          date: '2015-11-12'
         }
       ],
     };

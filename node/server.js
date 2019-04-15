@@ -1,16 +1,25 @@
 const db = require('./db.js')
 
-//这是显示的页面
+//验证码
+exports.code = (req,res) => {
+  let number = Math.round(Math.random()*10000);
+  res.json({'code':number})
+  
+}
+//登录
 exports.login=(req,res)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
    let sql = 'select * from user where name=?';
-    let data = [req.body.name];
+    let data = [req.body.name,req.body.password];
     console.log(req.body)
     db.base(sql,data,(results)=>{
       console.log(results)
       if(results.length) {
-        console.log(111)
-        results[0].flag = 1;
-        res.json(results)
+        if(results[0].password === req.body.password){
+          results[0].flag = 1;
+          res.json(results)
+        }else {
+          res.json([{'flag': 0,'msg': '用户名或密码错误！'}])
+        }
       } else {
         res.json([{'flag': 0,'msg': '用户名或密码错误！'}])
       }

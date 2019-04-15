@@ -198,6 +198,12 @@ export default new Router({
           name: 'admin/personage-manage',
           component: _import('admin/PersonageManage')
         },
+        //  志愿项目管理
+        {
+          path: 'admin/project-manage',
+          name: 'admin/project-manage',
+          component: _import('admin/ProjectManage')
+        },
         //  志愿项目发布
         {
           path: 'admin/project-publish',

@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <header>欢迎你，管理员</header>
+    <header>欢迎你，钟阳山</header>
     <div class="content">
       <aside>
         <el-col :span="24">
@@ -120,6 +120,9 @@ export default {
           break;
         case '5-2':
           this.$router.push({ name: 'admin/personage-manage'});
+          break;
+        case '6-1':
+          this.$router.push({ name: 'admin/project-manage'});
           break;
         case '6-2':
           this.$router.push({ name: 'admin/project-publish'});

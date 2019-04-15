@@ -36,7 +36,7 @@
             layout="prev, pager, next"
             prev-text="上一页"
             next-text="下一页"
-            :total="50"
+            :total="10"
           ></el-pagination>
         </div>
       </section>

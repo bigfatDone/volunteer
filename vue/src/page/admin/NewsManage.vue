@@ -3,15 +3,17 @@
     <div class="title">项目列表</div>
     <el-table :data="tableData" highlight-current-row max-height="600" style="width: 100%">
       <el-table-column type="index" width="100"></el-table-column>
-      <el-table-column property="title" label="标题" width="450"></el-table-column>
+      <el-table-column property="title" label="标题" width="300"></el-table-column>
+      <el-table-column property="date" label="发布日期" width="120"></el-table-column>
       <el-table-column label="管理" width="120">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handlePass(scope.row)">修改</el-button>
+          <el-button type="text" size="small" @click="handlePass(scope.row)">修 改</el-button>
+          <el-button type="text" size="small" @click="handlePass(scope.row)">删 除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagin">
-      <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+      <el-pagination background layout="prev, pager, next" :total="10"></el-pagination>
     </div>
     <section class="dialog">
       <el-dialog :visible.sync="dialogVisible">
@@ -39,8 +41,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false" round>取 消</el-button>
-          <el-button type="primary" @click="submitForm('ruleForm')" round>修 改</el-button>
-          <el-button type="primary" @click="submitForm('ruleForm')" round>删 除</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')" round>确 定</el-button>
         </div>
       </el-dialog>
     </section>
@@ -54,10 +55,12 @@ export default {
       dialogVisible: false,
       tableData: [
         {
-          title: "法师法师法撒发生大公司的股份收到广东省分公司大股东幅度发"
+          title: "法师法师法撒发生大公司的股份收到广东省分公司大股东幅度发",
+          date: '2015-11-12'
         },
         {
-          title: "发生发撒的发生的发放"
+          title: "发生发撒的发生的发放",
+          date: '2015-11-12'
         }
       ],
       content: null,

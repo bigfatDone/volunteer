@@ -1,10 +1,19 @@
 import fetch from '@/utils/fetch'
 
-// 获取新闻类型列表
+// 登录
 export function getLogin( data = {}) {
     return fetch(Object.assign({
         url: '/login',
         method: 'post',
         data:data
+    }))
+}
+
+// 登录验证码
+export function getCode(data = {}) {
+    return fetch(Object.assign({
+        url: '/code',
+        method: 'get',
+        params: data
     }))
 }

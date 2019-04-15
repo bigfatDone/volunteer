@@ -7,6 +7,7 @@ const server = require('./server.js')
 
 
 router.post('/volunteer/login',server.login);
+router.get('/volunteer/code',server.code);
 /* router.get('/allBooks',server.allBooks);
 router.get('/login',server.login);
 router.post('/register',server.register);

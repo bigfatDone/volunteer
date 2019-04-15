@@ -73,7 +73,7 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="1000">
+            :total="10">
           </el-pagination>
         </div>
       </section>

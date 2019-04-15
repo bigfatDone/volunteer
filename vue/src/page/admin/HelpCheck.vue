@@ -12,58 +12,43 @@
           >
             <el-table-column
               fixed
-              prop="name"
-              label="用户名"
+              prop="header"
+              label="求助标题"
+              width="150">
+            </el-table-column>
+            <el-table-column
+              prop="region"
+              label="所在区域"
               width="100">
             </el-table-column>
             <el-table-column
-              prop="password"
-              label="密码"
-              width="100">
+              prop="desc"
+              label="求助内容"
+              width="180">
             </el-table-column>
             <el-table-column
-              prop="phone"
-              label="电话号码"
+              prop="mark"
+              label="备注"
               width="120">
-            </el-table-column>
-            <el-table-column
-              prop="email"
-              label="邮箱"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              prop="realname"
-              label="姓名"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="card"
-              label="身份证号码"
-              width="140">
-            </el-table-column>
-            <el-table-column
-              prop="sex"
-              label="性别"
-              width="50">
-            </el-table-column>
-            <el-table-column
-              prop="user_date"
-              label="出生日期"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="politic"
-              label="政治面貌"
-              width="100">
             </el-table-column>
             <el-table-column
               prop="address"
-              label="居住地址"
-              width="200">
+              label="详细地址"
+              width="150">
             </el-table-column>
             <el-table-column
-              prop="create_date"
-              label="注册日期"
+              prop="name"
+              label="求助人"
+              width="100">
+            </el-table-column>
+            <el-table-column
+              prop="tel"
+              label="联系号码"
+              width="120">
+            </el-table-column>
+            <el-table-column
+              prop="date"
+              label="发布日期"
               width="100">
             </el-table-column>
             <el-table-column
@@ -86,6 +71,7 @@
                 disable-transitions
                 >不通过</el-tag>
                 <el-button @click="dialogVisible = true" type="text" size="small">备注</el-button>
+                <el-button type="text" size="small">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -94,7 +80,7 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="1000">
+            :total="10">
           </el-pagination>
         </div>
       </section>
@@ -145,43 +131,15 @@ export default {
       dialogVisible:false,
       tableData: [
         {
-          name: 'bigfat',
-          password: 111111,
-          email: '1964005690@qq.com',
-          phone: '13660365510',
-          user_name: '钟阳山',
-          card: 440923199502092154,
-          user_date: '1995-02-09',
-          politic: '团员',
+          header: '测试测试header',
+          region: '茂名',
+          desc: '帮助农村来的孩子吧！',
+          mark: 'null',
           address: '上海市普陀区金沙江路 1518 弄',
-          create_date: '2019-04-11',
+          name: '钟阳山',
+          tel: 13660365510,
+          date: '1995-02-09',
           status: '0'
-        },
-        {
-          name: 'bigfat',
-          password: 111111,
-          email: '1964005690@qq.com',
-          phone: '13660365510',
-          realname: '钟阳山',
-          card: 440923199502092154,
-          user_date: '1995-02-09',
-          politic: '团员',
-          address: '上海市普陀区金沙江路 1518 弄',
-          create_date: '2019-04-11',
-          status: '1'
-        },
-        {
-          name: 'bigfat',
-          password: 111111,
-          email: '1964005690@qq.com',
-          phone: '13660365510',
-          realname: '钟阳山',
-          card: 440923199502092154,
-          user_date: '1995-02-09',
-          politic: '团员',
-          address: '上海市普陀区金沙江路 1518 弄',
-          create_date: '2019-04-11',
-          status: '2'
         },
         ],
         ruleForm: {

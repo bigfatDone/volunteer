@@ -1,8 +1,44 @@
 <template>
   <div class="container">
     <div class="content">
-      <section class="form">
-        <div class="title">项目填报</div>
+      <section>
+        <div class="title">
+          <span>志愿项目管理</span>
+        </div>
+        <div class="form">
+          <el-table :data="tableData" border>
+            <el-table-column fixed prop="header" label="标题" width="150"></el-table-column>
+            <el-table-column prop="region" label="所在区域" width="100"></el-table-column>
+            <el-table-column prop="number" label="招募人数" width="100"></el-table-column>
+            <el-table-column prop="st_time" label="招募开始日期" width="120"></el-table-column>
+            <el-table-column prop="end_time" label="招募结束日期" width="120"></el-table-column>
+            <el-table-column prop="work_st_time" label="开始日期" width="120"></el-table-column>
+            <el-table-column prop="work_end_time" label="招募结束日期" width="120"></el-table-column>
+            <el-table-column prop="desc" label="项目描述" width="150"></el-table-column>
+            <el-table-column prop="detail" label="项目详情" width="180"></el-table-column>
+            <el-table-column prop="address" label="详细地址" width="120"></el-table-column>
+            <el-table-column prop="community" label="社区名称" width="120"></el-table-column>
+            <el-table-column prop="tel" label="联系号码" width="120"></el-table-column>
+            <el-table-column prop="communityAddr" label="社区地址" width="140"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="120">
+              <template slot-scope="scope">
+                <div v-if=" scope.row.status == 0">
+                  <el-button @click="handlePass(scope.row)" type="text" size="small">通过</el-button>
+                  <el-button @click="handleNoPass(scope.row)" type="text" size="small">不通过</el-button>
+                </div>
+                <el-tag type="primary" v-else-if="scope.row.status == 1" disable-transitions>已通过</el-tag>
+                <el-tag type="danger" v-else disable-transitions>不通过</el-tag>
+                <el-button @click="dialogVisible = true" type="text" size="small">备注</el-button>
+                <el-button type="text" size="small">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+        <div class="page">
+          <el-pagination background layout="prev, pager, next" :total="10"></el-pagination>
+        </div>
+      </section>
+      <el-dialog :visible.sync="dialogVisible">
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -89,12 +125,12 @@
           <el-form-item label="社区地址：" prop="communityAddr">
             <el-input v-model="ruleForm.communityAddr" placeholder="请输入社区地址"></el-input>
           </el-form-item>
-          <el-form-item class="btn">
-            <el-button type="primary" @click="submitForm('ruleForm')" round>发&nbsp;布</el-button>
-            <el-button @click="resetForm('ruleForm')" round>重&nbsp;置</el-button>
-          </el-form-item>
         </el-form>
-      </section>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false" round>取 消</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')" round>修 改</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -102,6 +138,25 @@
 export default {
   data() {
     return {
+      dialogVisible: false,
+      tableData: [
+        {
+          header: "支援中国",
+          region: "茂名",
+          number: 1,
+          st_time: "2018-12-11",
+          end_time: "2019-01-12",
+          work_st_time: "2018-12-15",
+          work_end_time: "2019-01-13",
+          desc: "很nice的志愿",
+          detail: "照顾茂名空巢老人",
+          address: "东沙街24",
+          community: "仲恺",
+          name: "钟阳山",
+          tel: "13660355510",
+          communityAddr: "大元帅府"
+        }
+      ],
       ruleForm: {
         header: "",
         region: "",
@@ -155,6 +210,18 @@ export default {
     };
   },
   methods: {
+    toDetail() {
+      this.$router.push({
+        name: "project-detail"
+      });
+    },
+    handlePass(val) {
+      val.status = 1;
+      console.log(val);
+    },
+    handleNoPass(val) {
+      val.status = 2;
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -164,52 +231,47 @@ export default {
           return false;
         }
       });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
     }
-  }
+  },
+  mounted() {}
 };
 </script>
 <style lang="scss" scoped>
 .container {
+  width: 1000px;
   margin: 0 auto 20px;
-
   .content {
-    border: 1px solid #c5e9fb;
-    border-radius: 5px;
-    .form {
-      width: 600px;
-      margin: 20px auto 20px;
+    display: flex;
+    justify-content: space-between;
+    section {
+      border: 1px solid #c5e9fb;
       .title {
         width: 450px;
         line-height: 35px;
         font-size: 18px;
-        margin: 0 auto 15px;
+        margin: 20px auto 15px;
         text-align: center;
       }
-      .line {
-        padding-left: 15px;
+      .form {
+        width: 700px;
       }
-      .btn {
-        margin: 40px 0 60px 100px;
+      .page {
+        margin: 70px auto 100px;
+        display: flex;
+        justify-content: center;
       }
     }
   }
 }
 </style>
+
 <style lang="scss">
-.content {
-  .el-form-item__label {
-    // padding: 0 20px 0 0;
-    font-size: 16px;
+.container {
+  .el-table--enable-row-transition .el-table__body td {
+    text-align: center;
   }
-  .el-input__inner {
-    font-size: 15px;
-  }
-  .el-textarea__inner {
-    height: 110px;
-    font-size: 15px;
+  .el-table th {
+    text-align: center;
   }
 }
 </style>

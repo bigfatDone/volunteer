@@ -2,7 +2,7 @@
   <div class="container">
     <div class="content">
       <section class="form">
-        <div class="title">项目填报</div>
+        <div class="title">新闻填报</div>
         <el-form
           :model="ruleForm"
           :rules="rules"

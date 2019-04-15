@@ -21,7 +21,7 @@
               <i class="form-item-icon safety-icon"></i>
               <el-input v-model="form.code" class="code" placeholder="请输入验证码">
                 <template slot="append"> 
-                  <div class="vercode-img" @click="test()">
+                  <div class="vercode-img" @click="toCode()">
                     <!-- <img class="yn-fill-img" src="@/../static/images/login/code-img01.png" alt=""> -->
                     {{append}}
                   </div>
@@ -46,11 +46,25 @@
 </template>
 
 <script>
-import { getLogin } from '@/api/login/login';
+import { getLogin,getCode } from '@/api/login/login';
 export default {
   data() {
+    //表单校验---验证码
+const checkCode = (rule, value, callback) => {
+  if(!value) {
+    callback(new Error('请输入验证码'));
+  } else {
+    if(!/^\d{4}$/.test(value)){
+      callback(new Error('验证码格式错误'));
+   } else if(value != this.append){
+     callback(new Error('验证码错误'));
+   } else {
+     callback();
+   }
+  }
+};
     return {
-      append: 1156,
+      append: '',
       form: {
         name: '',
         password: '',
@@ -66,7 +80,7 @@ export default {
           {required: true, validator: this.checkRule.checkPassword, trigger: "blur"}
           ],
         code:[
-          {required: true, validator: this.checkRule.checkCode, trigger: "blur"}
+          {required: true, validator: checkCode, trigger: "blur"}
           ]
       }
     }
@@ -90,6 +104,16 @@ export default {
         }
       })
     },
+    toCode() {
+      console.log(111)
+      getCode().then( res => {
+        this.append = res.code;
+        console.log(res)
+      }).catch( res => {
+        this.append = res.code;
+        console.log(res)
+      })
+    },
     login(form) {
       this.$refs[form].validate((valid) => {
           if (valid) {
@@ -100,6 +124,9 @@ export default {
           }
       })
     }
+  },
+  mounted() {
+    this.toCode()
   }
 }
 </script>

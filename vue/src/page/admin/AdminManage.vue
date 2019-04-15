@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div class="title">管理员管理</div>
+    <div class="title">管理员管理&nbsp;&nbsp;<el-button type="primary" @click="dialogVisible = true" circle size="small">添加</el-button></div>
     <el-table :data="tableData" highlight-current-row max-height="600" style="width: 100%">
       <el-table-column type="index" width="100"></el-table-column>
       <el-table-column property="name" label="用户名" width="200"></el-table-column>
@@ -13,7 +13,7 @@
       </el-table-column>
     </el-table>
     <div class="pagin">
-      <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+      <el-pagination background layout="prev, pager, next" :total="10"></el-pagination>
     </div>
     <section class="dialog">
       <el-dialog :visible.sync="dialogVisible">
@@ -103,7 +103,7 @@ export default {
 .page {
   .title {
     padding: 15px 0 10px;
-    font-size: 23px;
+    font-size: 18px;
     text-align: center;
   }
   .el-table tr {
