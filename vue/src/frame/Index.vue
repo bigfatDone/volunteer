@@ -61,14 +61,22 @@ export default {
     data() {
       return {
         status: 0,
-        grade: this.$store.state.userInfo.grade
+        grade: ''
       }
     },
     methods: {
      signOut() {
        this.$router.push({ name:'login'});
        this.$store.commit('updataUserInfo',{})
+     },
+     getGrade() {
+       if(this.$store.state.userInfo.grade) {
+         this.grade = this.$store.state.userInfo.grade
+       }
      }
+    },
+    mounted() {
+      this.getGrade()
     }
 }
 </script>

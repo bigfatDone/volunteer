@@ -37,7 +37,7 @@
               <div class="guide-to community-detail" @mouseleave=" communityState = !communityState" v-show="!communityState">
                 <div class="option">社区注册</div>
                 <div class="option">发布项目</div>
-                <div class="option">已发布时间</div>
+                <div class="option">已发布项目</div>
               </div>
             </div>
         </div>

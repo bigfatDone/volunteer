@@ -3,11 +3,16 @@ const db = require('./db.js')
 //验证码
 exports.code = (req,res) => {
   let number = Math.round(Math.random()*10000);
-  res.json({'code':number})
+  if(number > 1000) {
+    res.json({'code':number})
+  } else {
+    number = Math.round(Math.random()*10000);
+    res.json({'code':number})
+  }
   
 }
 //登录
-exports.login=(req,res)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
+exports.login = (req,res)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
    let sql = 'select * from user where name=?';
     let data = [req.body.name,req.body.password];
     console.log(req.body)
@@ -25,8 +30,59 @@ exports.login=(req,res)=>{//[ RowDataPacket 通过req[0]来访问,无论是否�
       }
     }) 
 };
+
+//用户名已存在
+exports.repeatName = (req,res) => {
+  let msg  = req.query;
+  let sql = `select * from user where name='${msg.name}'`; //数据库参数需要用''包裹起来
+  // let data = []
+  db.base(sql,[],(results)=>{
+    if(results[0] != null) {
+      res.json({flag: '1'})
+    } else {
+      res.json({flag: '0'})
+    }
+  }) 
+}
+
+//身份证已存在
+exports.repeatCard = (req,res) => {
+  let msg  = req.query;
+  console.log(msg)
+  let sql = `select * from user where user_card='${msg.card}'`; //数据库参数需要用''包裹起来
+  // let data = []
+  db.base(sql,[],(results)=>{
+    if(results[0] != null) {
+      res.json({flag: '1'})
+    } else {
+      res.json({flag: '0'})
+    }
+  }) 
+}
+
 //这是注册的页面
-exports.register=(req,res)=>{
+exports.volunteerRegister=(req,res)=>{
+  let msg = req.body;
+  console.log(msg)
+  let sql = 'insert into user(name,password,phone,grade,email,user_name,user_card,user_sex,user_date,user_politic,user_address,date,type) values(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+   let data = [msg.name,msg.password,msg.phone,2,msg.email,msg.realname,msg.card,msg.sex,msg.date,msg.politic,msg.address,msg.creatDate,0];
+  db.base(sql,data,(results)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
+    res.json({flag:1,msg:'注册成功'})
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+//这是注册的页面
+/* exports.register=(results,res)=>{
     let msg = req.body;
     let sql = `select * from user where name='${msg.name}'`;
     db.base(sql,[],(req)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
@@ -35,11 +91,11 @@ exports.register=(req,res)=>{
         }else{
             let sq = 'insert into user(name,password,email) values(?,?,?)';
              let data = [msg.name,msg.password,msg.email];
-           db.base(sq,data,(req)=>{
+           db.base(sq,data,req => {
             res.json({flag:1})
            })
         }    
-    })
+    }) */
 
   // let sql = `insert into user(name,password,email) values('${msg.name}','${msg.password}','${msg.email}')`;
 //   let sql = 'insert into user(name,password,email) values(?,?,?)';
@@ -47,7 +103,6 @@ exports.register=(req,res)=>{
 //    db.base(sql,data,(req)=>{
 //    })
 
-};
 //这个是主页面显示全部的信息
 exports.myhome=(req,res)=>{
     let sql = 'select * from book';

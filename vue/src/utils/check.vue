@@ -114,6 +114,8 @@ const checkEmail= (rule, value, callback) => {
       callback(new Error("姓名不能为空"));
     } else if (/\s/.test(value)) {
       callback(new Error("姓名不能输入空格"));
+    } else if (this.repeatName == 1) {
+      callback(new Error("用户已被注册"));
     } else if (
       !/^[a-zA-Z\u4e00-\u9fa5]+$/.test(value)
     ) {

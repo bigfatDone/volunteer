@@ -8,6 +8,9 @@ const server = require('./server.js')
 
 router.post('/volunteer/login',server.login);
 router.get('/volunteer/code',server.code);
+router.get('/volunteer/repeatName',server.repeatName);
+router.get('/volunteer/repeatCard',server.repeatCard);
+router.post('/volunteer/volunteerRegister',server.volunteerRegister);
 /* router.get('/allBooks',server.allBooks);
 router.get('/login',server.login);
 router.post('/register',server.register);

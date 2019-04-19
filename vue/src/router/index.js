@@ -140,7 +140,7 @@ export default new Router({
     },
     //管理员
     {
-      path: 'admin/login',
+      path: '/admin/login',
       name: 'admin/login',
       component: _import('admin/Login')
     },

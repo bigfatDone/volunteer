@@ -23,6 +23,9 @@
           <el-form-item prop="realName" label="社区名称：">
             <el-input type="text" v-model="form.realName" placeholder="请输入社区名称"></el-input>
           </el-form-item>
+          <el-form-item prop="coding" label="社区编码：">
+            <el-input type="text" v-model="form.coding" placeholder="请输入社区编码"></el-input>
+          </el-form-item>
           <el-form-item prop="manager" label="社区负责人：">
             <el-input type="text" v-model="form.manager" placeholder="请输入社区负责人"></el-input>
           </el-form-item>
@@ -43,8 +46,20 @@
   </div>
 </template>
 <script>
+import { getRepeatCoding } from '@/api/login/login';
 export default {
   data() {
+    const checkCoding = (rule, value, callback) => {
+      if(!value) {
+        callback(new Error('请输入社区编码'))
+      } else if (
+        !(/[a-zA-Z0-9]{8,}$/.test(value))
+      ) {
+        callback(new Error('社区编码格式错误'))
+      } else {
+        callback()
+      } 
+    }
     return {
       pickerOption: {
         disabledDate(time) {
@@ -57,6 +72,7 @@ export default {
         passwordAgain: '',
         email:'',
         realName: '',
+        coding: '',
         manager: '',
         date: '',
         phone: '',
@@ -68,6 +84,7 @@ export default {
         passwordAgain: {required: true, validator: this.getValidator('确认密码'), trigger: 'blur'},
         email: {required: true, validator: this.checkRule.checkEmail, trigger: 'blur'},
         realName: {required: true, validator: this.getValidator('社区名称'), trigger: 'blur'},
+        coding: {required: true, validator: checkCoding, trigger: 'blur'},
         manager: {required: true, validator: this.getValidator('负责人'), strigger: 'blur'},
         phone: {required: true, validator: this.checkRule.checkPhone, strigger: 'blur'},
         address: {required: true, validator: this.getValidator('社区地址'), strigger: 'blur'},
@@ -120,6 +137,11 @@ export default {
       )},
       goback() {
         this.$router.push('/login');
+      },
+      toRepeatCoding() {
+        return getRepeatCoding({
+          coding: this.form.coding
+        })
       }
   }
 }

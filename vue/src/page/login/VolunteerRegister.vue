@@ -61,14 +61,54 @@
   </div>
 </template>
 <script>
+import { getVolunteerRegister,getRepeatName,getRepeatCard} from '@/api/login/login';
+import { constants } from 'fs';
 export default {
   data() {
+      const checkName = async (rule, value, callback) => {
+        let res = await this.toRepeatName()
+        this.repeatName = res.flag;
+      if (!value) {
+        callback(new Error("用户名不能为空"));
+      } else if (/\s/.test(value)) {
+        callback(new Error("用户名不能输入空格"));
+      } else if (
+        this.repeatName == '1'
+      ) {
+        callback(new Error("用户名已被注册"));
+      } else if (
+        !/^[a-zA-Z\u4e00-\u9fa5]+$/.test(value)
+      ) {
+        callback(new Error("用户名不能为空且只能输入中文字符或英文字符"));
+      } else {
+        callback();
+      }
+    };
+    const checkIdCard = async (rule, value, callback) => {
+      let res = await this.toRepeatCard();
+      this.repeatCard = res.flag;
+      console.log(this.repeatCard)
+      if (!value) {
+        callback(new Error('请输入身份证号码'));
+      } else if (
+        (!(/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|x|X)$/.test(value)))) {
+          callback(new Error('身份证号码格式不正确'));
+      } else if (
+        this.repeatCard == 1
+        ) {
+          callback(new Error('身份证号码已被注册'));
+      } else {
+        callback()
+      }
+};
     return {
       pickerOption: {
         disabledDate(time) {
           return time.getTime() > Date.now() - 8.64e6;
         }
       },
+      repeatName: '',
+      repeatCard: '',
       form: {
         name: '',
         password: '',
@@ -83,12 +123,12 @@ export default {
         address: ''
       },
       rule: {
-        name: {required: true, validator: this.checkRule.checkName, trigger: 'blur'},
+        name: {required: true, validator: checkName, trigger: 'blur'},
         password: {required: true, validator: this.checkRule.checkPassword, trigger: 'blur'},
         passwordAgain: {required: true, validator: this.getValidator('确认密码'), trigger: 'blur'},
         email: {required: true, validator: this.checkRule.checkEmail, trigger: 'blur'},
         realName: {required: true, validator: this.checkRule.checkName, trigger: 'blur'},
-        idCard: {required:true, validator: this.checkRule.checkIdCard, trigger: 'blur'},
+        idCard: {required:true, validator: checkIdCard, trigger: 'blur'},
         sex: {required: true, validator: this.checkRule.checkSex, strigger: 'blur'},
         date: {required: true, validator: this.getValidator('出生日期'), strigger: 'blur'},
         politic: {required: true, validator: this.getValidator('政治面貌'), strigger: 'blur'},
@@ -132,11 +172,12 @@ export default {
       if(val == '确认密码'){
         check = checkPasswordAgain;
       } else if (val == '政治面貌') {
+        console.log(2233)
         check = checkPolitic;
       } else if (val == '出生日期' || val == '居住地址') {
         check = checkDate;
       } else {
-
+        return check;
       }
     return check;
     },
@@ -144,6 +185,7 @@ export default {
       this.$refs[form].validate((valid) => {
         if(valid){
           console.log(this.form)
+          this.toVolunteerRegister();
         } else {
           this.$message.warning('提交失败')
         }
@@ -151,7 +193,54 @@ export default {
       )},
       goback() {
         this.$router.push('/login');
-      }
+      },
+      //提交表单注册
+      toVolunteerRegister() {
+        getVolunteerRegister({
+          name: this.form.name,
+          password: this.form.password,
+          email: this.form.email,
+          realName: this.form.realName,
+          card: this.form.idCard,
+          sex: this.form.sex,
+          date: this.form.date,
+          politic: this.form.politic,
+          phone: this.form.phone,
+          address: this.form.address,
+          creatDate: this.getNowFormatDate()
+        }).then( res => {
+          if(res.flag == 1) {
+            this.$message.success(res.msg)
+            this.$router.push({name:'login'})
+          }
+        })
+      },
+      toRepeatName() {
+        return getRepeatName({
+          name: this.form.name
+        })
+      },
+      toRepeatCard() {
+        return getRepeatCard({
+          card: this.form.idCard
+        })
+      },
+      // 获取当前时间
+      getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
   }
 }
 </script>
