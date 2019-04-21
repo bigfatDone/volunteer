@@ -10,23 +10,23 @@
             <el-table-column fixed prop="name" label="用户名" width="100"></el-table-column>
             <el-table-column prop="password" label="密码" width="100"></el-table-column>
             <el-table-column prop="phone" label="电话号码" width="120"></el-table-column>
-            <el-table-column prop="email" label="邮箱" width="120"></el-table-column>
-            <el-table-column prop="realname" label="姓名" width="100"></el-table-column>
-            <el-table-column prop="card" label="身份证号码" width="140"></el-table-column>
-            <el-table-column prop="sex" label="性别" width="50"></el-table-column>
+            <el-table-column prop="email" label="邮箱" width="180"></el-table-column>
+            <el-table-column prop="user_name" label="姓名" width="100"></el-table-column>
+            <el-table-column prop="user_card" label="身份证号码" width="180"></el-table-column>
+            <el-table-column prop="user_sex" label="性别" width="50"></el-table-column>
             <el-table-column prop="user_date" label="出生日期" width="100"></el-table-column>
-            <el-table-column prop="politic" label="政治面貌" width="100"></el-table-column>
-            <el-table-column prop="address" label="居住地址" width="200"></el-table-column>
-            <el-table-column prop="create_date" label="注册日期" width="100"></el-table-column>
+            <el-table-column prop="user_politic" label="政治面貌" width="100"></el-table-column>
+            <el-table-column prop="user_address" label="居住地址" width="200"></el-table-column>
+            <el-table-column prop="date" label="注册日期" width="100"></el-table-column>
             <el-table-column fixed="right" label="操作" width="100">
               <template slot-scope="scope">
-                <div v-if=" scope.row.status == 0">
+                <div v-if=" scope.row.type == 0">
                   <el-button @click="handlePass(scope.row)" type="text" size="small">通过</el-button>
                   <el-button @click="handleNoPass(scope.row)" type="text" size="small">不通过</el-button>
                 </div>
-                <el-tag type="primary" v-else-if="scope.row.status == 1" disable-transitions>已通过</el-tag>
+                <el-tag type="primary" v-else-if="scope.row.type == 1" disable-transitions>已通过</el-tag>
                 <el-tag type="danger" v-else disable-transitions>不通过</el-tag>
-                <el-button type="text" size="small" @click="handlePass(scope.row)">删除</el-button>
+                <el-button type="text" size="small" @click="handleDelete(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -39,6 +39,7 @@
   </div>
 </template>
 <script>
+import { getVolunteerCheck,getVolunteerPass,getVolunteerNoPass,getVolunteerDelete } from '@/api/userCheck';
 export default {
   data() {
     return {
@@ -49,56 +50,51 @@ export default {
           email: "1964005690@qq.com",
           phone: "13660365510",
           user_name: "钟阳山",
-          card: 440923199502092154,
+          user_card: 440923199502092154,
           user_date: "1995-02-09",
-          politic: "团员",
-          address: "上海市普陀区金沙江路 1518 弄",
-          create_date: "2019-04-11",
-          status: "0"
-        },
-        {
-          name: "bigfat",
-          password: 111111,
-          email: "1964005690@qq.com",
-          phone: "13660365510",
-          realname: "钟阳山",
-          card: 440923199502092154,
-          user_date: "1995-02-09",
-          politic: "团员",
-          address: "上海市普陀区金沙江路 1518 弄",
-          create_date: "2019-04-11",
-          status: "1"
-        },
-        {
-          name: "bigfat",
-          password: 111111,
-          email: "1964005690@qq.com",
-          phone: "13660365510",
-          realname: "钟阳山",
-          card: 440923199502092154,
-          user_date: "1995-02-09",
-          politic: "团员",
-          address: "上海市普陀区金沙江路 1518 弄",
-          create_date: "2019-04-11",
-          status: "2"
+          user_politic: "团员",
+          user_address: "上海市普陀区金沙江路 1518 弄",
+          date: "2019-04-11",
+          type: "0"
         }
       ]
     };
   },
   methods: {
-    toDetail() {
-      this.$router.push({
-        name: "project-detail"
-      });
-    },
     handlePass(val) {
-      val.status = 1;
+      getVolunteerPass({
+        id: val.id
+      }).then( req => {
+        this.$message.success(req.msg)
+        this.toVolunteerCheck()
+      })
     },
     handleNoPass(val) {
-      val.status = 2;
+      getVolunteerNoPass({
+        id: val.id
+      }).then( req => {
+        this.$message.success(req.msg)
+        this.toVolunteerCheck()
+      })
+    },
+    handleDelete(val) {
+      getVolunteerDelete({
+        id: val.id
+      }).then( res => {
+        this.$message.success(res.msg)
+        this.toVolunteerCheck()
+      })
+    },
+    toVolunteerCheck(){
+      getVolunteerCheck({}).then( (res) =>{
+        console.log(res)
+        this.tableData = res
+      })
     }
   },
-  mounted() {}
+  mounted() {
+    this.toVolunteerCheck()
+  }
 };
 </script>
 <style lang="scss" scoped>

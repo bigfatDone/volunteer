@@ -3,14 +3,18 @@
 */
 const express = require('express');
 const router = express.Router();
-const server = require('./server.js')
+const login = require('./login.js')
+const userCheck = require('./userCheck.js')
 
-
-router.post('/volunteer/login',server.login);
-router.get('/volunteer/code',server.code);
-router.get('/volunteer/repeatName',server.repeatName);
-router.get('/volunteer/repeatCard',server.repeatCard);
-router.post('/volunteer/volunteerRegister',server.volunteerRegister);
+// 志愿者与社区注册登录
+router.post('/volunteer/login',login.login);// 登录
+router.get('/volunteer/code',login.code);// 验证码
+router.get('/volunteer/repeatName',login.repeatName);// 重复用户名
+router.get('/volunteer/repeatCard',login.repeatCard);// 重复身份证
+router.post('/volunteer/volunteerRegister',login.volunteerRegister);// 志愿者注册
+router.get('/volunteer/repeatCoding',login.repeatCoding);// 重复社区编码
+router.post('/volunteer/communityRegister',login.communityRegister);// 志愿者注册
+router.get('/volunteer/updateUser',login.updateUser);// 志愿者注册
 /* router.get('/allBooks',server.allBooks);
 router.get('/login',server.login);
 router.post('/register',server.register);
@@ -25,6 +29,14 @@ router.post('/submitMsg',server.submitMsg);
 router.post('/androidLogin',server.androidLogin);
 router.post('/androidShow',server.androidShow);
  */
+/* 管理员 */
+router.post('/volunteer/adminLogin',login.adminLogin);// 管理员登录
+router.get('/volunteer/volunteerCheck',userCheck.volunteerCheck);// 志愿者审核登录
+router.get('/volunteer/volunteerPass',userCheck.volunteerPass);// 志愿者审核通过
+router.get('/volunteer/volunteerNoPass',userCheck.volunteerNoPass);// 志愿者审核不通过
+router.get('/volunteer/volunteerDelete',userCheck.volunteerDelete);// 志愿者删除
+
+
 
 
 module.exports = router;

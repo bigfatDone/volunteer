@@ -53,3 +53,31 @@ export function getRepeatCoding( data = {}) {
     params: data
   }))
 }
+
+// 社区注册
+export function getCommunityRegister( data = {}) {
+  return fetch(Object.assign({
+      url: '/communityRegister',
+      method: 'post',
+      data:data
+  }))
+}
+
+// 管理员登录
+export function getAdminLogin( data = {}) {
+  return fetch(Object.assign({
+      url: '/adminLogin',
+      method: 'post',
+      data:data
+  }))
+}
+
+
+// 社区编码重复注册
+export function getUpdateUser( data = {}) {
+  return fetch(Object.assign({
+    url: '/updateUser',
+    method: 'get',
+    params: data
+  }))
+}

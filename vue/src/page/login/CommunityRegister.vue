@@ -46,12 +46,33 @@
   </div>
 </template>
 <script>
-import { getRepeatCoding } from '@/api/login/login';
+import { getRepeatCoding,getRepeatName,getCommunityRegister} from '@/api/login/login';
 export default {
   data() {
-    const checkCoding = (rule, value, callback) => {
+     const checkName = async (rule, value, callback) => {
+      let res = await this.toRepeatName();
+      this.repeatName = res.flag;
+      if (!value) {
+        callback(new Error("用户名不能为空"));
+      } else if (/\s/.test(value)) {
+        callback(new Error("用户名不能输入空格"));
+      } else if (this.repeatName == "1") {
+        callback(new Error("用户名已被注册"));
+      } else if (!/^[a-zA-Z\u4e00-\u9fa5]+$/.test(value)) {
+        callback(new Error("用户名不能为空且只能输入中文字符或英文字符"));
+      } else {
+        callback();
+      }
+    };
+    const checkCoding = async (rule, value, callback) => {
+      let res = await this.toRepeatCoding();
+      this.repeatCoding = res.flag;
       if(!value) {
         callback(new Error('请输入社区编码'))
+      } else if (
+        this.repeatCoding == 1
+      ) {
+        callback(new Error('社区编码已存在'))
       } else if (
         !(/[a-zA-Z0-9]{8,}$/.test(value))
       ) {
@@ -59,13 +80,15 @@ export default {
       } else {
         callback()
       } 
-    }
+    };
     return {
       pickerOption: {
         disabledDate(time) {
           return time.getTime() > Date.now() - 8.64e6;
         }
       },
+      repeatName: '',
+      repeatCoding: '',
       form: {
         name: '',
         password: '',
@@ -79,7 +102,7 @@ export default {
         address: ''
       },
       rule: {
-        name: {required: true, validator: this.checkRule.checkName, trigger: 'blur'},
+        name: {required: true, validator: checkName, trigger: 'blur'},
         password: {required: true, validator: this.checkRule.checkPassword, trigger: 'blur'},
         passwordAgain: {required: true, validator: this.getValidator('确认密码'), trigger: 'blur'},
         email: {required: true, validator: this.checkRule.checkEmail, trigger: 'blur'},
@@ -129,20 +152,62 @@ export default {
     submitForm(form) {
       this.$refs[form].validate((valid) => {
         if(valid){
-          console.log(this.form)
+          console.log(this.form);
+          this.toCommunityRegister();
         } else {
           this.$message.warning('提交失败')
         }
       }
       )},
+       //提交表单注册
+    toCommunityRegister() {
+      getCommunityRegister({
+        name: this.form.name,
+        password: this.form.password,
+        email: this.form.email,
+        realName: this.form.realName,
+        coding: this.form.coding,
+        manager: this.form.manager,
+        date: this.form.date,
+        phone: this.form.phone,
+        address: this.form.address,
+        creatDate: this.getNowFormatDate()
+      }).then(res => {
+        if (res.flag == 1) {
+          this.$message.success(res.msg);
+          this.$router.push({ name: "login" });
+        }
+      });
+    },
       goback() {
         this.$router.push('/login');
       },
+       toRepeatName() {
+      return getRepeatName({
+        name: this.form.name
+      });
+    },
       toRepeatCoding() {
         return getRepeatCoding({
           coding: this.form.coding
         })
+      },
+       // 获取当前时间
+    getNowFormatDate() {
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
       }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+      return currentdate;
+    }
   }
 }
 </script>

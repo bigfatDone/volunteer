@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import { getUpdateUser } from '@/api/login/login'
 export default {
     data() {
       return {
@@ -69,14 +70,31 @@ export default {
        this.$router.push({ name:'login'});
        this.$store.commit('updataUserInfo',{})
      },
-     getGrade() {
-       if(this.$store.state.userInfo.grade) {
-         this.grade = this.$store.state.userInfo.grade
-       }
-     }
+     loginStatus() {
+      let msg = this.$store.state.userInfo;
+       if (msg== undefined || !msg.name) {
+        this.$store.commit('updataUserInfo',{
+         name: '',
+         grade: '',
+         type: ''
+       })
+      } else {
+        getUpdateUser({
+        id: this.$store.state.userInfo.id
+      }).then( res => {
+         if(res[0].flag == 1) {
+          this.$store.commit('updataUserInfo',res[0])
+        } else {
+          this.$message.error(res.msg)
+          this.$store.commit('updataUserInfo',{})
+        } 
+      }
+      )
+      }
+    }
     },
     mounted() {
-      this.getGrade()
+      this.loginStatus()
     }
 }
 </script>

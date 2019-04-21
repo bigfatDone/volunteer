@@ -1,6 +1,9 @@
+/* 
+数据库查出的数据是[{}]格式
+*/
 const db = require('./db.js')
 
-//验证码
+// 验证码
 exports.code = (req,res) => {
   let number = Math.round(Math.random()*10000);
   if(number > 1000) {
@@ -11,7 +14,7 @@ exports.code = (req,res) => {
   }
   
 }
-//登录
+// 志愿者/社区登录
 exports.login = (req,res)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
    let sql = 'select * from user where name=?';
     let data = [req.body.name,req.body.password];
@@ -31,7 +34,7 @@ exports.login = (req,res)=>{//[ RowDataPacket 通过req[0]来访问,无论是否
     }) 
 };
 
-//用户名已存在
+// 用户名已存在
 exports.repeatName = (req,res) => {
   let msg  = req.query;
   let sql = `select * from user where name='${msg.name}'`; //数据库参数需要用''包裹起来
@@ -45,12 +48,11 @@ exports.repeatName = (req,res) => {
   }) 
 }
 
-//身份证已存在
+// 身份证已存在
 exports.repeatCard = (req,res) => {
   let msg  = req.query;
   console.log(msg)
   let sql = `select * from user where user_card='${msg.card}'`; //数据库参数需要用''包裹起来
-  // let data = []
   db.base(sql,[],(results)=>{
     if(results[0] != null) {
       res.json({flag: '1'})
@@ -60,22 +62,77 @@ exports.repeatCard = (req,res) => {
   }) 
 }
 
-//这是注册的页面
-exports.volunteerRegister=(req,res)=>{
+// 这是志愿者注册
+exports.volunteerRegister = (req,res)=>{
   let msg = req.body;
   console.log(msg)
   let sql = 'insert into user(name,password,phone,grade,email,user_name,user_card,user_sex,user_date,user_politic,user_address,date,type) values(?,?,?,?,?,?,?,?,?,?,?,?,?)';
-   let data = [msg.name,msg.password,msg.phone,2,msg.email,msg.realname,msg.card,msg.sex,msg.date,msg.politic,msg.address,msg.creatDate,0];
+   let data = [msg.name,msg.password,msg.phone,2,msg.email,msg.realName,msg.card,msg.sex,msg.date,msg.politic,msg.address,msg.creatDate,0];
   db.base(sql,data,(results)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
     res.json({flag:1,msg:'注册成功'})
   })
 }
 
+// 社区编码已存在
+exports.repeatCoding = (req,res) => {
+  let msg  = req.query;
+  console.log(msg)
+  let sql = `select * from user where cm_coding='${msg.coding}'`; //数据库参数需要用''包裹起来
+  db.base(sql,[],(results)=>{
+    if(results[0] != null) {
+      res.json({flag: '1'})
+    } else {
+      res.json({flag: '0'})
+    }
+  }) 
+}
 
+// 这是注册
+exports.communityRegister = (req,res)=>{
+  let msg = req.body;
+  console.log(msg)
+  let sql = 'insert into user(name,password,phone,grade,email,cm_realname,cm_coding,cm_manager,cm_address,date,type) values(?,?,?,?,?,?,?,?,?,?,?)';
+   let data = [msg.name,msg.password,msg.phone,3,msg.email,msg.realname,msg.coding,msg.manager,msg.address,msg.creatDate,0];
+  db.base(sql,data,results =>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
+    res.json({flag:1,msg:'注册成功'})
+  })
+}
 
+// 更新用户信息
+exports.updateUser = (req,res) => {
+  let msg = req.query;
+  let sql = `select * from user where id='${msg.id}'`;
+  db.base(sql,[],results =>{
+    if(results[0] != null) {
+      results[0].flag = 1;
+      res.json(results)
+    } else {
+      res.json({flag: '0',msg:'用户已经被删除！'})
+    }
+  })
+}
 
+/* 管理员 */
 
-
+// 志愿者登录
+exports.adminLogin = (req,res)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
+  let sql = 'select * from admin where name=?';
+   let data = [req.body.name,req.body.password];
+   console.log(req.body)
+   db.base(sql,data,(results)=>{
+     console.log(results)
+     if(results.length) {
+       if(results[0].password === req.body.password){
+         results[0].flag = 1;
+         res.json(results)
+       }else {
+         res.json([{'flag': 0,'msg': '用户名或密码错误！'}])
+       }
+     } else {
+       res.json([{'flag': 0,'msg': '用户名或密码错误！'}])
+     }
+   }) 
+};
 
 
 

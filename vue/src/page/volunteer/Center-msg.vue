@@ -1,9 +1,9 @@
 <template>
   <div class="page">
     <header>
-      <el-tag v-show="type === 0">审核中</el-tag>
-      <el-tag type="success" v-show="type === 1">审核通过</el-tag>
-      <el-tag type="danger" v-show="type === 3">审核失败</el-tag>
+      <el-tag v-show="status === 0">审核中</el-tag>
+      <el-tag type="success" v-show="status === 1">审核通过</el-tag>
+      <el-tag type="danger" v-show="status === 2">审核失败</el-tag>
       个人信息&nbsp;
       <i class="el-icon-edit icon" @click="dialogVisible = true"></i>
     </header>
@@ -107,6 +107,7 @@
 </template>
 
 <script>
+import { getUpdateUser } from '@/api/login/login'
 export default {
   data() {
     return {
@@ -115,7 +116,7 @@ export default {
           return time.getTime() > Date.now() - 8.64e6;
         }
       },
-      type: '',
+      status: '',
       userInfo: {},
       form: {
         name: "钟阳山",
@@ -196,13 +197,6 @@ export default {
     };
   },
   methods: {
-    getUserInfo() {
-      this.userInfo = this.$store.state.userInfo;
-      this.type = this.userInfo.type;
-      this.form.name = this.userInfo.name;
-      this.form.password = this.userInfo.password;
-      console.log(this.userInfo)
-    },
     getValidator(val) {
       let check = "";
       const checkPasswordAgain = (rule, value, callback) => {
@@ -238,6 +232,13 @@ export default {
       }
       return check;
     },
+    toUpdateUser() {
+       getUpdateUser({
+        id: this.$store.state.userInfo.id
+      }).then( res => {
+         this.status = res[0].type
+      })
+    },
     submitForm(form) {
       this.dialogVisible = false;
       this.$refs[form].validate(valid => {
@@ -250,7 +251,7 @@ export default {
     }
   },
   mounted() {
-  this.getUserInfo();
+  this.toUpdateUser();
   }
 };
 </script>

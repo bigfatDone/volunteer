@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { getLogin,getCode } from '@/api/login/login';
+import { getAdminLogin,getCode } from '@/api/login/login';
 export default {
   data() {
     const checkCode = (rule, value, callback) => {
@@ -83,16 +83,22 @@ export default {
       console.log(111)
     },
     toLogin() {
-      getLogin({
+      getAdminLogin({
         name: this.form.name,
         password: this.form.password
       }).then( res => {
         console.log(res)
         if(res[0].flag === 1) {
-          this.$store.commit('updataUserInfo',res[0])
-          this.$router.push({name: 'index'})
+          this.$store.commit('updataAdminInfo',{
+            name: res[0].name,
+            grade: res[0].grade 
+          })
+          this.$router.push({name: 'admin/home'})
         } else {
-          this.$store.commit('updataUserInfo',{})
+          this.$store.commit('updataAdminInfo',{
+            name: '',
+            grade: ''
+          })
           this.$message.error(res[0].msg)
         }
       })
