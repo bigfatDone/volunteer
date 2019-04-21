@@ -82,6 +82,9 @@ export default {
         getUpdateUser({
         id: this.$store.state.userInfo.id
       }).then( res => {
+        console.log(res)
+        console.log(898)
+          // this.$store.commit('updataUserInfo',res[0])
          if(res[0].flag == 1) {
           this.$store.commit('updataUserInfo',res[0])
         } else {

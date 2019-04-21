@@ -10,39 +10,39 @@
     <section>
       <div class="item">
         <span>用户名：</span>
-        <span>bigfat</span>
+        <span>{{this.form.name}}</span>
       </div>
       <div class="item">
         <span>邮箱：</span>
-        <span>1964005690@qq.com</span>
+        <span>{{this.form.email}}</span>
       </div>
       <div class="item">
         <span>真实姓名：</span>
-        <span>钟阳山</span>
+        <span>{{this.form.realName}}</span>
       </div>
       <div class="item">
         <span>身份证号码：</span>
-        <span>440923199502092152</span>
+        <span>{{this.form.idCard}}</span>
       </div>
       <div class="item">
         <span>性别：</span>
-        <span>男</span>
+        <span>{{this.form.sex}}</span>
       </div>
       <div class="item">
         <span>出生日期：</span>
-        <span>1995-02-11</span>
+        <span>{{this.form.date}}</span>
       </div>
       <div class="item">
         <span>政治面貌：</span>
-        <span>团员</span>
+        <span>{{this.form.politic}}</span>
       </div>
       <div class="item">
         <span>电话号码：</span>
-        <span>13660365510</span>
+        <span>{{this.form.phone}}</span>
       </div>
       <div class="item">
         <span>居住地址：</span>
-        <span>仲恺农业工程学院</span>
+        <span>{{this.form.address}}</span>
       </div>
     </section>
     <el-dialog :visible.sync="dialogVisible">
@@ -68,7 +68,7 @@
             <el-input type="text" v-model="form.realName" placeholder="请输入真实姓名："></el-input>
           </el-form-item>
           <el-form-item prop="idCard" label="身份证号码：">
-            <el-input type="text" v-model="form.idCard" placeholder="请输入身份证号码："></el-input>
+            <el-input type="text" v-model="form.idCard" placeholder="请输入身份证号码：" disabled></el-input>
           </el-form-item>
           <el-form-item prop="sex" label="性别：">
             <el-radio-group v-model="form.sex">
@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import { getUpdateUser } from '@/api/login/login'
+import { getUpdateUser,getVolunteerModify } from '@/api/login/login'
 export default {
   data() {
     return {
@@ -119,16 +119,17 @@ export default {
       status: '',
       userInfo: {},
       form: {
-        name: "钟阳山",
+        name: "",
         password: "",
         passwordAgain: "",
         email: "",
         realName: "",
         idCard: "",
         sex: "",
-        date: "2019-03-12",
+        date: "",
         politic: "",
-        phone: ""
+        phone: "",
+        address: ""
       },
       rule: {
         name: {
@@ -236,14 +237,49 @@ export default {
        getUpdateUser({
         id: this.$store.state.userInfo.id
       }).then( res => {
-         this.status = res[0].type
+        console.log(res)
+         this.status = res[0].type,
+         this.form.name = res[0].name,
+         this.form.password = res[0].password,
+         this.form.passwordAgain = res[0].password,
+         this.form.email = res[0].email,
+         this.form.realName = res[0].user_name,
+         this.form.idCard = res[0].user_card,
+         this.form.sex = res[0].user_sex,
+         this.form.date = res[0].user_date,
+         this.form.politic = res[0].user_politic,
+         this.form.phone = res[0].phone,
+         this.form.address = res[0].user_address
       })
+    },
+     // 提交表单修改
+    toVolunteerModify() {
+      getVolunteerModify({
+        id: this.$store.state.userInfo.id,
+        name: this.form.name,
+        password: this.form.password,
+        email: this.form.email,
+        realName: this.form.realName,
+        card: this.form.idCard,
+        sex: this.form.sex,
+        date: this.form.date,
+        politic: this.form.politic,
+        phone: this.form.phone,
+        address: this.form.address,
+      }).then(res => {
+        if (res.flag == 1) {
+          this.$message.success(res.msg);
+        } else {
+          this.toUpdateUser()
+        }
+      });
     },
     submitForm(form) {
       this.dialogVisible = false;
       this.$refs[form].validate(valid => {
         if (valid) {
           console.log(this.form);
+          this.toVolunteerModify()
         } else {
           this.$message.warning("提交失败");
         }

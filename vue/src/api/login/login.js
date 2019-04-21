@@ -73,11 +73,29 @@ export function getAdminLogin( data = {}) {
 }
 
 
-// 社区编码重复注册
+// 获取用户数据
 export function getUpdateUser( data = {}) {
   return fetch(Object.assign({
     url: '/updateUser',
     method: 'get',
     params: data
+  }))
+}
+
+// 志愿者修改
+export function getVolunteerModify( data = {}) {
+  return fetch(Object.assign({
+      url: '/volunteerModify',
+      method: 'post',
+      data:data
+  }))
+}
+
+// 社区修改
+export function getCommunityModify( data = {}) {
+  return fetch(Object.assign({
+      url: '/communityModify',
+      method: 'post',
+      data:data
   }))
 }

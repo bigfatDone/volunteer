@@ -87,18 +87,18 @@ exports.repeatCoding = (req,res) => {
   }) 
 }
 
-// 这是注册
+// 这是社区注册
 exports.communityRegister = (req,res)=>{
   let msg = req.body;
   console.log(msg)
   let sql = 'insert into user(name,password,phone,grade,email,cm_realname,cm_coding,cm_manager,cm_address,date,type) values(?,?,?,?,?,?,?,?,?,?,?)';
-   let data = [msg.name,msg.password,msg.phone,3,msg.email,msg.realname,msg.coding,msg.manager,msg.address,msg.creatDate,0];
+   let data = [msg.name,msg.password,msg.phone,3,msg.email,msg.realName,msg.coding,msg.manager,msg.address,msg.creatDate,0];
   db.base(sql,data,results =>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
     res.json({flag:1,msg:'注册成功'})
   })
 }
 
-// 更新用户信息
+// 获取用户信息
 exports.updateUser = (req,res) => {
   let msg = req.query;
   let sql = `select * from user where id='${msg.id}'`;
@@ -107,10 +107,32 @@ exports.updateUser = (req,res) => {
       results[0].flag = 1;
       res.json(results)
     } else {
-      res.json({flag: '0',msg:'用户已经被删除！'})
+      res.json([{flag: '0',msg:'用户已经被删除！'}])
     }
   })
 }
+
+// 这是志愿者信息修改
+exports.volunteerModify = (req,res)=>{
+  let msg = req.body;
+  console.log(msg)
+  let sql = `update user set password='${msg.password}',phone='${msg.phone}',email='${msg.email}',user_name='${msg.realName}',user_card='${msg.card}',user_date='${msg.date}',user_sex='${msg.sex}',user_politic='${msg.politic}',user_address='${msg.address}',type='0' where id='${msg.id}'`
+  db.base(sql,[],(results)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
+    res.json({flag:1,msg:'修改成功！'})
+  })
+}
+
+// 这是社区信息修改
+exports.communityModify = (req,res)=>{
+  let msg = req.body;
+  console.log(msg)
+  let sql = `update user set  password='${msg.password}',phone='${msg.phone}',email='${msg.email}',cm_realname='${msg.realName}',cm_manager='${msg.manager}',cm_address='${msg.address}',type='0' where id='${msg.id}'`
+  db.base(sql,[],(results)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
+    res.json({flag:1,msg:'修改成功！'})
+  })
+}
+
+
 
 /* 管理员 */
 

@@ -35,3 +35,39 @@ exports.volunteerDelete=(req,res)=>{
       res.json({msg:'删除成功！'})
   })
 }
+
+//这个是社区全部信息
+exports.communityCheck=(req,res)=>{
+  let sql = 'select * from user where grade=3';
+  db.base(sql,[],results=>{
+      res.json(results)
+      console.log(results)
+  })
+}
+
+//这个是社区通过
+exports.communityPass=(req,res)=>{
+  console.log(req.query.id)
+  let sql = `update user set type='1' where id='${req.query.id}'`;
+  db.base(sql,[],results=>{
+      res.json({msg:'审核通过！'})
+  })
+}
+
+//这个是志愿者不通过
+exports.communityNoPass=(req,res)=>{
+  console.log(req.query.id)
+  let sql = `update user set type='2' where id='${req.query.id}'`;
+  db.base(sql,[],results=>{
+      res.json({msg:'审核不通过！'})
+  })
+}
+
+//这个是志愿者删除
+exports.communityDelete=(req,res)=>{
+  console.log(req.query.id)
+  let sql = `delete from user where id='${req.query.id}'`;
+  db.base(sql,[],results=>{
+      res.json({msg:'删除成功！'})
+  })
+}

@@ -6,140 +6,89 @@
           <span>社区审核</span>
         </div>
         <div class="form">
-          <el-table
-            :data="tableData"
-            border
-          >
-            <el-table-column
-              fixed
-              prop="name"
-              label="用户名"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="password"
-              label="密码"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="phone"
-              label="电话号码"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              prop="email"
-              label="邮箱"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              prop="cm_realname"
-              label="社区名称"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="cm_manager"
-              label="社区负责人"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="cm_address"
-              label="社区地址"
-              width="150">
-            </el-table-column>
-            <el-table-column
-              prop="date"
-              label="注册日期"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              fixed="right"
-              label="操作"
-              width="100">
+          <el-table :data="tableData" border>
+            <el-table-column fixed prop="name" label="用户名" width="100"></el-table-column>
+            <el-table-column prop="password" label="密码" width="100"></el-table-column>
+            <el-table-column prop="phone" label="电话号码" width="120"></el-table-column>
+            <el-table-column prop="email" label="邮箱" width="180"></el-table-column>
+            <el-table-column prop="cm_realname" label="社区名称" width="100"></el-table-column>
+            <el-table-column prop="cm_manager" label="社区负责人" width="100"></el-table-column>
+            <el-table-column prop="cm_address" label="社区地址" width="150"></el-table-column>
+            <el-table-column prop="date" label="注册日期" width="100"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="100">
               <template slot-scope="scope">
-                <div v-if=" scope.row.status == 0">
+                <div v-if=" scope.row.type == 0">
                   <el-button @click="handlePass(scope.row)" type="text" size="small">通过</el-button>
                   <el-button @click="handleNoPass(scope.row)" type="text" size="small">不通过</el-button>
                 </div>
-                <el-tag
-                type="primary"
-                v-else-if="scope.row.status == 1"
-                disable-transitions
-                >已通过</el-tag>
-                <el-tag
-                type="danger"
-                v-else
-                disable-transitions
-                >不通过</el-tag>
+                <el-tag type="primary" v-else-if="scope.row.type == 1" disable-transitions>已通过</el-tag>
+                <el-tag type="danger" v-else disable-transitions>不通过</el-tag>
+                <el-button type="text" size="small" @click="handleDelete(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
         </div>
         <div class="page">
-          <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="10">
-          </el-pagination>
+          <el-pagination background layout="prev, pager, next" :total="10"></el-pagination>
         </div>
       </section>
     </div>
   </div>
 </template>
 <script>
+import { getCommunityCheck,getCommunityPass,getCommunityNoPass,getCommunityDelete } from '@/api/userCheck';
 export default {
   data() {
     return {
       tableData: [
         {
-          name: 'bigfat',
+          name: "bigfat",
           password: 111111,
-          email: '1964005690@qq.com',
-          phone: '13660365510',
-          cm_realname: '钟阳山社区',
-          cm_manager: '钟阳山',
-          cm_address: '上海市普陀区金沙江路 1518 弄',
-          date: '2019-04-11',
-          status: '0'
-        },
-        {
-          name: 'bigfat',
-          password: 111111,
-          email: '1964005690@qq.com',
-          phone: '13660365510',
-          cm_realname: '钟阳山社区',
-          cm_manager: '钟阳山',
-          cm_address: '上海市普陀区金沙江路 1518 弄',
-          date: '2019-04-11',
-          status: '2'
-        },
-        {
-          name: 'bigfat',
-          password: 111111,
-          email: '1964005690@qq.com',
-          phone: '13660365510',
-          cm_realname: '钟阳山社区',
-          cm_manager: '钟阳山',
-          cm_address: '上海市普陀区金沙江路 1518 弄',
-          date: '2019-04-11',
-          status: '1'
-        },
-        ]
+          email: "1964005690@qq.com",
+          phone: "13660365510",
+          cm_realname: "钟阳山社区",
+          cm_manager: "钟阳山",
+          cm_address: "上海市普陀区金沙江路 1518 弄",
+          date: "2019-04-11",
+          type: "0"
+        }
+      ]
     };
   },
   methods: {
-    toDetail() {
-      this.$router.push({
-        name: "project-detail"
+    handlePass(val) {
+        getCommunityPass({
+        id: val.id
+      }).then( req => {
+        this.$message.success(req.msg)
+        this.toCommunityCheck()
       })
     },
-    handlePass(val) {
-      val.status = 1;
-    },
     handleNoPass(val) {
-      val.status = 2;
+       getCommunityNoPass({
+        id: val.id
+      }).then( req => {
+        this.$message.success(req.msg)
+        this.toCommunityCheck()
+      })
     },
+      handleDelete(val) {
+      getCommunityDelete({
+        id: val.id
+      }).then( res => {
+        this.$message.success(res.msg)
+        this.toCommunityCheck()
+      })
+    },
+    toCommunityCheck(){
+    getCommunityCheck({}).then( (res) =>{
+      console.log(res)
+      this.tableData = res
+    })
+    }
   },
   mounted() {
+     this.toCommunityCheck()
   }
 };
 </script>
@@ -162,7 +111,7 @@ export default {
       .form {
         width: 700px;
       }
-     .page {
+      .page {
         margin: 70px auto 100px;
         display: flex;
         justify-content: center;

@@ -35,3 +35,39 @@ export function getVolunteerDelete(data = {}) {
         params: data
     }))
 }
+
+// 社区审核
+export function getCommunityCheck(data = {}) {
+  return fetch(Object.assign({
+      url: '/communityCheck',
+      method: 'get',
+      params:data
+  }))
+}
+
+// 社区审核通过
+export function getCommunityPass(data = {}) {
+  return fetch(Object.assign({
+      url: '/communityPass',
+      method: 'get',
+      params: data
+  }))
+}
+
+// 社区审核不通过
+export function getCommunityNoPass(data = {}) {
+  return fetch(Object.assign({
+      url: '/communityNoPass',
+      method: 'get',
+      params: data
+  }))
+}
+
+// 社区删除
+export function getCommunityDelete(data = {}) {
+  return fetch(Object.assign({
+      url: '/communityDelete',
+      method: 'get',
+      params: data
+  }))
+}

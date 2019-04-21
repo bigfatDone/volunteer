@@ -97,7 +97,6 @@ export default {
         realName: '',
         coding: '',
         manager: '',
-        date: '',
         phone: '',
         address: ''
       },
@@ -168,7 +167,6 @@ export default {
         realName: this.form.realName,
         coding: this.form.coding,
         manager: this.form.manager,
-        date: this.form.date,
         phone: this.form.phone,
         address: this.form.address,
         creatDate: this.getNowFormatDate()
