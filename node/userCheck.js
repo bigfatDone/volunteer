@@ -4,6 +4,7 @@ const db = require('./db.js')
 exports.volunteerCheck=(req,res)=>{
   let sql = 'select * from user where grade=2';
   db.base(sql,[],results=>{
+    console.log(results.length)
       res.json(results)
       console.log(results)
   })
@@ -40,6 +41,7 @@ exports.volunteerDelete=(req,res)=>{
 exports.communityCheck=(req,res)=>{
   let sql = 'select * from user where grade=3';
   db.base(sql,[],results=>{
+    console.log(results.length)
       res.json(results)
       console.log(results)
   })

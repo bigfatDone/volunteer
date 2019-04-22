@@ -107,6 +107,7 @@
   </div>
 </template>
 <script>
+import { getHelp} from '@/api/help'
 export default {
   data() {
     return {
@@ -116,7 +117,8 @@ export default {
         desc: "",
         address: "",
         name: "",
-        tel: ""
+        tel: "",
+        date: ""
       },
       rules: {
         header: [
@@ -145,10 +147,23 @@ export default {
     };
   },
   methods: {
+    toHelp() {
+      getHelp({
+        header: this.ruleForm.header,
+        region: this.ruleForm.region,
+        desc: this.ruleForm.desc,
+        address: this.ruleForm.address,
+        name: this.ruleForm.name,
+        phone: this.ruleForm.tel,
+        date: this.getNowFormatDate()
+      }).then( res=> {
+          this.$message.success(res.msg)
+      })
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.toHelp()
         } else {
           console.log("error submit!!");
           return false;
@@ -157,6 +172,22 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    // 获取当前时间
+    getNowFormatDate() {
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+      return currentdate;
     }
   }
 };

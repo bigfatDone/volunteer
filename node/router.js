@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const login = require('./login.js')
 const userCheck = require('./userCheck.js')
+const help = require('./help.js')
 
 // 志愿者与社区注册登录
 router.post('/volunteer/login',login.login);// 登录
@@ -42,6 +43,9 @@ router.get('/volunteer/communityPass',userCheck.communityPass);// 社区审核�
 router.get('/volunteer/communityNoPass',userCheck.communityNoPass);// 志愿者审核不通过
 router.get('/volunteer/communityDelete',userCheck.communityDelete);// 社区删除
 
+// help
+router.post('/volunteer/help',help.help);// 帮助表内容提交
+router.get('/volunteer/helpAll',help.helpAll);// 帮助表内容提交
 
 
 

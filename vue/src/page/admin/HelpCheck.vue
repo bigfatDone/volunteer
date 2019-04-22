@@ -6,70 +6,23 @@
           <span>求助信息管理</span>
         </div>
         <div class="form">
-          <el-table
-            :data="tableData"
-            border
-          >
-            <el-table-column
-              fixed
-              prop="header"
-              label="求助标题"
-              width="150">
-            </el-table-column>
-            <el-table-column
-              prop="region"
-              label="所在区域"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="desc"
-              label="求助内容"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="mark"
-              label="备注"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="详细地址"
-              width="150">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="求助人"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              prop="tel"
-              label="联系号码"
-              width="120">
-            </el-table-column>
-            <el-table-column
-              prop="date"
-              label="发布日期"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              fixed="right"
-              label="操作"
-              width="120">
+          <el-table :data="tableData" border>
+            <el-table-column fixed prop="title" label="求助标题" width="150"></el-table-column>
+            <el-table-column prop="area" label="所在区域" width="100"></el-table-column>
+            <el-table-column prop="content" label="求助内容" width="180"></el-table-column>
+            <el-table-column prop="mark" label="备注" width="120"></el-table-column>
+            <el-table-column prop="address" label="详细地址" width="150"></el-table-column>
+            <el-table-column prop="name" label="求助人" width="100"></el-table-column>
+            <el-table-column prop="phone" label="联系号码" width="120"></el-table-column>
+            <el-table-column prop="date" label="发布日期" width="100"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="120">
               <template slot-scope="scope">
-                <div v-if=" scope.row.status == 0">
+                <div v-if=" scope.row.grade == 0">
                   <el-button @click="handlePass(scope.row)" type="text" size="small">通过</el-button>
                   <el-button @click="handleNoPass(scope.row)" type="text" size="small">不通过</el-button>
                 </div>
-                <el-tag
-                type="primary"
-                v-else-if="scope.row.status == 1"
-                disable-transitions
-                >已通过</el-tag>
-                <el-tag
-                type="danger"
-                v-else
-                disable-transitions
-                >不通过</el-tag>
+                <el-tag type="primary" v-else-if="scope.row.grade == 1" disable-transitions>已通过</el-tag>
+                <el-tag type="danger" v-else disable-transitions>不通过</el-tag>
                 <el-button @click="dialogVisible = true" type="text" size="small">备注</el-button>
                 <el-button type="text" size="small">删除</el-button>
               </template>
@@ -77,31 +30,27 @@
           </el-table>
         </div>
         <div class="page">
-          <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="10">
-          </el-pagination>
+          <el-pagination background layout="prev, pager, next" :total="10"></el-pagination>
         </div>
       </section>
       <el-dialog :visible.sync="dialogVisible">
-         <el-form
+        <el-form
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
           label-width="130px"
           class="demo-ruleForm"
         >
-          <el-form-item label="求助标题：" prop="header">
-            <el-input v-model="ruleForm.header" placeholder="请输入求助标题"></el-input>
+          <el-form-item label="求助标题：" prop="title">
+            <el-input v-model="ruleForm.title" placeholder="请输入求助标题"></el-input>
           </el-form-item>
-          <el-form-item label="所在区域：" prop="region">
-            <el-select v-model="ruleForm.region" placeholder="请选择所在区域">
+          <el-form-item label="所在区域：" prop="area">
+            <el-select v-model="ruleForm.area" placeholder="请选择所在区域">
               <el-option label="茂名" value="茂名"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="求助内容：" prop="desc">
-            <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入求助内容"></el-input>
+          <el-form-item label="求助内容：" prop="content">
+            <el-input type="textarea" v-model="ruleForm.content" placeholder="请输入求助内容"></el-input>
           </el-form-item>
           <el-form-item label="备注：">
             <el-input type="textarea" v-model="ruleForm.mark" placeholder="请输入备注"></el-input>
@@ -112,53 +61,42 @@
           <el-form-item label="求助人：" prop="name">
             <el-input v-model="ruleForm.name" placeholder="请输入求助人姓名"></el-input>
           </el-form-item>
-          <el-form-item label="联系号码：" prop="tel">
-            <el-input v-model="ruleForm.tel" placeholder="请输入联系号码"></el-input>
+          <el-form-item label="联系号码：" prop="phone">
+            <el-input v-model="ruleForm.phone" placeholder="请输入联系号码"></el-input>
           </el-form-item>
         </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false" round>取 消</el-button>
-        <el-button type="primary" @click="submitForm('ruleForm')" round>修 改</el-button>
-      </div>
-    </el-dialog>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false" round>取 消</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')" round>修 改</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
 <script>
+import { getHelpAll } from "@/api/help";
 export default {
   data() {
     return {
-      dialogVisible:false,
-      tableData: [
-        {
-          header: '测试测试header',
-          region: '茂名',
-          desc: '帮助农村来的孩子吧！',
-          mark: 'null',
-          address: '上海市普陀区金沙江路 1518 弄',
-          name: '钟阳山',
-          tel: 13660365510,
-          date: '1995-02-09',
-          status: '0'
-        },
-        ],
-        ruleForm: {
-        header: "",
-        region: "",
-        desc: "",
+      dialogVisible: false,
+      tableData: [],
+      ruleForm: {
+        title: "",
+        area: "",
+        content: "",
         mark: "",
         address: "",
         name: "",
-        tel: ""
+        phone: ""
       },
       rules: {
-        header: [
+        title: [
           { required: true, message: "请输入活动名称", trigger: "blur" }
         ],
-        region: [
+        area: [
           { required: true, message: "请选择所在区域", trigger: "change" }
         ],
-        desc: [{ required: true, message: "请填写求助内容", trigger: "blur" }],
+        content: [{ required: true, message: "请填写求助内容", trigger: "blur" }],
         address: [{ required: true, message: "请填写地址", trigger: "blur" }],
         name: [
           {
@@ -167,7 +105,7 @@ export default {
             trigger: "blur"
           }
         ],
-        tel: [
+        phone: [
           {
             required: true,
             validator: this.checkRule.checkPhone,
@@ -181,14 +119,19 @@ export default {
     toDetail() {
       this.$router.push({
         name: "project-detail"
-      })
+      });
     },
     handlePass(val) {
-      val.status = 1;
+      val.grade = 1;
       console.log(val);
     },
     handleNoPass(val) {
-      val.status = 2;
+      val.grade = 2;
+    },
+    toHelpAll() {
+      getHelpAll({}).then(res => {
+        this.tableData = res;
+      });
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -199,9 +142,10 @@ export default {
           return false;
         }
       });
-    },
+    }
   },
   mounted() {
+    this.toHelpAll()
   }
 };
 </script>
@@ -224,7 +168,7 @@ export default {
       .form {
         width: 700px;
       }
-     .page {
+      .page {
         margin: 70px auto 100px;
         display: flex;
         justify-content: center;
