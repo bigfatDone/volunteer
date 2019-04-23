@@ -44,8 +44,12 @@ router.get('/volunteer/communityNoPass',userCheck.communityNoPass);// 志愿者�
 router.get('/volunteer/communityDelete',userCheck.communityDelete);// 社区删除
 
 // help
-router.post('/volunteer/help',help.help);// 帮助表内容提交
-router.get('/volunteer/helpAll',help.helpAll);// 帮助表内容提交
+router.post('/volunteer/help',help.help);// 求助表提交
+router.get('/volunteer/helpAll',help.helpAll);// 求助表搜索全部
+router.get('/volunteer/helpPass',help.helpPass);// 求助表审核通过
+router.get('/volunteer/helpNoPass',help.helpNoPass);// 求助表审核不通过
+router.get('/volunteer/helpDelete',help.helpDelete);// 求助表删除
+router.post('/volunteer/helpModify',help.helpModify);// 求助表修改
 
 
 

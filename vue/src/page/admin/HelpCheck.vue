@@ -6,7 +6,7 @@
           <span>求助信息管理</span>
         </div>
         <div class="form">
-          <el-table :data="tableData" border>
+          <el-table :data="tableData" border v-loading='loading'>
             <el-table-column fixed prop="title" label="求助标题" width="150"></el-table-column>
             <el-table-column prop="area" label="所在区域" width="100"></el-table-column>
             <el-table-column prop="content" label="求助内容" width="180"></el-table-column>
@@ -23,8 +23,8 @@
                 </div>
                 <el-tag type="primary" v-else-if="scope.row.grade == 1" disable-transitions>已通过</el-tag>
                 <el-tag type="danger" v-else disable-transitions>不通过</el-tag>
-                <el-button @click="dialogVisible = true" type="text" size="small">备注</el-button>
-                <el-button type="text" size="small">删除</el-button>
+                <el-button @click="mark(scope.row)" type="text" size="small">备注</el-button>
+                <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -74,13 +74,15 @@
   </div>
 </template>
 <script>
-import { getHelpAll } from "@/api/help";
+import { getHelpAll,getHelpPass,getHelpNoPass,getHelpDelete,getHelpModify } from "@/api/help";
 export default {
   data() {
     return {
+      loading: true,
       dialogVisible: false,
       tableData: [],
       ruleForm: {
+        id: "",
         title: "",
         area: "",
         content: "",
@@ -116,27 +118,69 @@ export default {
     };
   },
   methods: {
-    toDetail() {
-      this.$router.push({
-        name: "project-detail"
-      });
+    mark(val) {
+      console.log(val.id)
+      this.dialogVisible  = true;
+      this.ruleForm = val;
     },
     handlePass(val) {
-      val.grade = 1;
-      console.log(val);
+      this.toHelpPass(val)
     },
     handleNoPass(val) {
-      val.grade = 2;
+      this.toHelpPass(val)
+    },
+    handleDelete(val) {
+      this.toHelpDelete(val)
     },
     toHelpAll() {
       getHelpAll({}).then(res => {
         this.tableData = res;
+        this.loading = false;
+      });
+    },
+    toHelpPass(val) {
+      getHelpPass({
+        id: val.id
+      }).then(res => {
+        this.$message.success(res.msg)
+        this.toHelpAll()
+      });
+    },
+    toHelpNoPass(val) {
+      getHelpNoPass({
+        id: val.id
+      }).then(res => {
+        this.$message.success(res.msg)
+        this.toHelpAll()
+      });
+    },
+    toHelpDelete(val) {
+      getHelpDelete({
+        id: val.id
+      }).then(res => {
+        this.$message.success(res.msg)
+        this.toHelpAll()
+      });
+    },
+    toHelpModify(val) {
+      getHelpModify({
+        id: this.ruleForm.id,
+        title: this.ruleForm.title,
+        area: this.ruleForm.area,
+        content: this.ruleForm.content,
+        mark: this.ruleForm.mark,
+        address: this.ruleForm.address,
+        name: this.ruleForm.name,
+        phone: this.ruleForm.phone,
+      }).then(res => {
+        this.$message.success(res.msg)
+        this.toHelpAll()
       });
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.toHelpModify()
         } else {
           console.log("error submit!!");
           return false;

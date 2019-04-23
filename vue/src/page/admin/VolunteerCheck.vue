@@ -6,7 +6,7 @@
           <span>志愿者审核</span>
         </div>
         <div class="form">
-          <el-table :data="tableData" border>
+          <el-table :data="tableData" border v-loading='loading'>
             <el-table-column fixed prop="name" label="用户名" width="100"></el-table-column>
             <el-table-column prop="password" label="密码" width="100"></el-table-column>
             <el-table-column prop="phone" label="电话号码" width="120"></el-table-column>
@@ -43,21 +43,8 @@ import { getVolunteerCheck,getVolunteerPass,getVolunteerNoPass,getVolunteerDelet
 export default {
   data() {
     return {
-      tableData: [
-        {
-          name: "bigfat",
-          password: 111111,
-          email: "1964005690@qq.com",
-          phone: "13660365510",
-          user_name: "钟阳山",
-          user_card: 440923199502092154,
-          user_date: "1995-02-09",
-          user_politic: "团员",
-          user_address: "上海市普陀区金沙江路 1518 弄",
-          date: "2019-04-11",
-          type: "0"
-        }
-      ]
+      loading: true,
+      tableData: []
     };
   },
   methods: {
@@ -87,7 +74,7 @@ export default {
     },
     toVolunteerCheck(){
       getVolunteerCheck({}).then( (res) =>{
-        console.log(res)
+        this.loading = false;
         this.tableData = res
       })
     }

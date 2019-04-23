@@ -17,3 +17,39 @@ export function getHelpAll( data = {}) {
       params:data
   }))
 }
+
+// 求助信息通过
+export function getHelpPass( data = {}) {
+  return fetch(Object.assign({
+      url: '/helpPass',
+      method: 'get',
+      params:data
+  }))
+}
+
+// 求助信息不通过
+export function getHelpNoPass( data = {}) {
+  return fetch(Object.assign({
+      url: '/helpNoPass',
+      method: 'get',
+      params:data
+  }))
+}
+
+// 求助信息删除
+export function getHelpDelete( data = {}) {
+  return fetch(Object.assign({
+      url: '/helpDelete',
+      method: 'get',
+      params:data
+  }))
+}
+
+// 求助信息修改
+export function getHelpModify( data = {}) {
+  return fetch(Object.assign({
+      url: '/helpModify',
+      method: 'post',
+      data:data
+  }))
+}

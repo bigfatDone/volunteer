@@ -6,7 +6,7 @@
           <span>社区审核</span>
         </div>
         <div class="form">
-          <el-table :data="tableData" border>
+          <el-table :data="tableData" border v-loading='loading'>
             <el-table-column fixed prop="name" label="用户名" width="100"></el-table-column>
             <el-table-column prop="password" label="密码" width="100"></el-table-column>
             <el-table-column prop="phone" label="电话号码" width="120"></el-table-column>
@@ -40,6 +40,7 @@ import { getCommunityCheck,getCommunityPass,getCommunityNoPass,getCommunityDelet
 export default {
   data() {
     return {
+      loading: true,
       tableData: [
         {
           name: "bigfat",
@@ -82,7 +83,7 @@ export default {
     },
     toCommunityCheck(){
     getCommunityCheck({}).then( (res) =>{
-      console.log(res)
+      this.loading = false;
       this.tableData = res
     })
     }
