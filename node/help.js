@@ -58,3 +58,16 @@ exports.helpModify = (req,res)=>{
     res.json({flag:1,msg:'备注成功！'})
   })
 }
+
+// 搜索已通过求助信息
+exports.helpInfo = (req,res) => {
+  console.log(req.query.num)
+  let start = (req.num - 1) * 5 + 1;
+  let end = req.num * 5 + 1;
+  let sql = `select * from help where grade = '1' limit ?,?`;
+  let data = [start,end];
+  db.base(sql,data,results => {
+    console.log(results)
+    res.json(results)
+  })
+}

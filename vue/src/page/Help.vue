@@ -43,53 +43,27 @@
       </section>
       <div class="line"></div>
       <section class="publish">
-        <div class="item">
+        <div class="item" v-for="item in helpInfo" :key="item.id">
           <div class="item-title">
-            <span>如何申诉改名字？</span>
-            <span>2018-12-11</span>
+            <span>{{item.title}}</span>
+            <span>{{item.date}}</span>
           </div>
           <div class="item-info">
             <span>区域：</span>
-            <span>茂名</span>
+            <span>{{item.area}}</span>
             <span>详细地址：</span>
-            <span>牛路水村</span>
+            <span>{{item.address}}</span>
             <span>发布人：</span>
-            <span>钟阳山</span>
+            <span>{{item.name}}</span>
             <span>联系号码：</span>
-            <span>13660365510</span>
+            <span>{{item.phone}}</span>
           </div>
           <div class="item-desc">
-            我爱你baby！fasfasdfsadfasd法师法师法
-            法法撒旦法师法师fasfasf fas fasfsadf
+            {{item.content}}
           </div>
           <div class="line-small"></div>
           <div class="item-remark">
-            <span>备注：</span>
-          </div>
-          <div class="line"></div>
-        </div>
-        <div class="item">
-          <div class="item-title">
-            <span>如何申诉改名字？</span>
-            <span>2018-12-11</span>
-          </div>
-          <div class="item-info">
-            <span>区域：</span>
-            <span>茂名</span>
-            <span>详细地址：</span>
-            <span>牛路水村</span>
-            <span>发布人：</span>
-            <span>钟阳山</span>
-            <span>联系号码：</span>
-            <span>13660365510</span>
-          </div>
-          <div class="item-desc">
-            我爱你baby！fasfasdfsadfasd法师法师法
-            法法撒旦法师法师fasfasf fas fasfsadf
-          </div>
-          <div class="line-small"></div>
-          <div class="item-remark">
-            <span>备注：</span>
+            <span>备注：{{item.mark}}</span>
           </div>
           <div class="line"></div>
         </div>
@@ -99,7 +73,7 @@
             layout="prev, pager, next"
             prev-text="上一页"
             next-text="下一页"
-            :total="10"
+            :total="num"
           ></el-pagination>
         </div>
       </section>
@@ -107,10 +81,12 @@
   </div>
 </template>
 <script>
-import { getHelp} from '@/api/help'
+import { getHelp,getHelpInfo } from '@/api/help'
 export default {
   data() {
     return {
+      helpInfo: '',
+      num:10,
       ruleForm: {
         header: "",
         region: "",
@@ -146,6 +122,9 @@ export default {
       }
     };
   },
+  mounted() {
+    this.toHelpInfo()
+  },
   methods: {
     toHelp() {
       getHelp({
@@ -158,6 +137,7 @@ export default {
         date: this.getNowFormatDate()
       }).then( res=> {
           this.$message.success(res.msg)
+          this.$refs['ruleForm'].resetFields();
       })
     },
     submitForm(formName) {
@@ -188,6 +168,16 @@ export default {
       }
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
+    },
+    // 获取求助信息
+    toHelpInfo() {
+      getHelpInfo({
+        num: this.num/10
+      }).then( res => {
+        this.helpInfo = res;
+        console.log(1111)
+        console.log(res)
+      })
     }
   }
 };

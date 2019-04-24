@@ -43,13 +43,15 @@ router.get('/volunteer/communityPass',userCheck.communityPass);// 社区审核�
 router.get('/volunteer/communityNoPass',userCheck.communityNoPass);// 志愿者审核不通过
 router.get('/volunteer/communityDelete',userCheck.communityDelete);// 社区删除
 
-// help
+// 求助表
 router.post('/volunteer/help',help.help);// 求助表提交
 router.get('/volunteer/helpAll',help.helpAll);// 求助表搜索全部
 router.get('/volunteer/helpPass',help.helpPass);// 求助表审核通过
 router.get('/volunteer/helpNoPass',help.helpNoPass);// 求助表审核不通过
 router.get('/volunteer/helpDelete',help.helpDelete);// 求助表删除
 router.post('/volunteer/helpModify',help.helpModify);// 求助表修改
+router.get('/volunteer/helpInfo',help.helpInfo);// 搜索已通过求助表
+
 
 
 

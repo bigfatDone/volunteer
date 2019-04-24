@@ -53,3 +53,12 @@ export function getHelpModify( data = {}) {
       data:data
   }))
 }
+
+// 获取所以求助信息
+export function getHelpInfo( data = {}) {
+  return fetch(Object.assign({
+      url: '/helpInfo',
+      method: 'get',
+      params:data
+  }))
+}
