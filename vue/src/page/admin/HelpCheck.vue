@@ -30,7 +30,15 @@
           </el-table>
         </div>
         <div class="page">
-          <el-pagination background layout="prev, pager, next" :total="10"></el-pagination>
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :current-page='page'
+            @current-change='pageChange'
+            :total="num"
+            @prev-click='prev()'
+            @next-click='next()'
+          ></el-pagination>
         </div>
       </section>
       <el-dialog :visible.sync="dialogVisible">
@@ -81,6 +89,8 @@ export default {
       loading: true,
       dialogVisible: false,
       tableData: [],
+      num:10,
+      page: 1,
       ruleForm: {
         id: "",
         title: "",
@@ -186,7 +196,21 @@ export default {
           return false;
         }
       });
-    }
+    },
+     // 上一页
+    prev() {
+      this.page -= 1;
+      // this.toHelpInfo()
+    },
+    // 下一页
+    next() {
+      this.page += 1;
+      // this.toHelpInfo()
+    },
+    pageChange(val) {
+      this.page = val
+      // this.toHelpInfo()
+    } 
   },
   mounted() {
     this.toHelpAll()

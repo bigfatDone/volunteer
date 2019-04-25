@@ -62,3 +62,12 @@ export function getHelpInfo( data = {}) {
       params:data
   }))
 }
+
+// 获取所以求助信息
+export function getHelpTotal( data = {}) {
+  return fetch(Object.assign({
+      url: '/helpTotal',
+      method: 'get',
+      params:data
+  }))
+}

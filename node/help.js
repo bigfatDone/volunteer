@@ -1,5 +1,10 @@
 const db = require('./db.js')
 
+function page(val,num) {
+  let start = (val - 1) * num;
+  let end = val * num;
+  return [start,end]
+}
 // 帮助表发布
 exports.help = (req,res)=>{
   let msg = req.body;
@@ -12,9 +17,9 @@ exports.help = (req,res)=>{
 
 // 搜索全部请求内容
 exports.helpAll = (req,res) => {
-  let sql = `select * from help `;
-  db.base(sql,[],results => {
-    console.log(results)
+  let data = page(req.query.page,5)
+  let sql = `select * from help order by id desc limit ?,?`;
+  db.base(sql,data,results => {
     res.json(results)
   })
 }
@@ -45,7 +50,7 @@ exports.helpDelete = (req,res)=>{
   console.log(msg)
   let sql = `delete from help where id='${msg.id}'`
   db.base(sql,[],(results)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
-    res.json({flag:1,msg:'审核成功！'})
+    res.json({flag:1,msg:'审核成功！'}) 
   })
 }
 
@@ -61,13 +66,20 @@ exports.helpModify = (req,res)=>{
 
 // 搜索已通过求助信息
 exports.helpInfo = (req,res) => {
-  console.log(req.query.num)
-  let start = (req.num - 1) * 5 + 1;
-  let end = req.num * 5 + 1;
-  let sql = `select * from help where grade = '1' limit ?,?`;
-  let data = [start,end];
-  db.base(sql,data,results => {
-    console.log(results)
-    res.json(results)
+  let data = page(req.query.page,5)
+  let sql =  `select * from help where grade = '1' order by id desc limit ?,? `; 
+   db.base(sql,data,results => {
+    res.json(results);
   })
 }
+
+// 求助信息页数
+exports.helpTotal = (req,res) => {
+  let total = 0;
+  let sqlLength = 'select * from help where grade = 1';
+ db.base(sqlLength,[],results => {
+  total =  Math.ceil(results.length / 5)
+   res.json({'total':total})
+  })
+}
+

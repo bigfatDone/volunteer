@@ -50,7 +50,8 @@ router.get('/volunteer/helpPass',help.helpPass);// 求助表审核通过
 router.get('/volunteer/helpNoPass',help.helpNoPass);// 求助表审核不通过
 router.get('/volunteer/helpDelete',help.helpDelete);// 求助表删除
 router.post('/volunteer/helpModify',help.helpModify);// 求助表修改
-router.get('/volunteer/helpInfo',help.helpInfo);// 搜索已通过求助表
+router.get('/volunteer/helpInfo',help.helpInfo);// 搜索已通过求助表（分页）
+router.get('/volunteer/helpTotal',help.helpTotal);// 搜索已通过求助表total
 
 
 

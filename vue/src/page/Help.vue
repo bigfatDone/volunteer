@@ -71,9 +71,11 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            prev-text="上一页"
-            next-text="下一页"
+            :current-page='page'
+            @current-change='pageChange'
             :total="num"
+            @prev-click='prev()'
+            @next-click='next()'
           ></el-pagination>
         </div>
       </section>
@@ -81,12 +83,13 @@
   </div>
 </template>
 <script>
-import { getHelp,getHelpInfo } from '@/api/help'
+import { getHelp,getHelpInfo,getHelpTotal } from '@/api/help'
 export default {
   data() {
     return {
       helpInfo: '',
       num:10,
+      page: 1,
       ruleForm: {
         header: "",
         region: "",
@@ -123,7 +126,8 @@ export default {
     };
   },
   mounted() {
-    this.toHelpInfo()
+    this.toHelpInfo();
+    this.toHelpTotal();
   },
   methods: {
     toHelp() {
@@ -172,13 +176,32 @@ export default {
     // 获取求助信息
     toHelpInfo() {
       getHelpInfo({
-        num: this.num/10
+        page: this.page
       }).then( res => {
         this.helpInfo = res;
-        console.log(1111)
-        console.log(res)
       })
-    }
+    },
+    // 获取求助信息total
+    toHelpTotal() {
+      getHelpTotal({
+      }).then( res => {
+        this.num = res.total*10;
+      })
+    },
+    // 上一页
+    prev() {
+      this.page -= 1;
+      this.toHelpInfo()
+    },
+    // 下一页
+    next() {
+      this.page += 1;
+      this.toHelpInfo()
+    },
+    pageChange(val) {
+      this.page = val
+      this.toHelpInfo()
+    } 
   }
 };
 </script>
