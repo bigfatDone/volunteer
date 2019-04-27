@@ -10,17 +10,13 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="标题：" prop="header">
-            <el-input v-model="ruleForm.header" placeholder="请输入标题"></el-input>
+          <el-form-item label="标题：" prop="title">
+            <el-input v-model="ruleForm.title" placeholder="请输入标题"></el-input>
           </el-form-item>
           <div class="editor">
             <quill-editor
               v-model="content"
               ref="myQuillEditor"
-              :options="editorOption"
-              @blur="onEditorBlur($event)"
-              @focus="onEditorFocus($event)"
-              @change="onEditorChange($event)"
             ></quill-editor>
           </div>
           <el-form-item class="btn">
@@ -33,48 +29,65 @@
   </div>
 </template>
 <script>
+import { getNews } from '@/api/news'
 export default {
   data() {
     return {
       content: null,
-      editorOption: {},
       ruleForm: {
-        header: ""
+        title: ""
       },
       rules: {
-        header: [{ required: true, message: "请输入标题", trigger: "blur" }]
+        title: [{ required: true, message: "请输入标题", trigger: "blur" }]
       }
     };
   },
   methods: {
+    // 提交志愿信息
+    toNews(val) {
+      getNews({
+        title: this.ruleForm.title,
+        content: this.content,
+        date: this.getNowFormatDate()
+        }).then(res => {
+          this.$message.success(res.msg)
+          this.resetForm();
+      });
+    },
+    // 提交按钮
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.toNews();
         } else {
           console.log("error submit!!");
           return false;
         }
       });
     },
+    // 重置按钮
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.ruleForm.title = "";
       this.content = "";
     },
-    onEditorBlur() {
-      //失去焦点事件
-    },
-    onEditorFocus() {
-      //获得焦点事件
-    },
-    onEditorChange() {
-      //内容改变事件
+     // 获取当前时间
+    getNowFormatDate() {
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+      return currentdate;
     }
   },
   watch: {
-    content(val) {
-      console.log(val);
-    }
   }
 };
 </script>

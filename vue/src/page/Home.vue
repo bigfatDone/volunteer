@@ -46,7 +46,7 @@
             <div class="title">
               <p>
                 <span>热点资讯</span>
-                <span>更多>></span>
+                <router-link :to="{name:'news'}" tag="span">更多>></router-link>
                 </p>
             </div>
             <div class="details">
@@ -70,8 +70,8 @@
           <div class="volunteer-info info-right clearfix">
             <div class="title">
               <p>
-                <span>最新项目</span>
-                <span>更多>></span>
+                <span>志愿人物</span>
+                <router-link :to="{name:'personage'}" tag="span">更多>></router-link>
                 </p>
             </div>
             <div class="details">
@@ -100,7 +100,7 @@
         <div class="excellent">
           <div class="title">
               <p>
-                <span>优秀志愿者</span>
+                <span>志愿项目</span>
                 <span>更多>></span>
               </p>
             </div>
@@ -322,6 +322,7 @@
           }
           span:nth-child(2){
             font-size: 16px;
+            cursor: pointer;
           }
         }
       }

@@ -17,9 +17,9 @@ exports.help = (req,res)=>{
 
 // 搜索全部请求内容
 exports.helpAll = (req,res) => {
-  let data = page(req.query.page,5)
-  let sql = `select * from help order by id desc limit ?,?`;
-  db.base(sql,data,results => {
+  let sql = `select * from help  order by id desc`;
+  db.base(sql,[],results => {
+    console.log(results)
     res.json(results)
   })
 }
@@ -60,7 +60,7 @@ exports.helpModify = (req,res)=>{
   console.log(msg)
   let sql = `update help set  title='${msg.title}',area='${msg.area}',content='${msg.content}',mark='${msg.mark}',address='${msg.address}',name='${msg.name}',phone='${msg.phone}' where id='${msg.id}'`
   db.base(sql,[],(results)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
-    res.json({flag:1,msg:'备注成功！'})
+    res.json({flag:1,msg:'修改成功！'})
   })
 }
 

@@ -14,23 +14,14 @@
           </div>
           <div class="news">
             <ul class="details">
-              <li v-for="(item,index) in dataOne" :key="index">
+              <li v-for="(item,index) in dataOne" :key="index" @click="toDetail(item.id)">
                 <p class="ys-text-ellipsis">
                   <img src="~@/../static/images/point.png" alt>
                   <span
                     class="ys-text-ellipsis"
-                  >本市举办2019年“爱满gsdgsdfgsdffgsdf gsdfgsdfgsdfgsfgsdfgsdf京城”首都学雷锋</span>
+                  >{{ item.title}}</span>
                 </p>
-                <span class="time">2018-11-12</span>
-              </li>
-              <li>
-                <p class="ys-text-ellipsis">
-                  <img src="~@/../static/images/point.png" alt>
-                  <span
-                    class="ys-text-ellipsis"
-                  >本市举办2019年“爱满gsdgsdfgsdffgsdf gsdfgsdfgsdfgsfgsdfgsdf京的說法是的法師打發</span>
-                </p>
-                <span class="time">2018-11-12</span>
+                <span class="time">{{ item.date}}</span>
               </li>
             </ul>
           </div>
@@ -42,23 +33,14 @@
           </div>
           <div class="news">
             <ul class="details">
-              <li>
+              <li v-for="(item,index) in dataTwo" :key="index" @click="toDetail(item.id)">
                 <p class="ys-text-ellipsis">
                   <img src="~@/../static/images/point.png" alt>
                   <span
                     class="ys-text-ellipsis"
-                  >本市举办2019年“爱满gsdgsdfgsdffgsdf gsdfgsdfgsdfgsfgsdfgsdf京城”首都学雷锋</span>
+                  >{{ item.title}}</span>
                 </p>
-                <span class="time">2018-11-12</span>
-              </li>
-              <li>
-                <p class="ys-text-ellipsis">
-                  <img src="~@/../static/images/point.png" alt>
-                  <span
-                    class="ys-text-ellipsis"
-                  >本市举办2019年“爱满gsdgsdfgsdffgsdf gsdfgsdfgsdfgsfgsdfgsdf京的說法是的法師打發</span>
-                </p>
-                <span class="time">2018-11-12</span>
+                <span class="time">{{ item.date}}</span>
               </li>
             </ul>
           </div>
@@ -70,80 +52,71 @@
           </div>
           <div class="news">
             <ul class="details">
-              <li>
+               <li v-for="(item,index) in dataThree" :key="index" @click="toDetail(item.id)">
                 <p class="ys-text-ellipsis">
                   <img src="~@/../static/images/point.png" alt>
                   <span
                     class="ys-text-ellipsis"
-                  >本市举办2019年“爱满gsdgsdfgsdffgsdf gsdfgsdfgsdfgsfgsdfgsdf京城”首都学雷锋</span>
+                  >{{ item.title}}</span>
                 </p>
-                <span class="time">2018-11-12</span>
-              </li>
-              <li>
-                <p class="ys-text-ellipsis">
-                  <img src="~@/../static/images/point.png" alt>
-                  <span
-                    class="ys-text-ellipsis"
-                  >本市举办2019年“爱满gsdgsdfgsdffgsdf gsdfgsdfgsdfgsfgsdfgsdf京的說法是的法師打發</span>
-                </p>
-                <span class="time">2018-11-12</span>
+                <span class="time">{{ item.date}}</span>
               </li>
             </ul>
           </div>
         </section>
       </div>
       <aside>
-        <div class="recommend recommend-project">
-          <div class="title">最新项目</div>
-          <ul class="details">
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-          </ul>
-        </div>
-        <div class="recommend recommend-news">
-          <div class="title">热点资讯</div>
-          <ul class="details">
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-          </ul>
-        </div>
+        <v-aside></v-aside>
       </aside>
     </div>
   </div>
 </template>
 <script>
+import { getPersonageOne,getPersonageTwo,getPersonageThree } from "@/api/personage";
 export default {
   data() {
-    return {};
+    return {
+      dataOne: [],
+      dataTwo: [],
+      dataThree: []
+    }
   },
   methods: {
-    toDetail() {
+    // 获取风采信息
+    toGetPersonageOne(){
+      getPersonageOne({}).then( res=> {
+        this.dataOne = res;
+      })
+    },
+    // 获取故事信息
+    toGetPersonageTwo(){
+      getPersonageTwo({}).then( res=> {
+        this.dataTwo = res;
+      })
+    },
+    // 获取心语信息
+    toGetPersonageThree(){
+      getPersonageThree({}).then( res=> {
+        this.dataThree = res;
+      })
+    },
+    // 跳转详情
+    toDetail(val) {
       this.$router.push({
-        name: "project-detail"
+        name: "detail",
+        query:{
+          id: val,
+          type: 'personage'
+        }
       });
     }
+  },
+  mounted() {
+    this.toGetPersonageOne()
+    this.toGetPersonageTwo()
+    this.toGetPersonageThree()
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .container {

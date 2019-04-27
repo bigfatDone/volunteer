@@ -24,10 +24,6 @@
             <quill-editor
               v-model="content"
               ref="myQuillEditor"
-              :options="editorOption"
-              @blur="onEditorBlur($event)"
-              @focus="onEditorFocus($event)"
-              @change="onEditorChange($event)"
             ></quill-editor>
           </div>
           <el-form-item class="btn">
@@ -40,11 +36,11 @@
   </div>
 </template>
 <script>
+import { getPersonage } from "@/api/personage";
 export default {
   data() {
     return {
       content: null,
-      editorOption: {},
       ruleForm: {
         title: "",
         type: ""
@@ -56,10 +52,23 @@ export default {
     };
   },
   methods: {
+    toPersonage() {
+      getPersonage({
+        title: this.ruleForm.title,
+        type: this.ruleForm.type,
+        content: this.content,
+        date: this.getNowFormatDate()
+      }).then( res=> {
+        this.$message.success(res.msg)
+        this.content = "",
+        this.ruleForm.title = "",
+        this.ruleForm.type = ""
+      }) 
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.toPersonage()
         } else {
           console.log("error submit!!");
           return false;
@@ -70,20 +79,24 @@ export default {
       this.$refs[formName].resetFields();
       this.content = "";
     },
-    onEditorBlur() {
-      //失去焦点事件
-    },
-    onEditorFocus() {
-      //获得焦点事件
-    },
-    onEditorChange() {
-      //内容改变事件
+      // 获取当前时间
+    getNowFormatDate() {
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+      return currentdate;
     }
   },
   watch: {
-    content(val) {
-      console.log(val);
-    }
   }
 };
 </script>

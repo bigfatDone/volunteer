@@ -42,40 +42,7 @@
         </div>
       </section>
       <aside>
-        <div class="recommend recommend-project">
-          <div class="title">最新项目</div>
-          <ul class="details">
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-          </ul>
-        </div>
-        <div class="recommend recommend-news">
-          <div class="title">热点资讯</div>
-          <ul class="details">
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-          </ul>
-        </div>
+        <v-aside></v-aside>
       </aside>
     </div>
   </div>

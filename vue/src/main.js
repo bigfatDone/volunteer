@@ -56,6 +56,10 @@ import 'quill/dist/quill.bubble.css'
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts 
 
+// aside组件
+import aside from '@/components/aside.vue'
+Vue.component('v-aside', aside)
+
 // 设置路由跳转
 router.afterEach((to, from, next) => {
   // 设置路由跳转回到顶部

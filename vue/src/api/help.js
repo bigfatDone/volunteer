@@ -12,7 +12,7 @@ export function getHelp( data = {}) {
 // 获取所以求助信息
 export function getHelpAll( data = {}) {
   return fetch(Object.assign({
-      url: '/helpAll',
+      url: '/helpAll', 
       method: 'get',
       params:data
   }))
@@ -63,7 +63,7 @@ export function getHelpInfo( data = {}) {
   }))
 }
 
-// 获取所以求助信息
+// 获取所以求助信息页码
 export function getHelpTotal( data = {}) {
   return fetch(Object.assign({
       url: '/helpTotal',

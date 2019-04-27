@@ -10,23 +10,14 @@
         <h2>志愿快讯</h2>
         <div class="news">
           <ul class="details">
-            <li>
+            <li class="item" v-for=" (item,index) in data" :key="index" @click="toDetail(item.id)">
               <p class="ys-text-ellipsis">
                 <img src="~@/../static/images/point.png" alt>
                 <span
                   class="ys-text-ellipsis"
-                >志愿资讯测试数据测试。。</span>
+                >{{ item.title }}</span>
               </p>
-              <span class="time">2018-11-12</span>
-            </li>
-            <li>
-              <p class="ys-text-ellipsis">
-                <img src="~@/../static/images/point.png" alt>
-                <span
-                  class="ys-text-ellipsis"
-                >本市举办2019年“爱满茂名”的志愿活动</span>
-              </p>
-              <span class="time">2018-11-12</span>
+              <span class="time">{{ item.date }}</span>
             </li>
           </ul>
         </div>
@@ -41,59 +32,38 @@
         </div>
       </section>
       <aside>
-        <div class="recommend recommend-project">
-          <div class="title">最新项目</div>
-          <ul class="details">
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-          </ul>
-        </div>
-        <div class="recommend recommend-news">
-          <div class="title">热点资讯</div>
-          <ul class="details">
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-            <li class="clearfix">
-              <span>
-                <img src="~@/../static/images/point.png" alt>
-              </span>
-              <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-            </li>
-          </ul>
-        </div>
+        <v-aside></v-aside>
       </aside>
     </div>
   </div>
 </template>
 <script>
+import { getNewsAll } from "@/api/news";
 export default {
   data() {
     return {
+      data: []
     };
   },
   methods: {
-    toDetail() {
+    // 获取全部信息
+    toGetNewsAll(){
+      getNewsAll({}).then( res=> {
+        this.data = res;
+      })
+    },
+    toDetail(val) {
       this.$router.push({
-        name: "project-detail"
+        name: "detail",
+        query:{
+          id: val,
+          type: 'news'
+        }
       });
     }
   },
   mounted() {
-    console.log(this.$route)
+    this.toGetNewsAll()
   }
 };
 </script>

@@ -8,7 +8,7 @@
       <el-table-column label="管理" width="120">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="handlePass(scope.row)">修 改</el-button>
-          <el-button type="text" size="small" @click="handlePass(scope.row)">删 除</el-button>
+          <el-button type="text" size="small" @click="handleDelete(scope.row)">删 除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -25,17 +25,13 @@
           class="demo-ruleForm"
         >
           <div class="title">资讯修改</div>
-          <el-form-item label="标题：" prop="header">
-            <el-input v-model="ruleForm.header" placeholder="请输入标题"></el-input>
+          <el-form-item label="标题：" prop="title">
+            <el-input v-model="ruleForm.title" placeholder="请输入标题"></el-input>
           </el-form-item>
           <div class="editor">
             <quill-editor
               v-model="content"
               ref="myQuillEditor"
-              :options="editorOption"
-              @blur="onEditorBlur($event)"
-              @focus="onEditorFocus($event)"
-              @change="onEditorChange($event)"
             ></quill-editor>
           </div>
         </el-form>
@@ -49,40 +45,42 @@
 </template>
 
 <script>
+import { getNewsAll,getNewsModify,getNewsDelete } from "@/api/news";
 export default {
   data() {
     return {
       dialogVisible: false,
-      tableData: [
-        {
-          title: "法师法师法撒发生大公司的股份收到广东省分公司大股东幅度发",
-          date: '2015-11-12'
-        },
-        {
-          title: "发生发撒的发生的发放",
-          date: '2015-11-12'
-        }
-      ],
+      tableData: [],
+      id: '',
       content: null,
-      editorOption: {},
       ruleForm: {
-        header: ""
+        title: ""
       },
       rules: {
-        header: [{ required: true, message: "请输入标题", trigger: "blur" }]
+        title: [{ required: true, message: "请输入标题", trigger: "blur" }]
       }
     };
   },
-
   methods: {
     handlePass(val) {
       this.dialogVisible = true;
-      console.log(val.title);
+      this.content = val.content;
+      this.ruleForm.title = val.title;
+      this.id = val.id;
+    },
+    handleDelete(val) {
+      getNewsDelete({
+        id: val.id
+      }).then(res => {
+        this.$message.success(res.msg)
+        this.toNewsAll()
+      });
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.toNewsModify()
+          this.dialogVisible = false;
         } else {
           console.log("error submit!!");
           return false;
@@ -90,18 +88,29 @@ export default {
       });
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.title ="";
       this.content = "";
     },
-    onEditorBlur() {
-      //失去焦点事件
+    // 获取所有新闻信息
+    toNewsAll() {
+      getNewsAll({}).then( res => {
+        this.tableData = res
+      })
     },
-    onEditorFocus() {
-      //获得焦点事件
-    },
-    onEditorChange() {
-      //内容改变事件
+    // 修改新闻
+    toNewsModify() {
+      getNewsModify({
+        id: this.id,
+        title: this.ruleForm.title,
+        content: this.content,
+      }).then(res => {
+        this.$message.success(res.msg)
+        this.toNewsAll()
+      });
     }
+  },
+  mounted() {
+    this.toNewsAll();
   }
 };
 </script>

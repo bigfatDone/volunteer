@@ -9,7 +9,7 @@
       <el-table-column label="管理" width="120">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="handlePass(scope.row)">修改</el-button>
-          <el-button type="text" size="small" @click="handlePass(scope.row)">删除</el-button>
+          <el-button type="text" size="small" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -25,7 +25,7 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-        <div class="title">资讯修改</div>
+        <div class="title">志愿人物修改</div>
           <el-form-item label="标题：" prop="title">
             <el-input v-model="ruleForm.title" placeholder="请输入标题"></el-input>
           </el-form-item>
@@ -40,10 +40,6 @@
             <quill-editor
               v-model="content"
               ref="myQuillEditor"
-              :options="editorOption"
-              @blur="onEditorBlur($event)"
-              @focus="onEditorFocus($event)"
-              @change="onEditorChange($event)"
             ></quill-editor>
           </div>
         </el-form>
@@ -57,11 +53,12 @@
 </template>
 
 <script>
+import { getPersonageAll,getPersonageModify,getPersonageDelete } from "@/api/personage";
 export default {
   data() {
     return {
        content: null,
-      editorOption: {},
+       id: "",
       ruleForm: {
         title: "",
         type: ""
@@ -71,30 +68,41 @@ export default {
         type: [{ required: true, message: "请输入类型", trigger: "blur" }]
       },
       dialogVisible: false,
-      tableData: [
-        {
-          title: "法师法师法撒发生大公司的股份收到广东省分公司大股东幅度发",
-          type: '0',
-          date: '2015-11-12'
-        },
-        {
-          title: "发生发撒的发生的发放",
-          type: '1',
-          date: '2015-11-12'
-        }
-      ],
+      tableData: [],
     };
   },
-
   methods: {
     handlePass(val) {
       this.dialogVisible = true;
-      console.log(val.title);
+      this.content = val.content;
+      this.ruleForm.title = val.title;
+      this.ruleForm.type = val.type;
+      this.id = val.id;
+      switch(val.type) {
+        case 0:
+          this.ruleForm.type = '志愿者风采';
+          break;
+        case 1:
+          this.ruleForm.type = '志愿者故事';
+          break;
+        case 2:
+          this.ruleForm.type = '志愿者心语';
+          break;
+      }
+    },
+    handleDelete(val) {
+      getPersonageDelete({
+        id: val.id
+      }).then(res => {
+        this.$message.success(res.msg)
+        this.toPersonageAll()
+      });
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.toPersonageModify()
+          this.dialogVisible = false;
         } else {
           console.log("error submit!!");
           return false;
@@ -105,15 +113,36 @@ export default {
       this.$refs[formName].resetFields();
       this.content = "";
     },
-    onEditorBlur() {
-      //失去焦点事件
+     // 获取所有志愿人物信息
+    toPersonageAll() {
+      getPersonageAll({}).then( res => {
+        this.tableData = res
+      })
     },
-    onEditorFocus() {
-      //获得焦点事件
-    },
-    onEditorChange() {
-      //内容改变事件
+    // 修改志愿人物
+    toPersonageModify() {
+      if( this.ruleForm.type == '志愿者风采') {
+        this.ruleForm.type = 0;
+      } else if( this.ruleForm.type == '志愿者故事'){
+        this.ruleForm.type = 1;
+      } else if( this.ruleForm.type == '志愿者心语'){
+        this.ruleForm.type = 2;
+      } else {
+        this.ruleForm.type = this.ruleForm.type;
+      }
+      getPersonageModify({
+        id: this.id,
+        title: this.ruleForm.title,
+        type: this.ruleForm.type,
+        content: this.content,
+      }).then(res => {
+        this.$message.success(res.msg)
+        this.toPersonageAll()
+      });
     }
+  },
+   mounted() {
+    this.toPersonageAll();
   }
 };
 </script>
