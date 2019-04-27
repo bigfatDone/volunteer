@@ -14,7 +14,7 @@
           </div>
           <div class="news">
             <ul class="details">
-              <li>
+              <li v-for="(item,index) in dataOne" :key="index">
                 <p class="ys-text-ellipsis">
                   <img src="~@/../static/images/point.png" alt>
                   <span
