@@ -64,4 +64,6 @@ router.get('/volunteer/personageDetail',common.personageDetail);// 获取志愿�
 router.get('/volunteer/getNews',common.getNews);// 获取志愿新闻
 
 
+router.post('/files',common.fileData);// 志愿人物修改
+
 module.exports = router;

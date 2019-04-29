@@ -25,3 +25,18 @@ exports.getNews = (req,res) => {
     res.json(results)
   })
 }
+
+
+// 图片上传
+exports.fileData = (req,res) => {
+  let avatarUrl = ''
+  console.dir(req.files)
+  req.files.forEach(file => {
+      if (file.fieldname === 'file') {   // avatar  就是前端存储头像的name字段
+          avatarUrl = file.filename    // filename 就是对应要存到数据库的字段
+      }
+  })
+  console.log(avatarUrl)
+  res.json(avatarUrl)
+}
+

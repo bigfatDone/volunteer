@@ -13,6 +13,17 @@
           <el-form-item label="标题：" prop="header">
             <el-input v-model="ruleForm.header" placeholder="请输入标题"></el-input>
           </el-form-item>
+          <el-form-item label="活动图片：" prop="header">
+            <el-upload
+              class="avatar-uploader"
+              action="http://localhost:3001/files"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+            >
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
           <el-form-item label="所在区域：" prop="region">
             <el-select v-model="ruleForm.region" placeholder="请选择所在区域">
               <el-option label="茂名" value="茂名"></el-option>
@@ -102,6 +113,7 @@
 export default {
   data() {
     return {
+      imageUrl: "",
       ruleForm: {
         header: "",
         region: "",
@@ -155,6 +167,10 @@ export default {
     };
   },
   methods: {
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+      console.log(file.response);
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -211,6 +227,29 @@ export default {
     height: 110px;
     font-size: 15px;
   }
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>
 
