@@ -96,10 +96,8 @@
             </section>
             <aside>
               <div class="recommend recommend-project">
-                <div class="title">
-                  最新项目
-                </div>
-                <ul class="details">
+          <div class="title">最新项目</div>
+          <ul class="details">
                     <li class="clearfix"><span><img src="~@/../static/images/point.png" alt=""></span><span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span></li>
                     <li class="clearfix"><span><img src="~@/../static/images/point.png" alt=""></span><span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span></li>
                 </ul>
