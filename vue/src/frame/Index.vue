@@ -35,8 +35,8 @@
             <router-link tag="li" to="/help" class="nav-hover">求助中心</router-link>
             <router-link tag="li" to="/news" class="nav-hover">志愿快讯</router-link>
             <router-link tag="li" to="/personage" class="nav-hover">志愿人物</router-link>
-            <router-link tag="li" to="/publish" class="nav-hover" v-show=" this.$store.state.userInfo.grade  === 3">发布项目</router-link>
-            <router-link tag="li" to="/audit" class="nav-hover" v-show=" this.$store.state.userInfo.grade  === 3">审核</router-link>
+            <router-link tag="li" to="/publish" class="nav-hover" v-show=" this.$store.state.userInfo.grade === 3">发布项目</router-link>
+            <router-link tag="li" to="/audit" class="nav-hover" v-show=" this.$store.state.userInfo.grade === 3">审核</router-link>
           </ul>
         </nav>
         <router-view></router-view>
