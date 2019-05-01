@@ -8,21 +8,22 @@
         <div class="content">
             <section>
                 <div class="list">
-                    <div class="item" @click="toDetail()">
+                    <div class="item" @click="toDetail(project)" v-for=" project in projectData" :key="project.id">
                         <div class="time">
-                          2018-12-12
+                          {{project.date}}
                         </div>
                         <div class="icon">
-                          <img src="~@/../static/images/noimg.jpg" alt="">
+                          <img :src='project.pic' alt="">
                         </div>
-                        <div class="desc yn-text-ellipsis">
-                          志愿茂名
+                        <div class="desc ys-text-ellipsis">
+                          {{project.title}}
                         </div>
                         <div class="condition">
                           <div class="condition-left">
-                            <span>人数：88</span>
+                            <span>人数：{{project.number}}</span>
                           </div>
-                          <div class="condition-right">招募中</div>
+                          <div class="condition-right working" v-show="project.type === 1">招募中</div>
+                          <div class="condition-right end" v-show="project.type === 0">已结束</div>
                         </div>
                         <div class="progress">
                           <div class="num">
@@ -30,116 +31,8 @@
                             <p>0</p>
                           </div>
                           <div class="end">
-                            <p>距离结束</p>
-                            <p>12天</p>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="time">
-                          2018-12-12
-                        </div>
-                        <div class="icon">
-                          <img src="~@/../static/images/noimg.jpg" alt="">
-                        </div>
-                        <div class="desc yn-text-ellipsis">
-                          志愿茂名
-                        </div>
-                        <div class="condition">
-                          <div class="condition-left">
-                            <span>人数：88</span>
-                          </div>
-                          <div class="condition-right">招募中</div>
-                        </div>
-                        <div class="progress">
-                          <div class="num">
-                            <p>报名人数</p>
-                            <p>0</p>
-                          </div>
-                          <div class="end">
-                            <p>距离结束</p>
-                            <p>12天</p>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="time">
-                          2018-12-12
-                        </div>
-                        <div class="icon">
-                          <img src="~@/../static/images/noimg.jpg" alt="">
-                        </div>
-                        <div class="desc yn-text-ellipsis">
-                          志愿茂名
-                        </div>
-                        <div class="condition">
-                          <div class="condition-left">
-                            <span>人数：88</span>
-                          </div>
-                          <div class="condition-right">招募中</div>
-                        </div>
-                        <div class="progress">
-                          <div class="num">
-                            <p>报名人数</p>
-                            <p>0</p>
-                          </div>
-                          <div class="end">
-                            <p>距离结束</p>
-                            <p>12天</p>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="time">
-                          2018-12-12
-                        </div>
-                        <div class="icon">
-                          <img src="~@/../static/images/noimg.jpg" alt="">
-                        </div>
-                        <div class="desc yn-text-ellipsis">
-                          志愿茂名
-                        </div>
-                        <div class="condition">
-                          <div class="condition-left">
-                            <span>人数：88</span>
-                          </div>
-                          <div class="condition-right">招募中</div>
-                        </div>
-                        <div class="progress">
-                          <div class="num">
-                            <p>报名人数</p>
-                            <p>0</p>
-                          </div>
-                          <div class="end">
-                            <p>距离结束</p>
-                            <p>12天</p>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="time">
-                          2018-12-12
-                        </div>
-                        <div class="icon">
-                          <img src="~@/../static/images/noimg.jpg" alt="">
-                        </div>
-                        <div class="desc yn-text-ellipsis">
-                          志愿茂名
-                        </div>
-                        <div class="condition">
-                          <div class="condition-left">
-                            <span>人数：88</span>
-                          </div>
-                          <div class="condition-right">招募中</div>
-                        </div>
-                        <div class="progress">
-                          <div class="num">
-                            <p>报名人数</p>
-                            <p>0</p>
-                          </div>
-                          <div class="end">
-                            <p>距离结束</p>
-                            <p>12天</p>
+                            <p>结束时间</p>
+                            <p>2018-11-12</p>
                           </div>
                         </div>
                     </div>
@@ -159,18 +52,26 @@
     </div>
 </template>
 <script>
+import { getProjectPage } from '@/api/project'
 export default {
    data() {
      return {
-
+       projectData: ""
      }
    },
    methods: {
-     toDetail() {
-       this.$router.push({
-         name:'project-detail'
+     toDetail(val) {
+       this.$router.push({name:'project-detail',query:{id:val.id,type:val.type}});
+     },
+     // 获取志愿项目
+     toDProjectPage() {
+       getProjectPage({}).then( res => {
+         this.projectData = res;
        })
      }
+   },
+   mounted() {
+     this.toDProjectPage();
    }
 }
 </script>
@@ -229,11 +130,17 @@ export default {
                     .icon {
                       width: 210px;
                       height: 210px;
+                      margin: 10px 0;
                       border-radius: 5px;
+                      img {
+                        width: 210px;
+                        height: 210px;
+                        border-radius: 5px;
+                      }
                     }
                     .desc {
                       width: 100%;
-                      height: 48px;
+                      height: 28px;
                       font-size: 18px;
                     }
                     .condition {
@@ -258,6 +165,12 @@ export default {
                         text-align: center;
                         color: #fff;
                         background-color: $base-color;
+                      }
+                      .working {
+                        background-color: $base-color;
+                      }
+                      .end {
+                        background-color: lightgray;
                       }
                     }
                     .progress {

@@ -4,24 +4,28 @@
       <div class="recommend recommend-project">
         <div class="title">最新项目</div>
         <ul class="details">
-          <li class="clearfix">
+          <li
+            class="clearfix"
+            v-for="(project,index) in projectData"
+            :key="index"
+            @click="toProject(project.id,project.type)"
+          >
             <span>
               <img src="~@/../static/images/point.png" alt>
             </span>
-            <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
-          </li>
-          <li class="clearfix">
-            <span>
-              <img src="~@/../static/images/point.png" alt>
-            </span>
-            <span class="ys-text-ellipsis">本市举办2019年“爱满京城”首都学雷锋</span>
+            <span class="ys-text-ellipsis">{{project.title}}</span>
           </li>
         </ul>
       </div>
       <div class="recommend recommend-news">
         <div class="title">热点资讯</div>
         <ul class="details">
-          <li class="clearfix" v-for="(item,index) in newsData" :key="index" @click="toDetail(item.id)">
+          <li
+            class="clearfix"
+            v-for="(item,index) in newsData"
+            :key="index"
+            @click="toDetail(item.id)"
+          >
             <span>
               <img src="~@/../static/images/point.png" alt>
             </span>
@@ -33,70 +37,88 @@
   </div>
 </template>
 <script>
-import { getNews } from "@/api/common";
+import { getNews, getProjectAside } from "@/api/common";
 export default {
   data() {
     return {
-      newsData:[]
+      newsData: [],
+      projectData: []
     };
   },
   methods: {
-    toGetNews(){
-      getNews({}).then( res => {
-        this.newsData = res
-      })
+    // 获取新闻
+    toGetNews() {
+      getNews({}).then(res => {
+        this.newsData = res;
+      });
     },
+    // 跳转新闻详情
     toDetail(val) {
       this.$router.push({
         name: "detail",
-        query:{
+        query: {
           id: val,
-          type: 'news'
+          type: "news"
         }
+      });
+    },
+    // 获取项目
+    toProjectAside() {
+      getProjectAside({}).then(res => {
+        this.projectData = res;
+        console.log(this.projectData);
+      });
+    },
+    // 跳转项目
+    toProject(val, val1) {
+      this.$router.push({
+        name: "project-detail",
+        query: { id: val, type: val1 }
       });
     }
   },
   mounted() {
     this.toGetNews();
+    this.toProjectAside();
   }
 };
 </script>
 <style lang="scss" scoped>
 .container {
-    aside {
-      width: 260px;
-      .recommend {
-        .title {
-          border-bottom: 1px dotted #ccc;
-          height: 40px;
-          line-height: 40px;
-          font-weight: bold;
-          font-size: 15px;
-          padding-left: 5px;
-        }
-        .details {
-          li {
-            display: flex;
-            height: 26px;
-            font-size: 13px;
-            align-items: center;
-            cursor: pointer;
-            &:hover {
-              color: rgb(238, 26, 26);
-            }
-            span:nth-child(1) {
-              padding: 0 5px;
-            }
-            img {
-              height: 8px;
-              width: 8px;
-            }
+  aside {
+    width: 260px;
+    .recommend {
+      .title {
+        border-bottom: 1px dotted #ccc;
+        height: 40px;
+        line-height: 40px;
+        font-weight: bold;
+        font-size: 15px;
+        padding-left: 5px;
+      }
+      .details {
+        li {
+          display: flex;
+          height: 26px;
+          font-size: 13px;
+          align-items: center;
+          cursor: pointer;
+          &:hover {
+            color: rgb(238, 26, 26);
+          }
+          span:nth-child(1) {
+            padding: 0 5px;
+          }
+          img {
+            height: 8px;
+            width: 8px;
           }
         }
       }
-      .recommend-news {
-      }
+    }
+    .recommend-news {
     }
   }
+}
 </style>
 

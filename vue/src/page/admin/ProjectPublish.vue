@@ -13,7 +13,7 @@
           <el-form-item label="标题：" prop="header">
             <el-input v-model="ruleForm.header" placeholder="请输入标题"></el-input>
           </el-form-item>
-          <el-form-item label="活动图片：" prop="header">
+          <el-form-item label="活动图片：" required>
             <el-upload
               class="avatar-uploader"
               action="http://localhost:3001/files"
@@ -110,12 +110,15 @@
   </div>
 </template>
 <script>
+import { getProject } from "@/api/project";
 export default {
   data() {
     return {
       imageUrl: "",
       ruleForm: {
+        id: "",
         header: "",
+        pic: "",
         region: "",
         number: 1,
         st_time: "",
@@ -128,7 +131,8 @@ export default {
         community: "",
         name: "",
         tel: "",
-        communityAddr: ""
+        communityAddr: "",
+        date: ""
       },
       rules: {
         header: [{ required: true, message: "请输入标题", trigger: "blur" }],
@@ -166,23 +170,50 @@ export default {
       }
     };
   },
+  mounted() {},
   methods: {
+    // 提交发布信息
+    toProject() {
+      this.ruleForm.date = this.getNowFormatDate();
+      getProject({
+        data: this.ruleForm
+      }).then(res => {
+        this.$message.success(res.msg);
+      });
+    },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
-      console.log(file.response);
+      this.ruleForm.pic = "http://localhost:3001/" + file.response;
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.toProject();
         } else {
-          console.log("error submit!!");
+          this.$message.error("请填写带*号数据！");
           return false;
         }
       });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.imageUrl = "";
+    },
+    // 获取当前时间
+    getNowFormatDate() {
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+      return currentdate;
     }
   }
 };

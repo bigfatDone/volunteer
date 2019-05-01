@@ -8,6 +8,7 @@ const userCheck = require('./userCheck.js')
 const help = require('./help.js')
 const news = require('./news.js')
 const personage = require('./personage.js')
+const project = require('./project.js')
 const common = require('./common.js')
 
 // 志愿者与社区注册登录
@@ -58,12 +59,26 @@ router.get('/volunteer/personageOne',personage.personageOne);// 志愿者风采
 router.get('/volunteer/personageTwo',personage.personageTwo);// 志愿者风采
 router.get('/volunteer/personageThree',personage.personageThree);// 志愿者风采
 
+// 志愿项目
+router.post('/volunteer/project',project.project);// 志愿项目提交
+router.get('/volunteer/projectAll',project.projectAll);// 志愿项目搜索全部
+router.get('/volunteer/projectPass',project.projectPass);// 志愿项目审核通过
+router.get('/volunteer/projectNoPass',project.projectNoPass);// 志愿项目审核通过
+router.get('/volunteer/projectDelete',project.projectDelete);// 志愿项目删除
+router.post('/volunteer/projectModify',project.projectModify);// 求助表修改
+router.post('/volunteer/projectPublish',project.projectPublish);// 志愿项目提交
+router.get('/volunteer/projectPage',project.projectPage);// 审核通过
+router.get('/volunteer/projectDetail',project.projectDetail);// 志愿项目详情
+
+
+
 // 公共数据查询
 router.get('/volunteer/detail',common.detail);// 获取志愿快讯
 router.get('/volunteer/personageDetail',common.personageDetail);// 获取志愿人物
 router.get('/volunteer/getNews',common.getNews);// 获取志愿新闻
+router.get('/volunteer/getProjectAside',common.getProjectAside);// 获取志愿项目
 
 
-router.post('/files',common.fileData);// 志愿人物修改
+router.post('/files',common.fileData);// 上传图片
 
 module.exports = router;

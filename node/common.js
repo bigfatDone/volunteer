@@ -30,13 +30,27 @@ exports.getNews = (req,res) => {
 // 图片上传
 exports.fileData = (req,res) => {
   let avatarUrl = ''
-  console.dir(req.files)
   req.files.forEach(file => {
       if (file.fieldname === 'file') {   // avatar  就是前端存储头像的name字段
           avatarUrl = file.filename    // filename 就是对应要存到数据库的字段
       }
   })
-  console.log(avatarUrl)
   res.json(avatarUrl)
 }
 
+// 搜索通过项目审核
+exports.getProjectAside = (req,res) => {
+  let now = new Date().getTime();
+  let sql = `select * from project where status='1' order by id desc limit 1,5`;
+  db.base(sql,[],results => {
+    results.forEach( item => {
+     let date = new Date(item.end_time).getTime();
+     if( now > date){
+      item.type = 0;
+     } else {
+      item.type = 1;
+     }
+    });
+    res.json(results)
+  })
+}

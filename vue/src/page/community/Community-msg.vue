@@ -157,17 +157,15 @@ export default {
         id: this.$store.state.userInfo.id
       }).then( res => {
         if( res[0].flag == 1) {
-        console.log(res)
-         this.status = res[0].type,
-         this.form.name = res[0].name,
-         this.form.password = res[0].password,
-         this.form.passwordAgain = res[0].password,
-         this.form.email = res[0].email,
-         this.form.realName = res[0].cm_realname,
-         this.form.coding = res[0].cm_coding,
-         this.form.manager = res[0].cm_manager,
-         this.form.phone = res[0].phone,
-         this.form.address = res[0].cm_address,
+         this.form.name = res[0].name;
+         this.form.password = res[0].password;
+         this.form.passwordAgain = res[0].password;
+         this.form.email = res[0].email;
+         this.form.realName = res[0].cm_realname;
+         this.form.coding = res[0].cm_coding;
+         this.form.manager = res[0].cm_manager;
+         this.form.phone = res[0].phone;
+         this.form.address = res[0].cm_address;
          this.type = res[0].type
          } else {
            this.$store.commit('updataUserInfo',{})
@@ -187,10 +185,8 @@ export default {
         phone: this.form.phone,
         address: this.form.address,
       }).then(res => {
-        console.log(res)
         if (res.flag == 1) {
           this.$message.success(res.msg);
-        } else {
           this.toUpdateUser()
         }
       });
@@ -199,7 +195,6 @@ export default {
       this.dialogVisible = false;
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           this.toCommunityrModify()
         } else {
           this.$message.warning("提交失败");

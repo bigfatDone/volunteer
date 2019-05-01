@@ -27,3 +27,13 @@ export function getNews( data = {}) {
   }))
 }
 
+// 获取aside志愿项目
+export function getProjectAside( data = {}) {
+  return fetch(Object.assign({
+      url: '/getProjectAside',
+      method: 'get',
+      params:data
+  }))
+}
+
+

@@ -4,30 +4,25 @@
       <span>当前位置：</span>
       <router-link to="/index" tag="span">首页&nbsp;</router-link>>
       <router-link to="/personage" tag="span">志愿人物&nbsp;</router-link>>
-      <span>{{ this.type }}</span>
+      <span>{{ this.title }}</span>
     </nav>
     <div class="content">
       <section>
-        <h2>{{ this.type }}</h2>
+        <h2>{{ this.title }}</h2>
         <div class="news">
           <ul class="details">
-            <li>
+            <li
+            v-for="(item,index) in data"
+              :key="index"
+              @click="toDetail(item.id)"
+            >
               <p class="ys-text-ellipsis">
                 <img src="~@/../static/images/point.png" alt>
                 <span
                   class="ys-text-ellipsis"
-                >本市举办2019年“爱满gsdgsdfgsdffgsdf gsdfgsdfgsdfgsfgsdfgsdf京城”首都学雷锋</span>
+                >{{item.title}}</span>
               </p>
-              <span class="time">2018-11-12</span>
-            </li>
-            <li>
-              <p class="ys-text-ellipsis">
-                <img src="~@/../static/images/point.png" alt>
-                <span
-                  class="ys-text-ellipsis"
-                >本市举办2019年“爱满gsdgsdfgsdffgsdf gsdfgsdfgsdfgsfgsdfgsdf京的說法是的法師打發</span>
-              </p>
-              <span class="time">2018-11-12</span>
+              <span class="time">{{item.date}}</span>
             </li>
           </ul>
         </div>
@@ -48,21 +43,60 @@
   </div>
 </template>
 <script>
+import { getPersonageOne,getPersonageTwo,getPersonageThree } from "@/api/personage";
 export default {
   data() {
     return {
+      title: this.$route.query.title,
       type: this.$route.query.type,
+      data: []
     };
   },
   methods: {
-    toDetail() {
+    toPersonage() {
+      switch(this.type){
+        case 0:
+          this.toGetPersonageOne();
+          break;
+        case 1:
+          this.toGetPersonageTwo();
+          break;
+        case 2:
+          this.toGetPersonageThree();
+          break;
+      }
+    },
+     // 跳转新闻详情
+    toDetail(val) {
       this.$router.push({
-        name: "project-detail"
+        name: "detail",
+        query: {
+          id: val,
+          type: "personage"
+        }
       });
-    }
+    },
+    // 获取风采信息
+    toGetPersonageOne(){
+      getPersonageOne({}).then( res=> {
+        this.data= res;
+      })
+    },
+    // 获取故事信息
+    toGetPersonageTwo(){
+      getPersonageTwo({}).then( res=> {
+        this.data = res;
+      })
+    },
+    // 获取心语信息
+    toGetPersonageThree(){
+      getPersonageThree({}).then( res=> {
+        this.data = res;
+      })
+    },
   },
   mounted() {
-    console.log(this.$route)
+    this.toPersonage();
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="title">志愿人物管理</div>
-    <el-table :data="tableData" highlight-current-row max-height="600" style="width: 100%">
+    <el-table :data="tableData" highlight-current-row max-height="600" width="1000px">
       <el-table-column type="index" width="100"></el-table-column>
       <el-table-column property="title" label="标题" width="300"></el-table-column>
       <el-table-column property="type" label="类型" width="50"></el-table-column>

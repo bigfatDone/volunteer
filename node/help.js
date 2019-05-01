@@ -50,7 +50,7 @@ exports.helpDelete = (req,res)=>{
   console.log(msg)
   let sql = `delete from help where id='${msg.id}'`
   db.base(sql,[],(results)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
-    res.json({flag:1,msg:'审核成功！'}) 
+    res.json({flag:1,msg:'删除成功！'}) 
   })
 }
 

@@ -10,7 +10,7 @@
         <section>
           <div class="title">
             <span>志愿者风采</span>
-            <router-link :to="{ name: 'personage-detail', query:{ type: '志愿者风采' }}" tag="span">更多>></router-link>
+            <router-link :to="{ name: 'personage-detail', query:{ title: '志愿者风采',type: 0 }}" tag="span">更多>></router-link>
           </div>
           <div class="news">
             <ul class="details">
@@ -29,7 +29,7 @@
         <section>
           <div class="title">
             <span>志愿者故事</span>
-            <router-link :to="{ name: 'personage-detail', query:{ type: '志愿者故事' }}" tag="span">更多>></router-link>
+            <router-link :to="{ name: 'personage-detail', query:{ title: '志愿者故事',type: 1 }}" tag="span">更多>></router-link>
           </div>
           <div class="news">
             <ul class="details">
@@ -48,7 +48,7 @@
         <section>
           <div class="title">
             <span>志愿者心语</span>
-            <router-link :to="{ name: 'personage-detail', query:{ type: '志愿者心语' }}" tag="span">更多>></router-link>
+            <router-link :to="{ name: 'personage-detail', query:{ title: '志愿者心语',type: 2 }}" tag="span">更多>></router-link>
           </div>
           <div class="news">
             <ul class="details">

@@ -56,7 +56,6 @@ export default {
   },
    watch: {
     '$route' (to, from) {
-       console.log(8888)
       if(this.$route.query.type == 'news'){
         this.toDetail()
       } else {

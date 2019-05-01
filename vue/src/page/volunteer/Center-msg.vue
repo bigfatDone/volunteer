@@ -237,7 +237,6 @@ export default {
        getUpdateUser({
         id: this.$store.state.userInfo.id
       }).then( res => {
-        console.log(res)
          this.status = res[0].type,
          this.form.name = res[0].name,
          this.form.password = res[0].password,
@@ -269,7 +268,6 @@ export default {
       }).then(res => {
         if (res.flag == 1) {
           this.$message.success(res.msg);
-        } else {
           this.toUpdateUser()
         }
       });
@@ -278,7 +276,6 @@ export default {
       this.dialogVisible = false;
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form);
           this.toVolunteerModify()
         } else {
           this.$message.warning("提交失败");
