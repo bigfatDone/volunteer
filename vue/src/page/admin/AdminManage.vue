@@ -7,7 +7,6 @@
       <el-table-column property="password" label="密码" width="200"></el-table-column>
       <el-table-column label="管理" width="120">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handlePass(scope.row)">修改</el-button>
           <el-button type="text" size="small" @click="handlePass(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -33,7 +32,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false" round>取 消</el-button>
+          <el-button @click="resetForm('ruleForm')" round>取 消</el-button>
           <el-button type="primary" @click="submitForm('ruleForm')" round>修 改</el-button>
         </div>
       </el-dialog>
@@ -42,6 +41,7 @@
 </template>
 
 <script>
+import { getAdminAll,getAdminDelete,getAdminAdd } from '@/api/userCheck'
 export default {
   data() {
     return {
@@ -54,47 +54,52 @@ export default {
         password: [{ required: true, message: "请输入密码", trigger: "blur" }]
       },
       dialogVisible: false,
-      tableData: [
-        {
-          name: "李晓明",
-          password: "1111111"
-        },
-        {
-          name: "钟阳山",
-          password: "222222"
-        }
-      ]
+      tableData: []
     };
   },
 
   methods: {
+    toAdminAdd() {
+      getAdminAdd({
+        name: this.ruleForm.name,
+        password: this.ruleForm.password
+      }).then( res => {
+        this.$message.success(res.msg);
+        this.resetForm();
+        this.toAdminAll();
+      })
+    },
+    toAdminAll() {
+      getAdminAll({}).then( res => {
+        this.tableData = res;
+      })
+    },
     handlePass(val) {
-      this.dialogVisible = true;
-      console.log(val.title);
+      getAdminDelete({
+        id: val.id
+      }).then( res => {
+        this.$message.success(res.msg);
+        this.toAdminAll();
+      })
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.toAdminAdd();
         } else {
           console.log("error submit!!");
           return false;
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      this.content = "";
-    },
-    onEditorBlur() {
-      //失去焦点事件
-    },
-    onEditorFocus() {
-      //获得焦点事件
-    },
-    onEditorChange() {
-      //内容改变事件
+    resetForm() {
+      this.dialogVisible = false;
+      this.ruleForm.password = "";
+      this.ruleForm.name;
     }
+  },
+  mounted() {
+    this.toAdminAll();
   }
 };
 </script>

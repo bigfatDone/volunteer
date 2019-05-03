@@ -32,7 +32,7 @@
                           </div>
                           <div class="end">
                             <p>结束时间</p>
-                            <p>2018-11-12</p>
+                            <p>{{project.end_time}}</p>
                           </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
     </div>
 </template>
 <script>
-import { getProjectPage } from '@/api/project'
+import { getProjectPage,getSearch } from '@/api/project'
 export default {
    data() {
      return {
@@ -65,14 +65,27 @@ export default {
      },
      // 获取志愿项目
      toDProjectPage() {
-       getProjectPage({}).then( res => {
-         this.projectData = res;
-       })
+       if( this.$route.query.type == 1){
+         getSearch({
+           title: this.$route.query.data
+         }).then( res => {
+           this.projectData = res;
+         })
+       } else {
+         getProjectPage({}).then( res => {
+           this.projectData = res;
+         })
+       }
      }
    },
    mounted() {
      this.toDProjectPage();
-   }
+   },
+  watch: {
+    '$route' (to, from) {
+       this.toDProjectPage();
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -106,6 +119,7 @@ export default {
             border: 1px solid #c5e9fb;
             .list {
               display: flex;
+              min-height: 370px;
               justify-content: space-around;
               flex-wrap: wrap;
                 .item {
@@ -157,7 +171,7 @@ export default {
                         color:  #888;
                       }
                       .condition-right {
-                        width: 40px;
+                        width: 54px;
                         height: 22px;
                         line-height: 22px;
                         border-radius: 5px;

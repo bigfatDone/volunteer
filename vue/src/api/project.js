@@ -98,3 +98,84 @@ export function getProjectDetail( data = {}) {
       params:data
   }))
 }
+
+// 社区人员发布志愿项目状态
+export function getCommunityProject( data = {}) {
+  return fetch(Object.assign({
+      url: '/communityProject', 
+      method: 'get',
+      params:data
+  }))
+}
+
+// 志愿者报名志愿项目
+export function getEntry( data = {}) {
+  return fetch(Object.assign({
+      url: '/entry', 
+      method: 'post',
+      data:data
+  }))
+}
+
+// 判断志愿者已经报名志愿项目
+export function getHadEntry( data = {}) {
+  return fetch(Object.assign({
+      url: '/hadEntry', 
+      method: 'get',
+      params:data
+  }))
+}
+
+// 志愿者参加志愿项目状态
+export function getVolunteerProject( data = {}) {
+  return fetch(Object.assign({
+      url: '/volunteerProject', 
+      method: 'get',
+      params:data
+  }))
+}
+
+// 获取志愿项目审核
+export function getAuditAll( data = {}) {
+  return fetch(Object.assign({
+      url: '/auditAll', 
+      method: 'get',
+      params:data
+  }))
+}
+
+// 志愿项目通过
+export function getAuditPass( data = {}) {
+  return fetch(Object.assign({
+      url: '/auditPass',
+      method: 'get',
+      params:data
+  }))
+}
+
+// 志愿项目不通过
+export function getAuditNoPass( data = {}) {
+  return fetch(Object.assign({
+      url: '/auditNoPass',
+      method: 'get',
+      params:data
+  }))
+}
+
+// 管理员添加
+export function getAdminAdd( data = {}) {
+  return fetch(Object.assign({
+      url: '/adminAdd', 
+      method: 'post',
+      data:data
+  }))
+}
+
+// 模糊查询志愿项目
+export function getSearch( data = {}) {
+  return fetch(Object.assign({
+      url: '/search', 
+      method: 'get',
+      params:data
+  }))
+}

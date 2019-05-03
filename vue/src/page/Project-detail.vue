@@ -54,10 +54,10 @@
             </p>
             <p class="item clearfix">
               <span class="object">服务时间：</span>
-              <span class="content">89天</span>
+              <span class="content">{{formDate()}}</span>
             </p>
-            <button class="apply unselect" v-show="this.type == 1" @click="send">报名</button>
-            <button class="apply select" v-show="this.status == 1">已报名</button>
+            <button class="apply unselect" v-show="this.type == 1" @click="apply()">报名</button>
+            <button class="apply select" v-show="this.type != 1">已结束</button>
           </div>
         </div>
         <div class="project">
@@ -148,12 +148,12 @@
   </div>
 </template>
 <script>
-import { getProjectDetail } from "@/api/project";
+import { getProjectDetail,getEntry,getHadEntry } from "@/api/project";
 import { getNews, getProjectAside } from "@/api/common";
 export default {
   data() {
     return {
-      status: 0,
+      flag:'0',
       id: "",
       type: "",
       data: {},
@@ -162,12 +162,30 @@ export default {
     };
   },
   methods: {
-    send() {
-      this.type = 1;
+    formDate() {
+      let st = new Date(this.data.work_st_time).getTime();
+      let ed = new Date(this.data.work_end_time).getTime();
+      return Math.ceil(Math.ceil((ed-st+1)/(3600*1000*24)));
+    },
+    apply() {
+      let status = this.$store.state.userInfo.id;
+      let grade = this.$store.state.userInfo.grade;
+      if(status === undefined){
+        this.$message.error('请登录之后再报名！')
+      }else {
+        if( grade == 3) {
+          this.$message.error('社区人员无法报名！')
+        }else {
+          if( this.flag == 0) {
+            this.toEntry();
+          }else {
+            this.$message.error('你已报名！');
+          }
+        }
+      }
     },
     // 获取项目详情
     toProjectDetail() {
-      console.log(this.id);
       getProjectDetail({
         id: this.$route.query.id
       }).then(res => {
@@ -204,17 +222,54 @@ export default {
         name: "project-detail",
         query: { id: val, type: val1 }
       });
+    },
+    // 志愿者报名志愿项目
+    toEntry() {
+      getEntry({
+        user_id: this.$store.state.userInfo.id,
+        project_id: this.id,
+        time: this.getNowFormatDate()
+      }).then( res => {
+        this.$message.success(res.msg);
+        this.toHadEntry();
+      })
+    },
+    // 判断志愿者报名志愿项目
+    toHadEntry() {
+      getHadEntry({
+        user_id: this.$store.state.userInfo.id,
+        project_id: this.$route.query.id,
+      }).then( res => {
+        this.flag = res.flag;
+      })
+    },
+      // 获取当前时间
+    getNowFormatDate() {
+      var date = new Date();
+      var seperator1 = "-";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      var currentdate = year + seperator1 + month + seperator1 + strDate;
+      return currentdate;
     }
   },
   mounted() {
     this.toProjectDetail();
     this.toGetNews();
     this.toProjectAside();
+    this.toHadEntry();
   },
   watch: {
     $route(to, from) {
       this.toProjectDetail();
-      console.log(456466);
+      this.toHadEntry();
     }
   }
 };

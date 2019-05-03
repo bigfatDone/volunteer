@@ -4,7 +4,6 @@
     <el-table
       :data="tableData"
       highlight-current-row
-      stripe="true"
       max-height="600"
       @current-change="handleCurrentChange"
       style="width: 100%">
@@ -15,25 +14,42 @@
       <el-table-column
         property="date"
         label="日期"
-        width="120">
+        width="100">
       </el-table-column>
       <el-table-column
-        property="name"
+        property="title"
         label="项目"
         width="120">
       </el-table-column>
       <el-table-column
         property="address"
-        label="地址">
+        label="地址"
+        width="200">
       </el-table-column>
       <el-table-column
+        property="realname"
+        label="社区名称"
+        width="120">
+      </el-table-column>
+      <el-table-column
+        property="phone"
+        label="联系号码"
+        width="120">
+      </el-table-column>
+      <el-table-column
+        property="cm_address"
+        label="社区地址"
+        width="120">
+      </el-table-column>
+      <el-table-column
+        fixed="right"
         property="tag"
         label="报名状态"
         width="120">
         <template slot-scope="scope">
-        <el-tag
-          :type="scope.row.tag === '成功' ? 'primary' : 'danger'"
-          disable-transitions>{{scope.row.tag}}</el-tag>
+          <el-tag v-show="scope.row.type == 0" :type="'primary'" disable-transitions>审核中</el-tag>
+          <el-tag v-show="scope.row.type == 1" :type="'primary'" disable-transitions>成功</el-tag>
+          <el-tag v-show="scope.row.type == 2" :type="'danger'" disable-transitions>失败</el-tag>
       </template>
       </el-table-column>
     </el-table>
@@ -41,90 +57,11 @@
 </template>
 
 <script>
+import { getVolunteerProject } from "@/api/project";
   export default {
     data() {
       return {
-        tableData: [{
-          date: '2016-05-02',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1518 弄',
-          tag: '成功'
-        }, {
-          date: '2016-05-04',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1517 弄',
-          tag: '成功'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-01',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '失败'
-        }, {
-          date: '2016-05-03',
-          name: '志愿茂名',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '成功'
-        }],
+        tableData: [],
         currentRow: null
       }
     },
@@ -133,7 +70,18 @@
       // 获取当前点击的列
       handleCurrentChange(val) {
         this.currentRow = val;
+      },
+      // 志愿者参加志愿项目状态
+      toVolunteerProject() {
+        getVolunteerProject({
+          id: this.$store.state.userInfo.id
+        }).then( res => {
+          this.tableData = res;
+        })
       }
+    },
+    mounted() {
+      this.toVolunteerProject()
     }
   }
 </script>
@@ -150,3 +98,9 @@
     }
   }
 </style>
+<style>
+    .el-table th.is-leaf, .el-table td {
+      text-align: center!important;
+    }
+</style>
+

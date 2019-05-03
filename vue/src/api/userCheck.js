@@ -71,3 +71,30 @@ export function getCommunityDelete(data = {}) {
       params: data
   }))
 }
+
+// 获取全部管理员
+export function getAdminAll(data = {}) {
+  return fetch(Object.assign({
+      url: '/adminAll',
+      method: 'get',
+      params:data
+  }))
+}
+
+// 删除管理员
+export function getAdminDelete(data = {}) {
+  return fetch(Object.assign({
+      url: '/adminAllDelete',
+      method: 'get',
+      params:data
+  }))
+}
+
+// 添加管理员
+export function getAdminAdd(data = {}) {
+  return fetch(Object.assign({
+      url: 'adminAdd',
+      method: 'post',
+      data:data
+  }))
+}

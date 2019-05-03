@@ -41,7 +41,7 @@ exports.fileData = (req,res) => {
 // 搜索通过项目审核
 exports.getProjectAside = (req,res) => {
   let now = new Date().getTime();
-  let sql = `select * from project where status='1' order by id desc limit 1,5`;
+  let sql = `select * from project where status='1' order by id desc`;
   db.base(sql,[],results => {
     results.forEach( item => {
      let date = new Date(item.end_time).getTime();
@@ -52,5 +52,39 @@ exports.getProjectAside = (req,res) => {
      }
     });
     res.json(results)
+  })
+}
+
+// 获取用户限权
+exports.getPower = (req,res) => {
+  let msg = req.query;
+  let sql = `select type from user where id = '${msg.id}'`;
+  db.base(sql,[],results => {
+    res.json(results)
+  })
+}
+
+// 获取比例
+exports.registerRate = (req,res) => {
+  let vLength = 0;
+  let cLength = 0;
+  let pLength = 0;
+  let eLength = 0;
+  let sql = `select id from user where grade = 2`;
+  db.base(sql,[],results => {
+    vLength = results.length;
+    sql = `select id from user where grade = 3`;
+    db.base(sql,[],results => {
+      cLength = results.length;
+      sql = `select id from project where status = 1`;
+      db.base(sql,[],results => {
+        pLength = results.length;
+        sql = `select id from entry where type = 1`;
+        db.base(sql,[],results => {
+          eLength = results.length;
+          res.json({'vLength':vLength,'cLength':cLength,'pLength':pLength,'eLength':eLength})
+        })
+      })
+    })
   })
 }

@@ -22,27 +22,27 @@
               width="300">
             </el-table-column>
             <el-table-column
-              prop="date"
+              prop="time"
               label="报名日期"
               width="150">
             </el-table-column>
             <el-table-column
-              prop="name"
+              prop="user_name"
               label="姓名"
               width="120">
             </el-table-column>
             <el-table-column
-              prop="sex"
+              prop="user_sex"
               label="性别"
               width="120">
             </el-table-column>
             <el-table-column
-              prop="address"
+              prop="user_address"
               label="地址"
               width="300">
             </el-table-column>
             <el-table-column
-              prop="tel"
+              prop="phone"
               label="手机号码"
               width="120">
             </el-table-column>
@@ -51,13 +51,13 @@
               label="操作"
               width="100">
               <template slot-scope="scope">
-                <div v-if=" scope.row.status == 0">
+                <div v-if=" scope.row.type == 0">
                   <el-button @click="handlePass(scope.row)" type="text" size="small">通过</el-button>
                   <el-button @click="handleNoPass(scope.row)" type="text" size="small">不通过</el-button>
                 </div>
                 <el-tag
                 type="primary"
-                v-else-if="scope.row.status == 1"
+                v-else-if="scope.row.type == 1"
                 disable-transitions
                 >已通过</el-tag>
                 <el-tag
@@ -81,58 +81,43 @@
   </div>
 </template>
 <script>
+import { getAuditAll,getAuditPass,getAuditNoPass } from '@/api/project'
 export default {
   data() {
     return {
-      tableData: [{
-        title: '茂名志愿老人服务行动',
-        date: '2016-05-02',
-        name: '王小虎',
-        sex: '男',
-        address: '上海市普陀区金沙江路 1518 弄',
-        tel: 13660365522,
-        status: '0'
-      }, {
-        title: '茂名志愿老人服务行动',
-        date: '2016-05-04',
-        name: '王小虎',
-        sex: '女',
-        address: '上海市普陀区金沙江路的在撒打发斯蒂芬放水阀 1517 弄',
-        tel: 149885565554,
-        status: '1'
-      }, {
-        title: '茂名志愿老人服务行动',
-        date: '2016-05-01',
-        name: '王小虎',
-        sex: '男',
-        address: '上海市普陀区金沙江路 1519 弄',
-        tel: 13046251984,
-        status: '0'
-      }, {
-        title: '茂名志愿老人服务行动',
-        date: '2016-05-03',
-        name: '王小虎',
-        sex: '不详',
-        address: '上海市普陀区金沙江路 1516 弄',
-        tel: 13660365510,
-        status: '2'
-      }]
+      tableData: []
     };
   },
   methods: {
-    toDetail() {
-      this.$router.push({
-        name: "project-detail"
+    // 审核通过
+    handlePass(val) {
+      getAuditPass({
+        id: val.id
+      }).then( res => {
+        this.$message.success(res.msg);
+        this.toAuditAll();
       })
     },
-    handlePass(val) {
-      val.status = 1;
-    },
+    // 审核不通过
     handleNoPass(val) {
-      val.status = 2;
+       getAuditNoPass({
+        id: val.id
+      }).then( res => {
+        this.$message.success(res.msg);
+        this.toAuditAll();
+      })
     },
+    // 获取志愿项目审核
+    toAuditAll() {
+      getAuditAll({
+        id: this.$store.state.userInfo.id
+      }).then( res => {
+        this.tableData = res;
+      })
+    }
   },
   mounted() {
+    this.toAuditAll();
   }
 };
 </script>

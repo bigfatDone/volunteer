@@ -33,6 +33,10 @@ router.get('/volunteer/communityCheck',userCheck.communityCheck);// 社区审核
 router.get('/volunteer/communityPass',userCheck.communityPass);// 社区审核通过
 router.get('/volunteer/communityNoPass',userCheck.communityNoPass);// 志愿者审核不通过
 router.get('/volunteer/communityDelete',userCheck.communityDelete);// 社区删除
+router.get('/volunteer/adminAll',userCheck.adminAll);// 获取全部管理员信息
+router.get('/volunteer/adminAllDelete',userCheck.adminAllDelete);// 删除管理员
+router.post('/volunteer/adminAdd',userCheck.adminAdd);// 管理员添加
+
 
 // 求助表
 router.post('/volunteer/help',help.help);// 求助表提交
@@ -63,12 +67,20 @@ router.get('/volunteer/personageThree',personage.personageThree);// 志愿者风
 router.post('/volunteer/project',project.project);// 志愿项目提交
 router.get('/volunteer/projectAll',project.projectAll);// 志愿项目搜索全部
 router.get('/volunteer/projectPass',project.projectPass);// 志愿项目审核通过
-router.get('/volunteer/projectNoPass',project.projectNoPass);// 志愿项目审核通过
+router.get('/volunteer/projectNoPass',project.projectNoPass);// 志愿项目不审核通过
 router.get('/volunteer/projectDelete',project.projectDelete);// 志愿项目删除
-router.post('/volunteer/projectModify',project.projectModify);// 求助表修改
+router.post('/volunteer/projectModify',project.projectModify);// 志愿项目修改
 router.post('/volunteer/projectPublish',project.projectPublish);// 志愿项目提交
-router.get('/volunteer/projectPage',project.projectPage);// 审核通过
+router.get('/volunteer/projectPage',project.projectPage);// 审核通过志愿项目
 router.get('/volunteer/projectDetail',project.projectDetail);// 志愿项目详情
+router.get('/volunteer/communityProject',project.communityProject);// 社区人员发布志愿项目状态
+router.post('/volunteer/entry',project.entry);// 志愿者报名志愿项目
+router.get('/volunteer/hadEntry',project.hadEntry);// 判断志愿者报名志愿项目
+router.get('/volunteer/volunteerProject',project.volunteerProject);// 志愿者参加志愿项目状态
+router.get('/volunteer/auditAll',project.auditAll);// 获取志愿项目审核
+router.get('/volunteer/auditPass',project.auditPass);// 志愿项目审核通过
+router.get('/volunteer/auditNoPass',project.auditNoPass);// 志愿项目审核不通过
+router.get('/volunteer/search',project.search);// 模糊查询志愿项目
 
 
 
@@ -77,8 +89,10 @@ router.get('/volunteer/detail',common.detail);// 获取志愿快讯
 router.get('/volunteer/personageDetail',common.personageDetail);// 获取志愿人物
 router.get('/volunteer/getNews',common.getNews);// 获取志愿新闻
 router.get('/volunteer/getProjectAside',common.getProjectAside);// 获取志愿项目
+router.get('/volunteer/getPower',common.getPower);// 获取志愿项目
+router.get('/volunteer/registerRate',common.registerRate);// 获取比例
 
-
+// 图片上传
 router.post('/files',common.fileData);// 上传图片
 
 module.exports = router;

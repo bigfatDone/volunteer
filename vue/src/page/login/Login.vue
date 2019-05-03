@@ -220,6 +220,7 @@ const checkCode = (rule, value, callback) => {
               font-size: 14px;
               line-height: 1;
               float: right;
+              opacity: 0;
             }
           }
           .main-bottom {

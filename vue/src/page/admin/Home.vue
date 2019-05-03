@@ -5,17 +5,32 @@
   </div>
 </template>
 <script>
+import { getRegisterRate } from '@/api/common';
 export default {
   name: "hello",
   data() {
     return {
+      vlength: "",
+      clength: "",
+      plength: "",
+      elength: "",
       msg: "Welcome to Your Vue.js App"
     };
   },
   mounted() {
-    this.drawLine();
+    this.toRegisterRate();
   },
   methods: {
+    toRegisterRate() {
+      getRegisterRate({}).then( res => {
+        console.log(res)
+        this.vlength = res.vLength,
+        this.clength = res.cLength,
+        this.plength = res.pLength,
+        this.elength = res.eLength,
+        this.drawLine();
+      })
+    },
     drawLine() {
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("myChart"));
@@ -42,8 +57,8 @@ export default {
             center: ["50%", "50%"],
             selectedMode: "single",
             data: [
-              { value: 535, name: "志愿者" },
-              { value: 780, name: "社区" },
+              { value: this.vlength, name: "志愿者" },
+              { value: this.clength, name: "社区" },
             ]
           }
         ]
@@ -70,8 +85,8 @@ export default {
             center: ["50%", "50%"],
             selectedMode: "single",
             data: [
-              { value: 500, name: "志愿项目" },
-              { value: 230, name: "志愿者" },
+              { value: this.plength, name: "志愿项目" },
+              { value: this.elength, name: "志愿者" },
             ]
           }
         ]

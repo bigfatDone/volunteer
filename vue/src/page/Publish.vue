@@ -115,11 +115,13 @@
   </div>
 </template>
 <script>
+import { getPower } from "@/api/common";
 import { getProjectPublish } from "@/api/project";
 export default {
   data() {
     return {
       imageUrl: "",
+      type: "",
       ruleForm: {
         header: "",
         pic: "",
@@ -136,7 +138,8 @@ export default {
         name: "",
         tel: "",
         communityAddr: "",
-        date: ""
+        date: "",
+        id:""
       },
       rules: {
         header: [{ required: true, message: "请输入标题", trigger: "blur" }],
@@ -178,10 +181,12 @@ export default {
     // 提交发布信息
     toProject() {
       this.ruleForm.date = this.getNowFormatDate();
+      this.ruleForm.id = this.$store.state.userInfo.id;
       getProjectPublish({
         data: this.ruleForm
       }).then(res => {
         this.$message.success(res.msg);
+        this.resetForm('ruleForm')
       });
     },
     handleAvatarSuccess(res, file) {
@@ -191,8 +196,11 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.toProject();
-          this.resetForm('ruleForm')
+          if( this.type == 1){
+            this.toProject();
+          }else {
+          this.$message.error("没有权限！");
+          }
         } else {
           this.$message.error("请填写带*号数据！");
           return false;
@@ -223,8 +231,19 @@ export default {
       }
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
+    },
+        // 获取权限
+      toPower() {
+        getPower({
+          id: this.$store.state.userInfo.id
+        }).then( res => {
+          this.type = res[0].type
+        })
+      }
+  },
+    mounted() {
+      this.toPower();
     }
-  }
 };
 </script>
 <style lang="scss" scoped>
