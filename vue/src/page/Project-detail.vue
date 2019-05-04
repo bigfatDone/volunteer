@@ -107,7 +107,7 @@
           </ul>
         </div>
         <div class="recommend recommend-news">
-          <div class="title">热点资讯</div>
+          <div class="title">志愿快讯</div>
           <ul class="details">
             <li
               class="clearfix"
@@ -149,7 +149,7 @@
 </template>
 <script>
 import { getProjectDetail,getEntry,getHadEntry } from "@/api/project";
-import { getNews, getProjectAside } from "@/api/common";
+import { getNews, getProjectAside,getPower } from "@/api/common";
 export default {
   data() {
     return {
@@ -158,10 +158,19 @@ export default {
       type: "",
       data: {},
       newsData: [],
-      projectData: []
+      projectData: [],
+      power:""
     };
   },
   methods: {
+     // 获取权限
+    toPower() {
+      getPower({
+        id: this.$store.state.userInfo.id
+      }).then(res => {
+        this.power = res[0].type;
+      });
+    },
     formDate() {
       let st = new Date(this.data.work_st_time).getTime();
       let ed = new Date(this.data.work_end_time).getTime();
@@ -176,10 +185,14 @@ export default {
         if( grade == 3) {
           this.$message.error('社区人员无法报名！')
         }else {
-          if( this.flag == 0) {
-            this.toEntry();
+          if( this.power == 1){
+            if( this.flag == 0) {
+              this.toEntry();
+            }else {
+              this.$message.error('你已报名！');
+            }
           }else {
-            this.$message.error('你已报名！');
+            this.$message.error('没有权限！');
           }
         }
       }
@@ -265,11 +278,13 @@ export default {
     this.toGetNews();
     this.toProjectAside();
     this.toHadEntry();
+    this.toPower();
   },
   watch: {
     $route(to, from) {
       this.toProjectDetail();
       this.toHadEntry();
+      this.toPower();
     }
   }
 };
@@ -443,6 +458,8 @@ export default {
           padding-left: 5px;
         }
         .details {
+          height: 136px;
+          overflow-y: hidden;
           li {
             display: flex;
             height: 26px;

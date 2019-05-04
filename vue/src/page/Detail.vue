@@ -158,4 +158,11 @@ export default {
   }
 }
 </style>
+<style>
+  .desc  img {
+      height: 200px!important;
+      width: 80%;
+      margin: 0 auto;
+    }
+</style>
 

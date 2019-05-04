@@ -20,7 +20,7 @@ exports.personageDetail = (req,res) => {
 
 // 志愿新闻
 exports.getNews = (req,res) => {
-  let sql = `select * from news order by id desc limit 0,5`;
+  let sql = `select * from news order by id desc`;
   db.base(sql,[],results => {
     res.json(results)
   })
@@ -86,5 +86,13 @@ exports.registerRate = (req,res) => {
         })
       })
     })
+  })
+}
+
+// 获取首页志愿项目
+exports.getPersonageAside = (req,res) => {
+  let sql = `select * from personage order by id desc`;
+  db.base(sql,[],results => {
+    res.json(results)
   })
 }

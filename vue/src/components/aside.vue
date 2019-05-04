@@ -18,7 +18,7 @@
         </ul>
       </div>
       <div class="recommend recommend-news">
-        <div class="title">热点资讯</div>
+        <div class="title">志愿快讯</div>
         <ul class="details">
           <li
             class="clearfix"
@@ -66,7 +66,6 @@ export default {
     toProjectAside() {
       getProjectAside({}).then(res => {
         this.projectData = res;
-        console.log(this.projectData);
       });
     },
     // 跳转项目
@@ -97,6 +96,8 @@ export default {
         padding-left: 5px;
       }
       .details {
+        height: 136px;
+        overflow-y: hidden;
         li {
           display: flex;
           height: 26px;

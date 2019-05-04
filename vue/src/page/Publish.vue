@@ -139,7 +139,7 @@ export default {
         tel: "",
         communityAddr: "",
         date: "",
-        id:""
+        id: ""
       },
       rules: {
         header: [{ required: true, message: "请输入标题", trigger: "blur" }],
@@ -186,7 +186,7 @@ export default {
         data: this.ruleForm
       }).then(res => {
         this.$message.success(res.msg);
-        this.resetForm('ruleForm')
+        this.resetForm("ruleForm");
       });
     },
     handleAvatarSuccess(res, file) {
@@ -196,10 +196,10 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          if( this.type == 1){
+          if (this.type == 1) {
             this.toProject();
-          }else {
-          this.$message.error("没有权限！");
+          } else {
+            this.$message.error("没有权限！");
           }
         } else {
           this.$message.error("请填写带*号数据！");
@@ -211,10 +211,10 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
       this.imageUrl = "";
-      this.ruleForm.st_time = "",
-      this.ruleForm.end_time = "",
-      this.ruleForm.work_st_time = "",
-      this.ruleForm.work_end_time = ""
+      (this.ruleForm.st_time = ""),
+        (this.ruleForm.end_time = ""),
+        (this.ruleForm.work_st_time = ""),
+        (this.ruleForm.work_end_time = "");
     },
     // 获取当前时间
     getNowFormatDate() {
@@ -232,18 +232,18 @@ export default {
       var currentdate = year + seperator1 + month + seperator1 + strDate;
       return currentdate;
     },
-        // 获取权限
-      toPower() {
-        getPower({
-          id: this.$store.state.userInfo.id
-        }).then( res => {
-          this.type = res[0].type
-        })
-      }
-  },
-    mounted() {
-      this.toPower();
+    // 获取权限
+    toPower() {
+      getPower({
+        id: this.$store.state.userInfo.id
+      }).then(res => {
+        this.type = res[0].type;
+      });
     }
+  },
+  mounted() {
+    this.toPower();
+  }
 };
 </script>
 <style lang="scss" scoped>

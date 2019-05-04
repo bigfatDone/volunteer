@@ -166,9 +166,18 @@ exports.auditNoPass = (req,res)=>{
 
 // 模糊查询志愿项目
 exports.search = (req,res) => {
+  let now = new Date().getTime();
   let search = req.query.title;
   let sql = `select * from project where title like '%${search}%' and status = 1 order by id desc`;
   db.base(sql,[],results => {
-    res.json(results)
+    results.forEach( item => {
+      let date = new Date(item.end_time).getTime();
+      if( now > date){
+       item.type = 0;
+      } else {
+       item.type = 1;
+      }
+     });
+     res.json(results)
   })
 }

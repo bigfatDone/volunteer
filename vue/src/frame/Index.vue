@@ -26,7 +26,7 @@
         </div>
         <div class="tosearch">
           <div class="search-content" contenteditable="true">
-            <input type="text" placeholder="搜索志愿项目" v-model="searchValue">
+            <input type="text" placeholder="搜索空巢老人志愿项目" v-model="searchValue">
           </div>
           <div class="btn" @click="search()">搜索</div>
         </div>

@@ -54,3 +54,12 @@ export function getRegisterRate( data = {}) {
       params:data
   }))
 }
+
+// 获取首页志愿项目
+export function getPersonageAside( data = {}) {
+  return fetch(Object.assign({
+    url: '/getPersonageAside',
+    method: 'get',
+    params:data
+  }))
+}

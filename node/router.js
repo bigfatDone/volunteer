@@ -91,6 +91,7 @@ router.get('/volunteer/getNews',common.getNews);// 获取志愿新闻
 router.get('/volunteer/getProjectAside',common.getProjectAside);// 获取志愿项目
 router.get('/volunteer/getPower',common.getPower);// 获取志愿项目
 router.get('/volunteer/registerRate',common.registerRate);// 获取比例
+router.get('/volunteer/getPersonageAside',common.getPersonageAside);// 获取首页志愿项目
 
 // 图片上传
 router.post('/files',common.fileData);// 上传图片
