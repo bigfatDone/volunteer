@@ -69,7 +69,8 @@ exports.projectPublish = (req,res) => {
 // 搜索通过项目审核
 exports.projectPage = (req,res) => {
   let now = new Date().getTime();
-  let sql = `select * from project where status='1' order by id desc`;
+  // let sql = `select a.id,a.title,a.number,a.date,a.pic,end_time,b.user_count from project a ,( select project_id,count(*) user_count from entry group by project_id) b where a.id = b.project_id and a.status = 1 order by a.id desc`;
+      let sql = ` select * from project where status = 1`;
   db.base(sql,[],results => {
     results.forEach( item => {
      let date = new Date(item.end_time).getTime();
@@ -86,7 +87,8 @@ exports.projectPage = (req,res) => {
 // 志愿项目详情
 exports.projectDetail = (req,res) => {
   let id = req.query.id;
-  let sql = `select * from project where id='${id}'`;
+  // let sql = `select a.id,a.title,a.area,a.number,a.st_time,a.end_time,a.work_st_time,a.work_end_time,a.descr,a.date,a.content,a.address,a.realname,a.manager,a.phone,a.cm_address,a.pic,b.user_count from project a ,( select project_id,count(*) user_count from entry group by project_id) b where a.id = b.project_id and a.id='${id}'`;
+  let sql = ` select * from project where id='${id}'`;
   db.base(sql,[],results => {
     res.json(results)
   })
@@ -179,5 +181,15 @@ exports.search = (req,res) => {
       }
      });
      res.json(results)
+  })
+}
+
+// 获取报名人数
+exports.applyNum = (req,res)=>{
+  let id = req.query.id;
+  let sql = `select * from entry where project_id='${id}'`
+  db.base(sql,[],(results)=>{//[ RowDataPacket 通过req[0]来访问,无论是否有误数据
+    let applyNum = results.length;
+    res.json({'num':applyNum})
   })
 }

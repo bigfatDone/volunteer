@@ -20,7 +20,7 @@
                         </div>
                         <div class="condition">
                           <div class="condition-left">
-                            <span>人数：{{project.number}}</span>
+                            <span>计划岗位：{{project.number}}</span>
                           </div>
                           <div class="condition-right working" v-show="project.type === 1">招募中</div>
                           <div class="condition-right end" v-show="project.type === 0">已结束</div>
@@ -28,7 +28,7 @@
                         <div class="progress">
                           <div class="num">
                             <p>报名人数</p>
-                            <p>0</p>
+                            <p>***</p>
                           </div>
                           <div class="end">
                             <p>结束时间</p>

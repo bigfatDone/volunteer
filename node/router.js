@@ -81,6 +81,7 @@ router.get('/volunteer/auditAll',project.auditAll);// 获取志愿项目审核
 router.get('/volunteer/auditPass',project.auditPass);// 志愿项目审核通过
 router.get('/volunteer/auditNoPass',project.auditNoPass);// 志愿项目审核不通过
 router.get('/volunteer/search',project.search);// 模糊查询志愿项目
+router.get('/volunteer/applyNum',project.applyNum);// 获取报名人数
 
 
 

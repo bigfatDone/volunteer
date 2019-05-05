@@ -21,7 +21,7 @@
           <el-form-item label="活动图片：" required>
             <el-upload
               class="avatar-uploader"
-              action="http://localhost:3001/files"
+              :action="this.picUrl+'files'"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
             >
@@ -191,7 +191,7 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
-      this.ruleForm.pic = "http://localhost:3001/" + file.response;
+      this.ruleForm.pic = this.picUrl + file.response;
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {

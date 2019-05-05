@@ -64,7 +64,7 @@
           <div class="des">
             <div class="title">
               <span>计划岗位：{{this.data.number}}&nbsp;</span>
-              <span>已经招募：5</span>
+              <span>已招募：{{this.applyNum}}</span>
             </div>
             <div class="box">
               <div class="detail">
@@ -145,10 +145,10 @@
         </div>
       </aside>
     </div>
-  </div>
+  </div> 
 </template>
 <script>
-import { getProjectDetail,getEntry,getHadEntry } from "@/api/project";
+import { getProjectDetail,getEntry,getHadEntry,getApplyNum } from "@/api/project";
 import { getNews, getProjectAside,getPower } from "@/api/common";
 export default {
   data() {
@@ -159,7 +159,8 @@ export default {
       data: {},
       newsData: [],
       projectData: [],
-      power:""
+      power: "",
+      applyNum: 0
     };
   },
   methods: {
@@ -171,11 +172,21 @@ export default {
         this.power = res[0].type;
       });
     },
+     // 获取报名人数
+    toApplyNum() {
+      getApplyNum({
+        id: this.$route.query.id
+      }).then(res => {
+        this.applyNum = res.num;
+      });
+    },
+    // 过滤服务天数
     formDate() {
       let st = new Date(this.data.work_st_time).getTime();
       let ed = new Date(this.data.work_end_time).getTime();
       return Math.ceil(Math.ceil((ed-st+1)/(3600*1000*24)));
     },
+    // 报名
     apply() {
       let status = this.$store.state.userInfo.id;
       let grade = this.$store.state.userInfo.grade;
@@ -203,7 +214,10 @@ export default {
         id: this.$route.query.id
       }).then(res => {
         this.data = res[0];
-        (this.id = this.$route.query.id), (this.type = this.$route.query.type);
+        this.id = this.$route.query.id;
+        this.type = this.$route.query.type;
+        this.maxNum = this.data.number;
+        this.applyNum = this.data.user_count;
       });
     },
     // 获取新闻
@@ -279,11 +293,13 @@ export default {
     this.toProjectAside();
     this.toHadEntry();
     this.toPower();
+    this.toApplyNum();
   },
   watch: {
     $route(to, from) {
       this.toProjectDetail();
       this.toHadEntry();
+      this.toApplyNum();
       this.toPower();
     }
   }

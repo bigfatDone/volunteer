@@ -288,7 +288,7 @@ export default {
     section {
       border: 1px solid #c5e9fb;
       .form {
-        width: 1000px;
+        width: 800px;
       }
       .page {
         margin: 70px auto 100px;

@@ -179,3 +179,12 @@ export function getSearch( data = {}) {
       params:data
   }))
 }
+
+// 获取报名人数
+export function getApplyNum( data = {}) {
+  return fetch(Object.assign({
+      url: '/applyNum', 
+      method: 'get',
+      params:data
+  }))
+}

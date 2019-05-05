@@ -55,6 +55,8 @@ import 'quill/dist/quill.bubble.css'
 //引入echarts
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts 
+// Vue.prototype.picUrl = 'http://120.79.197.63:3006/' // 正式服
+Vue.prototype.picUrl = 'http://localhost::3001/' // 测试服服
 
 // aside组件
 import aside from '@/components/aside.vue'
