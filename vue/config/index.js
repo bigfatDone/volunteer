@@ -12,9 +12,9 @@ module.exports = {
       '/volunteer': {
 
         // 正式服务器
-        // target: 'http://120.79.197.63:3006',
+        target: 'http://120.79.197.63:3006',
         // 测试服务器
-        target: 'http://localhost:3001',
+        // target: 'http://localhost:3001',
 
         changeOrigin: true,
       },

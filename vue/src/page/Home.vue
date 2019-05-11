@@ -5,16 +5,13 @@
         <swiper :options="swiperOption" ref="mySwiper">
           <!-- slides -->
           <swiper-slide class="swipper-img">
-            <img src="~@/../static/images/swiper1.jpg" alt>
+          <span @click="toDetail('12')"><img src="~@/../static/images/swiper1.jpg" alt></span>
           </swiper-slide>
           <swiper-slide class="swipper-img">
-            <img src="~@/../static/images/swiper2.jpg" alt>
+            <span @click="toDetail('13')"><img src="~@/../static/images/swiper2.jpg" alt></span>
           </swiper-slide>
           <swiper-slide class="swipper-img">
-            <img src="~@/../static/images/swiper3.jpg" alt>
-          </swiper-slide>
-          <swiper-slide class="swipper-img">
-            <img src="~@/../static/images/swiper4.jpg" alt>
+            <span @click="toDetail('23')"><img src="~@/../static/images/swiper3.jpg" alt></span>
           </swiper-slide>
           <!-- Optional controls -->
           <div class="swiper-pagination" slot="pagination"></div>
@@ -265,6 +262,7 @@ export default {
       .swipper-img img {
         width: 600px;
         height: 400px;
+        cursor: pointer;
       }
     }
     .guide-content {
@@ -364,7 +362,7 @@ export default {
   }
   .info {
     width: 1000px;
-    height: 400px;
+    height: 405px;
     margin-top: 10px;
     .volunteer-info {
       width: 480px;
@@ -397,7 +395,7 @@ export default {
       }
       .details {
         margin-top: 10px;
-        height: 338px;
+        height: 345px;
         overflow-y: hidden;
         ul {
           li {

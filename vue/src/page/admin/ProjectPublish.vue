@@ -274,7 +274,7 @@ export default {
   color: #8c939d;
   width: 178px;
   height: 178px;
-  line-height: 178px;
+line-height: 178px!important;
   text-align: center;
 }
 .avatar {

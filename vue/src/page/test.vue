@@ -1,34 +1,36 @@
 <template>
-     <quill-editor 
-      v-model="content" 
-      ref="myQuillEditor" 
-      :options="editorOption" 
-      @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
-      @change="onEditorChange($event)">
-    </quill-editor>
+<div>
+  <div v-for="(item,index) in list" :key="item.name" @click="change(item,index)" style="padding:30px;">
+    {{item.name}}{{item.status}}
+  </div>
+</div>
 </template> 
 <script>
-import { constants } from 'fs';
-    export default{
-        data(){
-            return {
-                content:null,
-                editorOption:{}
-            }
-        },
-        methods:{
-            onEditorBlur(){//失去焦点事件
-            },
-            onEditorFocus(){//获得焦点事件
-            },
-            onEditorChange(){//内容改变事件
-            }
-        },
-        watch:{
-          content(val){
-          console.log(val)
+export default {
+  data() {
+    return {
+      list:[
+        {name:'limiang',status:'true'},
+        {name:'xiaoli',status:'false'},
+        {name:'lili',status:'false'},
+      ]
+    }
+  },
+  methods: {
+    change(item,code) {
+      this.list.forEach((item1,index)=>{
+        if(code == index){
+          if( item1.status == 'true'){
+            item1.status = 'false';
+          } else {
+            item1.status = 'true';
+
+          }
         }
-        }
+      })
+        console.log(item.status)
+    }
+  }
     }
 </script> 
 <style lang="scss" scoped>

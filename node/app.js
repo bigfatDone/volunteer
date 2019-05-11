@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 let multerObj = multer({ dest: './uploads/' })  // 设置文件上传目录
     app.use(multerObj.any());
 
-app.use(express.static('uploads/'))// 设置访问uploads下的静态资源
+app.use(express.static(['uploads/','dist']))// 设置访问uploads下的静态资源
 app.use(router);
 app.listen(3001,()=>{
     console.log('running....')

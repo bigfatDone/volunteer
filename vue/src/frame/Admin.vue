@@ -207,7 +207,7 @@ export default {
     font-size: 14px;
     color: #fff;
     cursor: pointer;
-    background: linear-gradient(left, #545c64, #768594);
+    background: linear-gradient(#545c64,#768594);
   }
   .content {
     display: flex;
@@ -222,7 +222,7 @@ export default {
         height: 200px;
         justify-content: center;
         align-items: center;
-        background-color: rgb(84, 92, 100);
+        background-color: rgb(84, 92,100);
         img {
           height: 64px;
           width: 64px;
@@ -237,7 +237,7 @@ export default {
     width: 100%;
     height: 120px;
     font-size: 15px;
-    background: linear-gradient(left, #768594, #545c64);
+    background: linear-gradient(#768594,#545c64);
     .about {
       width: 400px;
       text-align: center;
